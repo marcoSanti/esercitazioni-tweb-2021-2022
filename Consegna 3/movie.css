@@ -165,4 +165,6 @@ ul,li{
 
 #movie_image{
     border-top-right-radius: 4px;
+    width: 250px;
+    height: 412px;
 }

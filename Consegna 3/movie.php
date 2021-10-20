@@ -1,32 +1,55 @@
 <?php
-    if(!isset($_GET['title'])) {
+
+    /*
+     * getting the movie name.
+     * if it is not set, the title is set no empty string
+     */
+    if(!isset($_GET['film'])) {
         $title = '';
     }else{
-        $title = $_GET['title'];
+        $title = $_GET['film'];
     }
 
 
-    if(!file_exists('./moviefiles/' . $title .'/')){ //se il film non esiste metto il primo della lista
-        $title = str_replace("./moviefiles/", "", glob('./moviefiles/*')[0]);
+
+    /*
+     * Here i check that the movie exists. if it does not ( string empy, null or simply the movie folder does not exists),
+     * i set the title to the name of the first folder in the root folder.
+     * to be more precise, i use glob()[0] to obtain the array with all the folder inside the root folder,and i set that value to the var $title
+     * */
+    if($title=='' || $title == null || !file_exists( './' .$title .'/')){
+        $title =  glob('./*/')[0]; //getting only folders leaving out files
     }
 
-    $moviePicPath = './moviefiles/' . $title . '/overview.png';
-    $movieInfo = file('./moviefiles/' . $title . '/info.txt');
+    /*
+     * here i create the path to the movie image and the movie description file
+     * */
+    $moviePicPath = './' .$title . '/overview.png';
+    $movieInfo = file('./' . $title . '/info.txt');
+
+    /*
+     * Here i proceed to load all the information of the movie into a string indexed array.
+     * */
 
     $overview = array();
-    $overviewInput = file('./moviefiles/' . $title . '/overview.txt');
+    $overviewInput = file( './' .$title . '/overview.txt');
 
     foreach ($overviewInput as $tmp){
         $tmp = explode(':', $tmp);
-        $overview[$tmp[0]] = Array($tmp[0],$tmp[1]); //array indicizzato non con i numeri
+        $overview[$tmp[0]] = Array($tmp[0],$tmp[1]);
     }
 
-    //metto i br per ogni cast member
-    $overview['STARRING'][1] = str_replace(",", '<br>', $overview['STARRING'][1]);
+    /*
+     * here i do some html preformatting for cast members but only if i have a starring section in the overview array
+     * */
+    if(isset($overview['STARRING']))
+        $overview['STARRING'][1] = str_replace(",", '<br>', $overview['STARRING'][1]);
 
-    $reviewNames = glob('./moviefiles/' . $title . '/review*.txt');
+    /*
+     * here i get all the reviews field paths and i put them inside an array
+     * */
+    $reviewNames = glob( './' .$title . '/review*.txt');
     $review = Array();
-
     foreach ($reviewNames as $reviewName) {
         $review[] = file($reviewName);
     }
@@ -35,6 +58,7 @@
 ?>
 
 <!DOCTYPE html>
+<html lang="en">
 <head>
 	<title><?= $movieInfo[0] ?>- Rancid Tomatoes</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -54,6 +78,9 @@
 		<div class="movie_info">
 			<dl>
                 <?php
+                /*
+                 * here i print all the overview array content, printing first the heading and then the value
+                 * */
                     foreach($overview as $tmp => $item){
                         ?>
                         <dt><?= $overview[$tmp][0] ?></dt>
@@ -67,7 +94,7 @@
 	<div class="left">
 		<div class="rotten_title_header">
             <?php
-                if($movieInfo[2] >=60){
+                if($movieInfo[2] >=60){ //only if movie rating is > 60 i print the fresh
                     ?>
                     <img src="http://www.cs.washington.edu/education/courses/cse190m/11sp/homework/2/freshbig.png" alt="Rotten">
                     <?php
@@ -82,7 +109,7 @@
 		<div class="review-cols">
 
             <?php
-            for($i=0; $i < count($review)/2 ; $i++){
+            for($i=0; $i < count($review)/2 ; $i++){ //here i print half the review in the first column
                 ?>
 
                 <div class="review">
@@ -100,7 +127,7 @@
             <?php
             }
             echo "</div> <div class='review-cols'>";
-            for($i=(count($review) / 2)+1; $i < count($review) ; $i++){
+            for($i=(count($review) / 2)+1; $i < count($review) ; $i++){ //here i print the second half of the review in the second column
                 ?>
 
                 <div class="review">
@@ -122,7 +149,7 @@
     </div>
 
 	<div class="bottom">
-		<p>(1-10) of 88</p>
+		<p>(1-<?= count($review) ?>) of <?= count($review) ?></p>
 	</div>
 </div>
 
