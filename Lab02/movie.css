@@ -1,0 +1,167 @@
+/*Global attributes*/
+
+body{
+    background: url("https://courses.cs.washington.edu/courses/cse190m/11sp/homework/2/background.png");
+    font-size: 8pt;
+    font-family: Verdana, Tahoma, sans-serif;
+
+}
+
+dt{
+    font-weight: bold;
+    margin-top: 10pt;
+}
+
+ul,li{
+    list-style-type: none;
+    list-style-position: inside;
+    margin: 0;
+    padding: 0;
+}
+
+
+/*Class attributes*/
+
+.header_banner{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: url("https://courses.cs.washington.edu/courses/cse190m/11sp/homework/2/bannerbg.png") repeat-x;
+    z-index: 1; /*Done to be able to have the site banner on top of the page*/
+}
+
+.header_banner>img{
+    height: 50px;
+}
+
+.page_content{
+    width: 800px;
+    margin: 2em auto auto;
+    border: solid gray 4px;
+    border-radius: 10px;
+}
+
+.movie_title{
+    font-size: 24pt;
+    text-shadow: 3px 3px #999999;
+    margin-top: 4em;
+    text-align: center;
+}
+
+.left{
+    width: 550px;
+
+    display: inline-block;
+    float: left;
+}
+
+.right{
+    width: 250px;
+
+    display: inline-block;
+    float: right;
+    background-color: #A2B964 ;
+}
+
+.bottom{
+    background-color: #A2B964 ;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    border-bottom: 5px;
+}
+
+.movie_info{
+    padding:10pt 10pt 10pt 10pt;
+    font-size: 8pt;
+    font-family: Arial, sans-serif;
+}
+
+.validation{
+    text-align: right;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.validation img{
+    opacity: 0.5;
+}
+
+.rotten_title_header{
+    background: url("https://courses.cs.washington.edu/courses/cse190m/11sp/homework/2/rbg.png");
+    height: 83px;
+}
+
+.rotten_title_header>img{
+    display: inline-block;
+}
+
+.rotten_evaluation{
+    display: inline-block;
+    color: red;
+    font-weight: bold;
+    font-size: 48pt;
+    position: relative;
+    bottom: 10px;
+}
+
+.review-cols{
+    display: inline-block;
+    float: left;
+    margin-right: 1%;
+    margin-left: 1%;
+    width: 47%;
+}
+
+.review{
+    display: inline-block;
+    margin-bottom: 20pt;
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 95%;
+}
+
+.review_box{
+    background-color: #E8DC9B;
+    border: solid gray 2px;
+    border-radius: 10px;
+    padding: 8px;
+    font-weight: bold;
+    font-size: 8pt;
+    vertical-align: top;
+    min-height: 30px;
+}
+
+.review_box>img{
+    margin-right: 5px;
+    float: left;
+}
+
+.review_name{
+    margin-bottom: 20pt;
+}
+
+.review_name>img{
+    float: left;
+    margin-right: 5px;
+}
+
+.editor{
+    font-style: italic;
+}
+
+
+/*Id attributes*/
+
+#bannerbg{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#movie_image{
+    border-top-right-radius: 4px;
+}
