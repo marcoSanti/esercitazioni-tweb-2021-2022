@@ -1,3 +1,6 @@
+<!-- Informazione: le cartelle dei film di default non sono incluse in quanto
+nella consegna non era previsto che le suddette fossero caricate sul server remoto
+ad eccezione di quella "custom" -->
 <?php
 /*
  * getting the movie name.
@@ -46,8 +49,7 @@ $halfNumberOfReviews = intval($numOfReviews/2);
     <title><?= $movieInfo[0] ?>- Rancid Tomatoes</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link href="movie.css" type="text/css" rel="stylesheet">
-    <link rel="icon" type="image/png"
-          href="https://courses.cs.washington.edu/courses/cse190m/11sp/homework/2/rotten.gif">
+    <link rel="icon" type="image/png" href="https://courses.cs.washington.edu/courses/cse190m/11sp/homework/2/rotten.gif">
 </head>
 <body>
 <div class="header_banner">
