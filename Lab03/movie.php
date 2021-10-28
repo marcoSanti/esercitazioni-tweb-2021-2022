@@ -42,6 +42,12 @@ foreach (glob('./' . $title . '/review*.txt') as $reviewName) {
 //because that is also computed very often (@ about line 115)
 $numOfReviews = count($review);
 $halfNumberOfReviews = intval($numOfReviews/2);
+
+//this is done to print a max of five reviews per column in the page. the value is 4 because we star counting from 0
+//in this way we will print a maximum of 10 reviews in the page
+if($halfNumberOfReviews > 4) $halfNumberOfReviews = 4;
+
+$numOfPrintedReviews = 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -94,7 +100,7 @@ $halfNumberOfReviews = intval($numOfReviews/2);
         </div>
         <div class="review-cols">
             <?php
-            for ($i = 0; $i < $numOfReviews; $i++) { //here I print half the review in the first column
+            for ($i = 0; $i < $numOfReviews && $numOfPrintedReviews <10; $i++) { //here I print half the review in the first column
                 ?>
                 <div class="review">
                     <p class="review_box">
@@ -108,6 +114,7 @@ $halfNumberOfReviews = intval($numOfReviews/2);
                     </p>
                 </div>
                 <?php
+                $numOfPrintedReviews++;
                 //here I check if half of the reviews have been printed. if so, a new column is started
                 if($i == $halfNumberOfReviews){
                 ?>
@@ -120,7 +127,7 @@ $halfNumberOfReviews = intval($numOfReviews/2);
         </div>
     </div>
     <div class="bottom">
-        <p>(1-<?= $numOfReviews ?>) of <?= $numOfReviews ?></p>
+        <p>(1-<?= $numOfPrintedReviews++ ?>) of <?= $numOfReviews ?></p>
     </div>
 </div>
 <div class="validation">
