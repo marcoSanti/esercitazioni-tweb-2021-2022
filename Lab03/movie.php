@@ -44,9 +44,8 @@ $numOfReviews = count($review);
 $halfNumberOfReviews = intval($numOfReviews/2);
 
 //this is done to print a max of five reviews per column in the page. the value is 4 because we star counting from 0
-//in this way we will print a maximum of 10 reviews in the page
 if($halfNumberOfReviews > 4) $halfNumberOfReviews = 4;
-
+//here i count how many reviews have been printed
 $numOfPrintedReviews = 0;
 ?>
 <!DOCTYPE html>
@@ -61,7 +60,7 @@ $numOfPrintedReviews = 0;
 <div class="header_banner">
     <img src="https://www.cs.washington.edu/education/courses/cse190m/11sp/homework/2/banner.png" id="bannerbg" alt="Rancid Tomatoes">
 </div>
-<h1 class="movie_title"><?= $movieInfo[0] . ' ( ' . $movieInfo[1] . ')' ?></h1>
+<h1 class="movie_title"><?= $movieInfo[0] . ' - (' . trim($movieInfo[1]) . ')' ?></h1>
 <div class="page_content">
     <div class="right">
         <div>
@@ -100,7 +99,8 @@ $numOfPrintedReviews = 0;
         </div>
         <div class="review-cols">
             <?php
-            for ($i = 0; $i < $numOfReviews && $numOfPrintedReviews <10; $i++) { //here I print half the review in the first column
+            //this ciyle loops through the first 10 reviews of the movie printing them
+            for ($i = 0; $i < $numOfReviews && $numOfPrintedReviews <10; $i++) {
                 ?>
                 <div class="review">
                     <p class="review_box">
