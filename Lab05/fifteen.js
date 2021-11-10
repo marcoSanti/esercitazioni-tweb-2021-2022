@@ -11,7 +11,10 @@ var freeTile = [
     [0, 0, 0, 1]
 ];
 
-$(document).ready(function(){
+/**
+ * This function is the function called on document ready
+ *  */
+$(function(){
     $("#puzzlearea").children().each(function(){
         var elementNumber = parseInt($(this).html());
         $(this).click(move) //setting the click action and the varius aspect of the aspect
