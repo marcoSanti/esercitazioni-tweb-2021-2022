@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="./">
             <img src="src/media/logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
-            uniShare
+            UniShare
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -13,10 +13,10 @@
                     <a class="nav-link active" aria-current="page" href="./#homePageWho">Chi siamo</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="search.php">Cerca appunti</a>
+                    <a class="nav-link active" aria-current="page" href="search.php"><i class="fas fa-search"></i> Cerca appunti</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Carica appunti</a>
+                    <a class="nav-link active" aria-current="page" href="./upload.php"><i class="fas fa-cloud-upload-alt"></i> Carica appunti</a>
                 </li>
 
 
@@ -26,7 +26,7 @@
             </ul>
             <span class="d-flex">
                 <span class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Accedi / Registrati</a>
+                    <a class="nav-link active" aria-current="page" href="#"><i class="fas fa-lock"></i> Area utente</a>
                 </span>
                 <!--
                 <span class="nav-item dropdown">

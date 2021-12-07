@@ -1,4 +1,8 @@
 
+html{
+    margin-bottom: 11em;
+}
+
 #HomePageCarousel{
     background:linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../media/homeBg.jpg");
     background-size: cover;
@@ -11,13 +15,55 @@
 #pageFooter{
     padding-bottom: 2em;
     padding-top: 3em;
-    position: relative;
-    bottom: 0;
+    margin: 0 auto;
 }
 
 #SearchPageContainer{
-    margin-top: 50px;
+    margin-top: 80px;
+    margin-left: 10px;
 }
 #SearchPageFilterOptions{
-    width: 5em !important;
+    border: 1px solid #ced4da;
+    border-radius: 3px;
+    padding: 1em;
+    margin-top:5em;
+}
+
+#SearchPageFilterOptions button{
+    width: 100%;
+    margin-top: 20px;
+}
+
+#SearchPageFilterOptions>div{
+    margin-top: 20px;
+}
+
+#SearchPageSearchDocument{
+    width: 100%;
+}
+
+#SearchPageSecondCol{
+    margin-right: 2em;
+}
+
+.card{
+    margin-left: 2em;
+    margin-top: 2em;
+    width: 18rem;
+}
+
+.card > img{
+    margin-top: 1em;
+    border-radius: 3px;
+}
+
+#SearchPageCardBox{
+    margin-bottom: 2em;
+}
+
+#UploadPageDocumentForm{
+    width: 50em;
+    margin-right: 0px;
+    margin-left: 0px;
+    margin-top: 80px;
 }
