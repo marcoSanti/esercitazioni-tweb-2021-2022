@@ -1,0 +1,23 @@
+
+#HomePageCarousel{
+    background:linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../media/homeBg.jpg");
+    background-size: cover;
+}
+
+#HomePageSearchFormCarousel{
+    width: 40em;
+}
+
+#pageFooter{
+    padding-bottom: 2em;
+    padding-top: 3em;
+    position: relative;
+    bottom: 0;
+}
+
+#SearchPageContainer{
+    margin-top: 50px;
+}
+#SearchPageFilterOptions{
+    width: 5em !important;
+}
