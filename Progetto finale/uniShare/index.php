@@ -14,7 +14,7 @@ include "navbar.php";
         </div>
     </div>
 </div>
-<div class="container py-4 text-center" id="homePageWho">
+<div class="container py-4 text-center PageContent" id="homePageWho">
     <h1>Chi siamo</h1>
     <p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. In interdum sodales enim id molestie. Fusce molestie lectus vel metus tincidunt, quis semper ante efficitur. In dignissim magna nec lacus pretium, placerat facilisis felis dictum. Suspendisse potenti. Nulla vel nulla mauris. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Maecenas viverra tempor justo, vitae vulputate metus efficitur in.

@@ -3,42 +3,58 @@ include "header.html";
 include "navbar.php";
 ?>
 
-<div class="Container" id="SearchPageContainer">
+<div class="Container PageContent" id="SearchPageContainer">
     <div class="row">
         <!--filter options -->
         <div class="col col-2">
             <div id="SearchPageFilterOptions">
                 <h4>Filtri di ricerca</h4>
                 <div class="row">
-                    <label for="inputState" class="form-label">Universit&agrave;</label>
-                    <select id="inputState" class="form-select">
-                        <option selected>Tutti</option>
-                        <option>...</option>
-                    </select>
+                    <div class="form-floating">
+                        <select class="form-select" id="filterByUniversity" aria-label="Floating label select example">
+                            <option selected>Qualsiasi</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <label for="filterByUniversity">Universit&agrave;</label>
+                    </div>
                 </div>
                 <div class="row">
-                    <label for="inputState" class="form-label">Corso di studi</label>
-                    <select id="inputState" class="form-select">
-                        <option selected>Tutti</option>
-                        <option>...</option>
-                    </select>
+                    <div class="form-floating">
+                        <select class="form-select" id="filterByUniAddress" aria-label="Floating label select example">
+                            <option selected>Qualsiasi</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <label for="filterByUniAddress">Corso di studi</label>
+                    </div>
                 </div>
                 <div class="row">
-                    <label for="inputState" class="form-label">Professore</label>
-                    <select id="inputState" class="form-select">
-                        <option selected>Tutti</option>
-                        <option>...</option>
-                    </select>
+                    <div class="form-floating">
+                        <select class="form-select" id="searchByTeacher" aria-label="Floating label select example">
+                            <option selected>Qualsiasi</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <label for="searchByTeacher">Professore</label>
+                    </div>
                 </div>
                 <div class="row">
-                    <label for="inputState" class="form-label">Materia</label>
-                    <select id="inputState" class="form-select">
-                        <option selected>Tutti</option>
-                        <option>...</option>
-                    </select>
+                    <div class="form-floating">
+                        <select class="form-select" id="searchByTeaching" aria-label="Floating label select example">
+                            <option selected>Qualsiasi</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                        <label for="searchByTeaching">Insegnamento</label>
+                    </div>
                 </div>
                 <div class="col">
-                    <button type="submit" class="btn btn-primary">Applica filtri</button>
+                    <button type="submit" class="btn btn-secondary">Applica filtri</button>
                 </div>
             </div>
         </div>
