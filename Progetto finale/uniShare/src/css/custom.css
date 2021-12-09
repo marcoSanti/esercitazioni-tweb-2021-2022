@@ -140,6 +140,7 @@ html{
 
 .widget-container{
     padding: 1em;
+    position: relative
 }
 
 .widget ul {
@@ -157,16 +158,54 @@ html{
 .widget-gradient-blue{
     color: white;
     background: linear-gradient(to right, #00a1ff, #00ff8f);
+    border: none;
 }
 .widget-gradient-yellow{
     color: white;
     background: linear-gradient(to right, #fbb040, #f9ed32);
+    border: none;
 }
 .widget-gradient-orange{
     color: white;
     background: linear-gradient(to right, #ef4136, #fbb040);
+    border: none;
 }
 .widget-gradient-purple{
     color: white;
     background: linear-gradient(to right, #ff00d4, #00ddff);
+    border: none;
+
+}
+
+#SideMenuEditPage{
+    position: absolute;
+    width: 20em;
+    color: white;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    z-index: 200;
+}
+
+#SideMenuEditPage-Wrapper{
+    margin-top: 90px;
+    padding: 1em;
+}
+
+#SideMenuEditPage button{
+    width: 15em;
+    text-align: center;
+}
+
+.UserPageOverlay{
+    margin-left: 3em;
+    margin-top: 3em;
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
 }
