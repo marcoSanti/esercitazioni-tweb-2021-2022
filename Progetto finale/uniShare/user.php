@@ -20,10 +20,24 @@ include "navbar.php";
         <h6><button class="btn rounded-pill bg-primary widget-gradient-yellow" id="AddWidgetBought">Appunti acquistati</button></h6>
     </div>
 </nav>
-
+<ul class="nav nav-tabs" id="UserPageNavTabs">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Profilo utente</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Acquisti</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Riepilogo vendite</a>
+    </li>
+</ul>
 <div class="container">
+
     <div class="row"> <!-- linea delle opzioni-->
-        <h3>Dettagli del profilo utente
+        <h3>Dashboard
             <button class="btn btn-secondary WidgedEditProfileButton" id="ToggleEditUserPage">Personalizza aspetto</button>
         </h3>
 
@@ -33,92 +47,14 @@ include "navbar.php";
         <div class="col widget-container" id="ContainerGrid1-1">
             <div class="UserPageOverlay" id="overlay1-1"></div>
             <span class="ContentsContainerGrid">
-                <div class="card widget widget-gradient-blue">
-                    <h5 class="card-header">Account
-                        <button class="btn btn-secondary WidgedEditProfileButton">Modifica account</button>
-                    </h5>
-                    <div class="card-body">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col mx-auto">
-                                    <img src="src/media/user.svg" alt="userPicPlaceholder">
-                                </div>
-                                <div class="col">
-                                    <div class="row">
-                                        Marco
-                                    </div>
-                                    <div class="row">
-                                        Santimaria
-                                    </div>
-                                    <div class="row">
-                                        marco.santimaria@edu.unito.it
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="card widget emptyWidget" id="TemplateEmptyCard"></div>
             </span>
         </div>
 
         <div class="col widget-container" id="ContainerGrid1-2">
             <div class="UserPageOverlay" id="overlay1-2"></div>
             <span class="ContentsContainerGrid">
-                <div class="card widget widget-gradient-purple">
-                <h5 class="card-header">Ricavi dalle vendite dei tuoi appunti</h5>
-                <div class="card-body" >
-                    <div class="container">
-                        <div class="row">
-                            <div class=" WidgetGraphWrapper col-1">
-                                <canvas id="Earnings_canvas"></canvas>
-                            </div>
-                            <div class="col">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Earning 1</li>
-                                    <li class="list-group-item">Earning 2</li>
-                                    <li class="list-group-item">Earning 3</li>
-                                    <li class="list-group-item">Earning 4</li>
-                                    <li class="list-group-item">Earning 5</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <script>
-                    var EarningsChartCanvas = $("#Earnings_canvas");
-                    if(EarningsChartCanvas){
-                        const data = {
-                            labels: ['Appunto1', 'Appunto2', 'Appunto3', 'Appunto4', 'Appunto5'],
-                            datasets: [
-                                {
-                                    label: 'Guadagni mensili',
-                                    data: [100,200,300,400,500],
-                                    backgroundColor: Object.values(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236', '#166a8f', '#00a950', '#58595b', '#8549ba']),
-                                }
-                            ]
-                        };
-                        const config = {
-                            type: 'doughnut',
-                            data: data,
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    legend: {
-                                        // position: 'right',
-                                        display: false
-                                    },
-                                    title: {
-                                        display: false,
-                                    },
-                                    responsive: true,
-                                }
-                            },
-                        };
-                        var EraningChartCanvas = new Chart(EarningsChartCanvas, config);
-                    }
-                </script>
-            </div>
+                <div class="card widget emptyWidget" id="TemplateEmptyCard"></div>
             </span>
 
         </div>
@@ -128,81 +64,108 @@ include "navbar.php";
         <div class="col widget-container" id="ContainerGrid2-1">
             <div class="UserPageOverlay" id="overlay2-1"></div>
             <span class="ContentsContainerGrid">
-                <div class="card widget widget-gradient-yellow">
-                <h5 class="card-header">Elenco appunti acquistati
-                    <button class="btn btn-secondary WidgedEditProfileButton">Vedi tutti</button></h5>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">An item</li>
-                        <li class="list-group-item">A second item</li>
-                        <li class="list-group-item">A third item</li>
-                    </ul>
-                </div>
-            </div>
+                <div class="card widget emptyWidget" id="TemplateEmptyCard"></div>
             </span>
         </div>
 
         <div class="col widget-container" id="ContainerGrid2-2">
             <div class="UserPageOverlay" id="overlay2-2"></div>
             <span class="ContentsContainerGrid">
-                <div class="card widget widget-gradient-orange">
-                <h5 class="card-header">Acquisti per insegnamento</h5>
-                <div class="card-body" >
-                    <div class="container">
-                        <div class="row">
-                            <div class=" WidgetGraphWrapper col-1">
-                                <canvas id="Expenses_canvas"></canvas>
-                            </div>
-                            <div class="col">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Expense 1</li>
-                                    <li class="list-group-item">Expense 2</li>
-                                    <li class="list-group-item">Expense 3</li>
-                                    <li class="list-group-item">Expense 4</li>
-                                    <li class="list-group-item">Expense 5</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <script>
-                    var ExpensesChartCanvas = $("#Expenses_canvas");
-                    if(ExpensesChartCanvas){
-                        const data = {
-                            labels: ['Appunto1', 'Appunto2', 'Appunto3', 'Appunto4', 'Appunto5'],
-                            datasets: [
-                                {
-                                    label: 'Guadagni mensili',
-                                    data: [100,200,300,400,500],
-                                    backgroundColor: Object.values(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236', '#166a8f', '#00a950', '#58595b', '#8549ba']),
-                                }
-                            ]
-                        };
-                        const config = {
-                            type: 'doughnut',
-                            data: data,
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    legend: {
-                                        // position: 'right',
-                                        display: false
-                                    },
-                                    title: {
-                                        display: false,
-                                    },
-                                    responsive: true,
-                                }
-                            },
-                        };
-                        var ExpensesChart = new Chart(ExpensesChartCanvas, config);
-                    }
-                </script>
-            </div>
+                <div class="card widget emptyWidget" id="TemplateEmptyCard"></div>
             </span>
         </div>
     </div>
+</div>
+
+
+<div id="templates" style="display: none">
+
+    <div class="card widget widget-gradient-purple" id="TemplateWidgetEarnings">
+        <h5 class="card-header">Ricavi dalle vendite dei tuoi appunti</h5>
+        <div class="card-body" >
+            <div class="container">
+                <div class="row">
+                    <div class=" WidgetGraphWrapper col-1">
+                        <canvas id="Earnings_canvas"></canvas>
+                    </div>
+                    <div class="col">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Earning 1</li>
+                            <li class="list-group-item">Earning 2</li>
+                            <li class="list-group-item">Earning 3</li>
+                            <li class="list-group-item">Earning 4</li>
+                            <li class="list-group-item">Earning 5</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card widget widget-gradient-blue" id="TemplateAccountWidget">
+        <h5 class="card-header">Account
+            <button class="btn btn-secondary WidgedEditProfileButton">Modifica account</button>
+        </h5>
+        <div class="card-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col mx-auto">
+                        <img src="src/media/user.svg" alt="userPicPlaceholder">
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            Marco
+                        </div>
+                        <div class="row">
+                            Santimaria
+                        </div>
+                        <div class="row">
+                            marco.santimaria@edu.unito.it
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card widget widget-gradient-orange" id="TemplateWidgetExpenses">
+        <h5 class="card-header">Acquisti per insegnamento</h5>
+        <div class="card-body" >
+            <div class="container">
+                <div class="row">
+                    <div class=" WidgetGraphWrapper col-1">
+                        <canvas id="Expenses_canvas"></canvas>
+                    </div>
+                    <div class="col">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Expense 1</li>
+                            <li class="list-group-item">Expense 2</li>
+                            <li class="list-group-item">Expense 3</li>
+                            <li class="list-group-item">Expense 4</li>
+                            <li class="list-group-item">Expense 5</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card widget widget-gradient-yellow" id="TemplateWidgetBought">
+        <h5 class="card-header">Elenco appunti acquistati
+            <button class="btn btn-secondary WidgedEditProfileButton">Vedi tutti</button></h5>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">An item</li>
+                <li class="list-group-item">A second item</li>
+                <li class="list-group-item">A third item</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card widget emptyWidget" id="TemplateEmptyCard" ></div>
+
 </div>
 
 <?php

@@ -13,6 +13,8 @@ function toggleEditPageMenu(){
     }else{
         button.html('Personalizza aspetto');
     }
+
+
 }
 
 function widgetMouseButtonDown(event) {
@@ -29,163 +31,32 @@ function widgetMouseButtonUp(event) {
     var elementToAdd = event.target.id;
 
     var replacementContainer = $("#" + lastPosition.attr('id') + " .ContentsContainerGrid");
-    console.log(replacementContainer);
 
     if(elementToAdd === "AddWidgetProfileInfo" && lastPosition){
-        replacementContainer.html("<div class=\"UserPageOverlay\" id=\"overlay1-1\"></div>\n" +
-            "            <div class=\"card widget widget-gradient-blue\">\n" +
-            "                <h5 class=\"card-header\">Account\n" +
-            "                    <button class=\"btn btn-secondary WidgedEditProfileButton\">Modifica account</button>\n" +
-            "                </h5>\n" +
-            "\n" +
-            "                <div class=\"card-body\">\n" +
-            "                    <div class=\"container\">\n" +
-            "                        <div class=\"row\">\n" +
-            "                            <div class=\"col mx-auto\">\n" +
-            "                                <img src=\"src/media/user.svg\" alt=\"userPicPlaceholder\">\n" +
-            "                            </div>\n" +
-            "                            <div class=\"col\">\n" +
-            "                                <div class=\"row\">\n" +
-            "                                    Marco\n" +
-            "                                </div>\n" +
-            "                                <div class=\"row\">\n" +
-            "                                    Santimaria\n" +
-            "                                </div>\n" +
-            "                                <div class=\"row\">\n" +
-            "                                    marco.santimaria@edu.unito.it\n" +
-            "                                </div>\n" +
-            "                            </div>\n" +
-            "                        </div>\n" +
-            "                    </div>\n" +
-            "                </div>\n" +
-            "            </div>");
+
+        $("#WidgetEarnings").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        var replacementWidget = $("#TemplateAccountWidget");
+        replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetAccountInfo'));
+
+
     }else if(elementToAdd === "AddWidgetEranings" && lastPosition){
-        replacementContainer.html("<div class=\"UserPageOverlay\" id=\"overlay1-2\"></div>\n" +
-            "            <div class=\"card widget widget-gradient-purple\">\n" +
-            "                <h5 class=\"card-header\">Ricavi dalle vendite dei tuoi appunti</h5>\n" +
-            "                <div class=\"card-body\" >\n" +
-            "                    <div class=\"container\">\n" +
-            "                        <div class=\"row\">\n" +
-            "                            <div class=\" WidgetGraphWrapper col-1\">\n" +
-            "                                <canvas id=\"Earnings_canvas\"></canvas>\n" +
-            "                            </div>\n" +
-            "                            <div class=\"col\">\n" +
-            "                                <ul class=\"list-group list-group-flush\">\n" +
-            "                                    <li class=\"list-group-item\">Earning 1</li>\n" +
-            "                                    <li class=\"list-group-item\">Earning 2</li>\n" +
-            "                                    <li class=\"list-group-item\">Earning 3</li>\n" +
-            "                                    <li class=\"list-group-item\">Earning 4</li>\n" +
-            "                                    <li class=\"list-group-item\">Earning 5</li>\n" +
-            "                                </ul>\n" +
-            "                            </div>\n" +
-            "                        </div>\n" +
-            "                    </div>\n" +
-            "\n" +
-            "                </div>\n" +
-            "                <script>\n" +
-            "                    var EarningsChartCanvas = $(\"#Earnings_canvas\");\n" +
-            "                    if(EarningsChartCanvas){\n" +
-            "                        const data = {\n" +
-            "                            labels: ['Appunto1', 'Appunto2', 'Appunto3', 'Appunto4', 'Appunto5'],\n" +
-            "                            datasets: [\n" +
-            "                                {\n" +
-            "                                    label: 'Guadagni mensili',\n" +
-            "                                    data: [100,200,300,400,500],\n" +
-            "                                    backgroundColor: Object.values(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236', '#166a8f', '#00a950', '#58595b', '#8549ba']),\n" +
-            "                                }\n" +
-            "                            ]\n" +
-            "                        };\n" +
-            "                        const config = {\n" +
-            "                            type: 'doughnut',\n" +
-            "                            data: data,\n" +
-            "                            options: {\n" +
-            "                                responsive: true,\n" +
-            "                                plugins: {\n" +
-            "                                    legend: {\n" +
-            "                                        // position: 'right',\n" +
-            "                                        display: false\n" +
-            "                                    },\n" +
-            "                                    title: {\n" +
-            "                                        display: false,\n" +
-            "                                    },\n" +
-            "                                    responsive: true,\n" +
-            "                                }\n" +
-            "                            },\n" +
-            "                        };\n" +
-            "                        var EraningChartCanvas = new Chart(EarningsChartCanvas, config);\n" +
-            "                    }\n" +
-            "                </script>\n" +
-            "            </div>");
+
+        $("#WidgetEarnings").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        var replacementWidget = $("#TemplateWidgetEarnings");
+        replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetEarnings'));
+        updateEarningsGraph();
+
     }else if(elementToAdd === "AddWidgetExpenses" && lastPosition){
-        replacementContainer.html("<div class=\"UserPageOverlay\" id=\"overlay2-1\"></div>\n" +
-            "            <div class=\"card widget widget-gradient-yellow\">\n" +
-            "                <h5 class=\"card-header\">Elenco appunti acquistati\n" +
-            "                    <button class=\"btn btn-secondary WidgedEditProfileButton\">Vedi tutti</button></h5>\n" +
-            "                <div class=\"card-body\">\n" +
-            "                    <ul class=\"list-group list-group-flush\">\n" +
-            "                        <li class=\"list-group-item\">An item</li>\n" +
-            "                        <li class=\"list-group-item\">A second item</li>\n" +
-            "                        <li class=\"list-group-item\">A third item</li>\n" +
-            "                    </ul>\n" +
-            "                </div>\n" +
-            "            </div>");
+
+        $("#WidgetExpenses").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        var replacementWidget = $("#TemplateWidgetExpenses");
+        replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetExpenses'));
+        updateExpensesGraph();
+
     }else if(elementToAdd === "AddWidgetBought" && lastPosition){
-        replacementContainer.html("<div class=\"UserPageOverlay\" id=\"overlay2-2\"></div>\n" +
-            "            <div class=\"card widget widget-gradient-orange\">\n" +
-            "                <h5 class=\"card-header\">Acquisti per insegnamento</h5>\n" +
-            "                <div class=\"card-body\" >\n" +
-            "                    <div class=\"container\">\n" +
-            "                        <div class=\"row\">\n" +
-            "                            <div class=\" WidgetGraphWrapper col-1\">\n" +
-            "                                <canvas id=\"Expenses_canvas\"></canvas>\n" +
-            "                            </div>\n" +
-            "                            <div class=\"col\">\n" +
-            "                                <ul class=\"list-group list-group-flush\">\n" +
-            "                                    <li class=\"list-group-item\">Expense 1</li>\n" +
-            "                                    <li class=\"list-group-item\">Expense 2</li>\n" +
-            "                                    <li class=\"list-group-item\">Expense 3</li>\n" +
-            "                                    <li class=\"list-group-item\">Expense 4</li>\n" +
-            "                                    <li class=\"list-group-item\">Expense 5</li>\n" +
-            "                                </ul>\n" +
-            "                            </div>\n" +
-            "                        </div>\n" +
-            "                    </div>\n" +
-            "\n" +
-            "                </div>\n" +
-            "                <script>\n" +
-            "                    var ExpensesChartCanvas = $(\"#Expenses_canvas\");\n" +
-            "                    if(ExpensesChartCanvas){\n" +
-            "                        const data = {\n" +
-            "                            labels: ['Appunto1', 'Appunto2', 'Appunto3', 'Appunto4', 'Appunto5'],\n" +
-            "                            datasets: [\n" +
-            "                                {\n" +
-            "                                    label: 'Guadagni mensili',\n" +
-            "                                    data: [100,200,300,400,500],\n" +
-            "                                    backgroundColor: Object.values(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236', '#166a8f', '#00a950', '#58595b', '#8549ba']),\n" +
-            "                                }\n" +
-            "                            ]\n" +
-            "                        };\n" +
-            "                        const config = {\n" +
-            "                            type: 'doughnut',\n" +
-            "                            data: data,\n" +
-            "                            options: {\n" +
-            "                                responsive: true,\n" +
-            "                                plugins: {\n" +
-            "                                    legend: {\n" +
-            "                                        // position: 'right',\n" +
-            "                                        display: false\n" +
-            "                                    },\n" +
-            "                                    title: {\n" +
-            "                                        display: false,\n" +
-            "                                    },\n" +
-            "                                    responsive: true,\n" +
-            "                                }\n" +
-            "                            },\n" +
-            "                        };\n" +
-            "                        var ExpensesChart = new Chart(ExpensesChartCanvas, config);\n" +
-            "                    }\n" +
-            "                </script>\n" +
-            "            </div>");
+        $("#WidgetBought").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        var replacementWidget = $("#TemplateWidgetBought");
+        replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetBought'));
     }
 
 
@@ -270,6 +141,74 @@ function widgetAddMove(event) {
     }
 }
 
+
+function updateExpensesGraph(){
+    var ExpensesChartCanvas = $("#Expenses_canvas");
+    if(ExpensesChartCanvas){
+        const data = {
+            labels: ['Appunto1', 'Appunto2', 'Appunto3', 'Appunto4', 'Appunto5'],
+            datasets: [
+                {
+                    label: 'Guadagni mensili',
+                    data: [100,200,300,400,500],
+                    backgroundColor: Object.values(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236', '#166a8f', '#00a950', '#58595b', '#8549ba']),
+                }
+            ]
+        };
+        const config = {
+            type: 'doughnut',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        // position: 'right',
+                        display: false
+                    },
+                    title: {
+                        display: false,
+                    },
+                    responsive: true,
+                }
+            },
+        };
+        var ExpensesChart = new Chart(ExpensesChartCanvas, config);
+    }
+}
+
+function updateEarningsGraph(){
+    var EarningsChartCanvas = $("#Earnings_canvas");
+    if(EarningsChartCanvas){
+        const data = {
+            labels: ['Appunto1', 'Appunto2', 'Appunto3', 'Appunto4', 'Appunto5'],
+            datasets: [
+                {
+                    label: 'Guadagni mensili',
+                    data: [100,200,300,400,500],
+                    backgroundColor: Object.values(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236', '#166a8f', '#00a950', '#58595b', '#8549ba']),
+                }
+            ]
+        };
+        const config = {
+            type: 'doughnut',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        // position: 'right',
+                        display: false
+                    },
+                    title: {
+                        display: false,
+                    },
+                    responsive: true,
+                }
+            },
+        };
+        var EraningChartCanvas = new Chart(EarningsChartCanvas, config);
+    }
+}
 
 
 
