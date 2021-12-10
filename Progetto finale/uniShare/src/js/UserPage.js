@@ -29,34 +29,34 @@ function widgetMouseButtonUp(event) {
     $("#"+event.target.id).css({"position" : "", "z-index":"", "top": "", "left":""});
 
     var elementToAdd = event.target.id;
-
+    var replacementWidget = null;
     var replacementContainer = $("#" + lastPosition.attr('id') + " .ContentsContainerGrid");
 
     if(elementToAdd === "AddWidgetProfileInfo" && lastPosition){
 
         $("#WidgetEarnings").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
-        var replacementWidget = $("#TemplateAccountWidget");
+        replacementWidget= $("#TemplateAccountWidget");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetAccountInfo'));
 
 
-    }else if(elementToAdd === "AddWidgetEranings" && lastPosition){
+    }else if(elementToAdd === "AddWidgetEarnings" && lastPosition){
 
         $("#WidgetEarnings").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
-        var replacementWidget = $("#TemplateWidgetEarnings");
+        replacementWidget = $("#TemplateWidgetEarnings");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetEarnings'));
         updateEarningsGraph();
 
     }else if(elementToAdd === "AddWidgetExpenses" && lastPosition){
 
         $("#WidgetExpenses").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
-        var replacementWidget = $("#TemplateWidgetExpenses");
+        replacementWidget = $("#TemplateWidgetExpenses");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetExpenses'));
         updateExpensesGraph();
 
-    }else if(elementToAdd === "AddWidgetBought" && lastPosition){
-        $("#WidgetBought").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
-        var replacementWidget = $("#TemplateWidgetBought");
-        replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetBought'));
+    }else if(elementToAdd === "AddWidgetPurchase" && lastPosition){
+        $("#WidgetPurchase").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        replacementWidget = $("#TemplateWidgetPurchase");
+        replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetPurchase'));
     }
 
 
@@ -206,10 +206,22 @@ function updateEarningsGraph(){
                 }
             },
         };
-        var EraningChartCanvas = new Chart(EarningsChartCanvas, config);
+        var EarningChartCanvas = new Chart(EarningsChartCanvas, config);
     }
 }
 
+
+function ClearUserPageViewBlock(){
+    $("#UserProfileViewBlock").fadeOut(10);
+    $("#UserPurchaseViewBlock").fadeOut(10);
+    $("#UserSellingsViewBlock").fadeOut(10);
+    $("#WidgetViewBlock").fadeOut(10);
+    $("#TabShowDashboard").removeClass("active");
+    $("#TabShowUserPurchase").removeClass("active");
+    $("#TabShowUserProfile").removeClass("active");
+    $("#TabShowUserEarnings").removeClass("active");
+
+}
 
 
 $(function (){
@@ -219,12 +231,12 @@ $(function (){
         mouseup: widgetMouseButtonUp,
         mousemove: widgetAddMove,
     });
-    $("#AddWidgetBought").on({
+    $("#AddWidgetPurchase").on({
         mousedown: widgetMouseButtonDown,
         mouseup: widgetMouseButtonUp,
         mousemove: widgetAddMove,
     });
-    $("#AddWidgetEranings").on({
+    $("#AddWidgetEarnings").on({
         mousedown: widgetMouseButtonDown,
         mouseup: widgetMouseButtonUp,
         mousemove: widgetAddMove,
@@ -233,6 +245,30 @@ $(function (){
         mousedown: widgetMouseButtonDown,
         mouseup: widgetMouseButtonUp,
         mousemove: widgetAddMove,
+    });
+
+    $("#TabShowDashboard").click(function(){
+        ClearUserPageViewBlock();
+        $("#WidgetViewBlock").fadeIn(10);
+        $("#TabShowDashboard").addClass("active");
+    });
+
+    $("#TabShowUserProfile").click(function(){
+        ClearUserPageViewBlock();
+        $("#UserProfileViewBlock").fadeIn(10);
+        $("#TabShowUserProfile").addClass("active");
+    });
+
+    $("#TabShowUserPurchase").click(function(){
+        ClearUserPageViewBlock();
+        $("#UserPurchaseViewBlock").fadeIn(10);
+        $("#TabShowUserPurchase").addClass("active");
+    });
+
+    $("#TabShowUserEarnings").click(function(){
+        ClearUserPageViewBlock();
+        $("#UserSellingsViewBlock").fadeIn(10);
+        $("#TabShowUserEarnings").addClass("active");
     });
 
 

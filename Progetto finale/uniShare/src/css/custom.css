@@ -77,9 +77,9 @@ html{
 
 .UploadAppunti .card{
     margin-top: 1em;
-    height: 30em;
     padding: 10px;
     border-radius: 20px;
+    height: 95%;
 }
 
 .UploadAppunti .btn{
@@ -216,4 +216,12 @@ html{
 
 #UserPageNavTabs{
     margin-bottom: 1em;
+}
+
+#UserPageProfileView{
+    width: 60%;
+}
+
+.UserPageNavigator{
+    margin-top: 1em;
 }

@@ -3,25 +3,26 @@ include "header.html";
 include "navbar.php";
 ?>
 
-    <div class="row PageContent centeredDiv UploadAppunti" id="UploadAppunti1">
+    <script src="src/js/upload.js"></script>
+
+    <div class="row PageContent centeredDiv UploadAppunti" id="UploadAppunti0" style="display:none;">
         <h3>Seleziona il formato</h3>
         <div class="col">
-            <div class="card">
-                <img src="./src/media/pdf.png" class="card-img-top" alt="...">
+            <div class="card btn-light" id="UploadDigitalNotes">
+                <img src="./src/media/digitalNotes.svg" class="card-img-top" alt="Digital notes">
                 <div class="card-body">
                     <h5 class="card-title">I miei appunti sono digitali</h5>
-                    <p class="card-text">Premi qua per caricare i tuoi appunti!.</p>
-                    <a href="#" class="btn btn-primary">Continua</a>
+                    <p class="card-text">Premi qua per caricare i tuoi appunti!</p>
+
                 </div>
             </div>
         </div>
         <div class="col">
-            <div class="card" >
-                <img src="./src/media/notes.jpg" class="card-img-top" alt="...">
+            <div class="card btn-light" id="UploadPaperNotes">
+                <img src="./src/media/paperNotes.svg" class="card-img-top" alt="paper notes">
                 <div class="card-body">
                     <h5 class="card-title">I miei appunti sono cartacei</h5>
                     <p class="card-text">Premi qua per poter organizzare un appuntamento per digitalizzare i tuoi appunti!</p>
-                    <a href="#" class="btn btn-primary">Continua</a>
                 </div>
             </div>
         </div>
@@ -29,7 +30,7 @@ include "navbar.php";
 
 
 
-    <div class="row PageContent centeredDiv UploadAppunti" id="UploadAppunti">
+    <div class="row PageContent centeredDiv UploadAppunti" id="UploadAppunti1" style="display: none">
         <h3>Inserisci i dati richiesti</h3>
         <div class="row g-2">
             <div class="col-md">
@@ -96,23 +97,25 @@ include "navbar.php";
                 <label for="floatingInput">Nome del docente</label>
             </div>
         </div>
-        <hr>
-        <h5>Carica il file degli appunti in formato .pdf</h5>
-        <div class="row g-2">
-            <div class="input-group mb-3">
-                <input type="file" class="form-control" id="inputGroupFile02">
-                <label class="input-group-text" for="inputGroupFile02">Carica gli appunti</label>
+        <span id="FileUploadAppuntiBlock">
+              <hr>
+            <h5>Carica il file degli appunti in formato .pdf</h5>
+            <div class="row g-2">
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" id="inputGroupFile02">
+                    <label class="input-group-text" for="inputGroupFile02">Carica gli appunti</label>
+                </div>
             </div>
-        </div>
+        </span>
         <hr>
         <div class="row g-2">
-            <div class="col"><button class="btn btn-danger">Annulla</button></div>
-            <div class="col"> <button class="btn btn-success">Avanti</button></div>
+            <div class="col"><a href="./upload.php" class="btn btn-danger">Annulla</a></div>
+            <div class="col"> <button class="btn btn-success" id="Continua1">Avanti</button></div>
         </div>
     </div>
 
 
-    <div class="row PageContent centeredDiv UploadAppunti" id="UploadAppunti">
+    <div class="row PageContent centeredDiv UploadAppunti" id="UploadAppunti2" style="display: none">
         <h3>Prenota la digitalizzazione</h3>
         <hr>
         <div class="row">
@@ -129,7 +132,8 @@ include "navbar.php";
                 </div>
             </div>
         </div>
-        <h4>Seleziona il punto di digitalizzazione</h4>
+        <span style="margin-top: 1em"></span>
+        <h4>Recati al punto di ritiro nella data selezionata!</h4>
         <hr>
         <div class="row">
             <div id="map-container-google-1" class="z-depth-1-half map-container" style="height: 500px">
@@ -137,17 +141,17 @@ include "navbar.php";
             </div>
         </div>
         <div class="row g-2">
-            <div class="col"><button class="btn btn-danger">Annulla</button></div>
-            <div class="col"> <button class="btn btn-success">Avanti</button></div>
+            <div class="col"><a href="./upload.php" class="btn btn-danger">Annulla</a></div>
+            <div class="col"> <button class="btn btn-success" id="Continua2">Avanti</button></div>
         </div>
     </div>
 
 
-    <div class="row PageContent centeredDiv UploadAppunti" id="UploadAppunti">
+    <div class="row PageContent centeredDiv UploadAppunti" id="UploadAppunti3" style="display: none">
         <h3>Grazie per aver usato il servizio!</h3>
         <img src="src/media/done.svg" id="DoneUploadImg" alt="finish">
         <p id="UploadDoneDigitalizeCode">Il codice della tua prenotazione è: <br> #123ABC</p>
-        <a href="./" class="btn btn-success" id="btnFinishUpload">Torna alla homepage</a>
+        <a href ="./" class="btn btn-success" id="btnFinishUpload">Torna alla homepage</a>
     </div>
 
 
