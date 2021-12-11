@@ -157,7 +157,7 @@ html{
 
 .widget-gradient-blue{
     color: white;
-    background: linear-gradient(to right, #00a1ff, #00ff8f);
+    background: linear-gradient(to right, #0c7bb3, #f2bae8);
     border: none;
 }
 .widget-gradient-yellow{
@@ -172,9 +172,30 @@ html{
 }
 .widget-gradient-purple{
     color: white;
-    background: linear-gradient(to right, #ff00d4, #00ddff);
+    background: linear-gradient(to right, #cc22e0, #5ffae0);
     border: none;
 
+}
+.widget-gradient-blood{
+    color: white;
+    background: linear-gradient(to right, #771d32, #e65758);
+    border: none;
+}
+.widget-gradient-green{
+    color: white;
+    background: linear-gradient(to right, #849b5c, #bfffc7);
+    border: none;
+}
+
+.widget-gradient-ice{
+    color: white;
+    background: linear-gradient(to right, #9fa5d5, #e8f5c8);
+    border: none;
+}
+.widget-gradient-emerald{
+    color: white;
+    background: linear-gradient(to right, #067d68, #50d5b7);
+    border: none;
 }
 
 #SideMenuEditPage{
@@ -224,4 +245,12 @@ html{
 
 .UserPageNavigator{
     margin-top: 1em;
+}
+
+#TemplateWidgetAdminIncomeExpenses .card-body, #AdminCashFlow .card-body {
+    font-size: 3em;
+}
+
+#TemplateWidgetAdminIncomeExpenses .card-body>i,  #AdminCashFlow .card-body>i{
+    margin-left: 1em;
 }

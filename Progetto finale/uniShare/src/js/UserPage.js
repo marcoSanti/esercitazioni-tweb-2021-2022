@@ -3,18 +3,18 @@ var oldY = null;
 var moving = null;
 var maxZ = 1000;
 var lastPosition;
+var menuShow = false;
 
 function toggleEditPageMenu(){
     var button = $("#ToggleEditUserPage");
-    $("#SideMenuEditPage").toggle("slow");
-    var state = button.html();
-    if(state === 'Personalizza aspetto'){
+    if(!menuShow){
+        $("#SideMenuEditPage").fadeIn(100);
         button.html('Salva modifiche');
     }else{
+        $("#SideMenuEditPage").fadeOut(100);
         button.html('Personalizza aspetto');
     }
-
-
+    menuShow = !menuShow;
 }
 
 function widgetMouseButtonDown(event) {
@@ -54,9 +54,33 @@ function widgetMouseButtonUp(event) {
         updateExpensesGraph();
 
     }else if(elementToAdd === "AddWidgetPurchase" && lastPosition){
+
         $("#WidgetPurchase").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetPurchase");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetPurchase'));
+
+    }else if(elementToAdd === "AdminAddUserList" && lastPosition){
+
+        $("#AdminUserList").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        replacementWidget = $("#TemplateWidgetAdminUsers");
+        replacementContainer.html(replacementWidget.clone().attr('id', 'AdminUserList'));
+
+    }else if(elementToAdd === "AdminAddCashFlow" && lastPosition){
+
+        $("#AdminCashFlow").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        replacementWidget = $("#TemplateWidgetAdminIncomeExpenses");
+        replacementContainer.html(replacementWidget.clone().attr('id', 'AdminCashFlow'));
+
+    }else if(elementToAdd === "AdminAddDocumentList" && lastPosition){
+
+        $("#WidgetDocumentList").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        replacementWidget = $("#TemplateWidgetAdminDocuments");
+        replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetDocumentList'));
+
+    }else if(elementToAdd === "AdminAddAdminList" && lastPosition){
+        $("#WidgetAdminList").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        replacementWidget = $("#TemplateWidgetAdminAdmins");
+        replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetAdminList'));
     }
 
 
@@ -242,6 +266,26 @@ $(function (){
         mousemove: widgetAddMove,
     });
     $("#AddWidgetExpenses").on({
+        mousedown: widgetMouseButtonDown,
+        mouseup: widgetMouseButtonUp,
+        mousemove: widgetAddMove,
+    });
+    $("#AdminAddAdminList").on({
+        mousedown: widgetMouseButtonDown,
+        mouseup: widgetMouseButtonUp,
+        mousemove: widgetAddMove,
+    });
+    $("#AdminAddCashFlow").on({
+        mousedown: widgetMouseButtonDown,
+        mouseup: widgetMouseButtonUp,
+        mousemove: widgetAddMove,
+    });
+    $("#AdminAddDocumentList").on({
+        mousedown: widgetMouseButtonDown,
+        mouseup: widgetMouseButtonUp,
+        mousemove: widgetAddMove,
+    });
+    $("#AdminAddUserList").on({
         mousedown: widgetMouseButtonDown,
         mouseup: widgetMouseButtonUp,
         mousemove: widgetAddMove,

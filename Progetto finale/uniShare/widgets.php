@@ -169,7 +169,49 @@ include "navbar.php";
     </div>
 </div>
 
+<div class="card widget widget-gradient-green" id="TemplateWidgetAdminUsers">
+    <h5 class="card-header">Utenti del sito
+    </h5>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+        </ul>
+    </div>
+</div>
 
+<div class="card widget widget-gradient-blood" id="TemplateWidgetAdminIncomeExpenses">
+    <h5 class="card-header">Proventi e uscite ultimo mese
+    </h5>
+    <div class="card-body">
+        <i class="fas fa-arrow-up"></i> 123,45€
+        <i class="fas fa-arrow-down"></i> 678,90€
+    </div>
+</div>
+
+<div class="card widget widget-gradient-ice" id="TemplateWidgetAdminDocuments">
+    <h5 class="card-header">Appunti del sito
+    </h5>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+        </ul>
+    </div>
+</div>
+<div class="card widget widget-gradient-emerald" id="TemplateWidgetAdminAdmins">
+    <h5 class="card-header">Amministratori del sito
+    </h5>
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+        </ul>
+    </div>
+</div>
 
 
 

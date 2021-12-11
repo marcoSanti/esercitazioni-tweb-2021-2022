@@ -16,18 +16,30 @@ include "navbar.php";
             </div>
             <hr>
             <h6>Trascina il widget che preferisci nel quadrante che preferisci!</h6>
-            <h6><button class="btn rounded-pill bg-primary widget-gradient-blue" id="AddWidgetProfileInfo">Informazioni sul
-                    profilo</button>
+            <h6><button class="btn rounded-pill bg-primary widget-gradient-blue" id="AddWidgetProfileInfo">Informazioni sul profilo</button>
             </h6>
-            <h6><button class="btn rounded-pill bg-primary widget-gradient-purple" id="AddWidgetEarnings">Ricavi dalle
-                    vendite</button>
+            <h6><button class="btn rounded-pill bg-primary widget-gradient-purple" id="AddWidgetEarnings">Ricavi dalle vendite</button>
             </h6>
-            <h6><button class="btn rounded-pill bg-primary widget-gradient-orange" id="AddWidgetExpenses">Spese per
-                    acquisti</button>
+            <h6><button class="btn rounded-pill bg-primary widget-gradient-orange" id="AddWidgetExpenses">Spese per acquisti</button>
             </h6>
-            <h6><button class="btn rounded-pill bg-primary widget-gradient-yellow" id="AddWidgetPurchase">Appunti
-                    acquistati</button>
+            <h6><button class="btn rounded-pill bg-primary widget-gradient-yellow" id="AddWidgetPurchase">Appunti acquistati</button>
             </h6>
+            <!-- admin only widgets-->
+            <span class="admin-only">
+                <hr>
+                <h6>
+                    <button class="btn rounded-pill bg-primary widget-gradient-green" id="AdminAddUserList">Elenco utenti</button>
+                </h6>
+                <h6>
+                    <button class="btn rounded-pill bg-primary widget-gradient-blood" id="AdminAddCashFlow">Cashflow</button>
+                </h6>
+                <h6>
+                    <button class="btn rounded-pill bg-primary widget-gradient-ice" id="AdminAddDocumentList">Elenco appunti</button>
+                </h6>
+                <h6>
+                    <button class="btn rounded-pill bg-primary widget-gradient-emerald" id="AdminAddAdminList">Elenco amministratori</button>
+                </h6>
+            </span>
         </div>
     </nav>
     <ul class="nav nav-tabs" id="UserPageNavTabs">
@@ -43,6 +55,20 @@ include "navbar.php";
         <li class="nav-item">
             <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowUserEarnings">Riepilogo vendite</a>
         </li>
+        <!--solo admins-->
+        <li class="nav-item">
+            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminUserList">Elenco utenti</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminCashflow">Cashflow</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminDocumentList">Elenco appunti</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminAdmins">Elenco amministratori</a>
+        </li>
+
     </ul>
     <div class="container" id="UserPageContainer">
    <span id="WidgetViewBlock">
@@ -233,7 +259,6 @@ include "navbar.php";
         </div>
         <div class="card widget widget-gradient-blue" id="TemplateAccountWidget">
             <h5 class="card-header">Account
-                <button class="btn btn-secondary WidgedEditProfileButton">Modifica account</button>
             </h5>
             <div class="card-body">
                 <div class="container">
@@ -289,6 +314,54 @@ include "navbar.php";
                 </ul>
             </div>
         </div>
+        <!--Admins only templates-->
+        <div class="card widget widget-gradient-green" id="TemplateWidgetAdminUsers">
+            <h5 class="card-header">Utenti del sito
+            </h5>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="card widget widget-gradient-blood" id="TemplateWidgetAdminIncomeExpenses">
+            <h5 class="card-header">Cashflow ultimo mese
+            </h5>
+            <div class="card-body">
+                <i class="fas fa-arrow-up"></i> 123,45€
+                <i class="fas fa-arrow-down"></i> 678,90€
+            </div>
+        </div>
+
+        <div class="card widget widget-gradient-ice" id="TemplateWidgetAdminDocuments">
+            <h5 class="card-header">Appunti del sito
+            </h5>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card widget widget-gradient-emerald" id="TemplateWidgetAdminAdmins">
+            <h5 class="card-header">Amministratori del sito
+            </h5>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                </ul>
+            </div>
+        </div>
+
+
+
+
         <div class="card widget emptyWidget" id="TemplateEmptyCard"></div>
     </div>
 <?php
