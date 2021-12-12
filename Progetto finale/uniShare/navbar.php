@@ -30,11 +30,14 @@
                         Area utente
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="./login.php">Accedi</a></li>
-                        <li><a class="dropdown-item" href="./register.php">Registrati</a></li>
-                        <hr>
-                        <li><a class="dropdown-item" href="./user.php">Profilo</a></li>
-                        <li><a class="dropdown-item" href="./">Esci</a></li>
+                        <span id="NavBarNotLoggedOnly">
+                            <li><a class="dropdown-item" href="./login.php">Accedi</a></li>
+                            <li><a class="dropdown-item" href="./register.php">Registrati</a></li>
+                        </span>
+                       <span id="NavBarLoggedOnly">
+                            <li><a class="dropdown-item" href="./user.php">Profilo</a></li>
+                            <li><span class="dropdown-item" id="ButtonEsciNavbar">Esci</span></li>
+                       </span>
                     </ul>
                 </span>
             </span>

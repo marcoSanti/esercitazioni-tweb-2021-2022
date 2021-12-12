@@ -133,6 +133,22 @@ html{
     margin: 90px auto;
 }
 
+#RegisterForm{
+    width: 20em;
+    vertical-align: center;
+    margin: 90px auto;
+}
+
+#loginButton{
+    width: 100%;
+}
+
+.ErrorLoginRegisterDiv{
+    margin-top: 1em;
+    margin-bottom: 1em;
+    display: none;
+}
+
 .widget{
     width: 100%;
     height: 100%;

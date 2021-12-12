@@ -49,7 +49,7 @@ switch($_SERVER["REQUEST_METHOD"]){
 
     default:
         http_response_code(400);
-        echo json_encode(Array("Error"=>"Unhandled HTTP method"));
+        echo json_encode(Array("Error"=>"Unhandled HTTP method: " . $_SERVER["REQUEST_METHOD"]));
         exit();
 }
 
