@@ -19,8 +19,17 @@ $available_apis["log_out"]["FUNC"] = "logout";
 $available_apis["log_in_check"]["FILE"] = "./res/API_GET_USER_LOGGED.php";
 $available_apis["log_in_check"]["FUNC"] = "userIsLogged";
 
+
+/*GET APIS*/
 $available_apis["user_type_get"]["FILE"] = "./res/API_GET_USER_TYPE.php";
 $available_apis["user_type_get"]["FUNC"] = "getUserType";
 
 $available_apis["user_info_get"]["FILE"] = "./res/API_GET_USER_INFO.php";
 $available_apis["user_info_get"]["FUNC"] = "getUserInfo";
+
+$available_apis["user_dashboard_get"]["FILE"] = "./res/API_GET_USER_DASHBOARD.php";
+$available_apis["user_dashboard_get"]["FUNC"] = "getUserDashboard";
+
+/*SET APIS*/
+$available_apis["user_widget_pos_set"]["FILE"] = "./res/API_SET_DASHBOARD_WIDGET.php";
+$available_apis["user_widget_pos_set"]["FUNC"] = "setDashboardWidget";

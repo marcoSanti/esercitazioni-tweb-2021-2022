@@ -7,6 +7,10 @@
  * */
 header("Content-Type: text/javascript");
 
+//done to suppress ide warnings...
+$conn = null;
+$available_apis = null;
+
 if(!@require_once "config.php"){
     http_response_code(500);
     echo json_encode(Array("Error" => "Unable to include config file!"));

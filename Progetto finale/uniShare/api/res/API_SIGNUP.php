@@ -30,8 +30,19 @@ function signup(array $payload,PDO $conn){
         session_start();
         $_SESSION["username"] = filter_var($email, FILTER_VALIDATE_EMAIL);
 
-        echo json_encode(Array("Ok"=>"Inserted"));
     }catch (PDOException $e){
+        http_response_code(500);
+        echo json_encode(Array("Error"=>$e));
+        exit();
+    }
+
+    $query = "INSERT INTO dashboard (obj1, obj2, obj3, obj4, user) VALUES(0,1,2,3,:mail);";
+    try {
+        $stmt1 = $conn->prepare($query);
+        $stmt1->bindParam(":mail", $email, PDO::PARAM_STR);
+        $stmt1->execute();
+        echo json_encode(Array("Ok"=>"Inserted"));
+    }catch(PDOException $e){
         http_response_code(500);
         echo json_encode(Array("Error"=>$e));
         exit();

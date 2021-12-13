@@ -185,44 +185,18 @@ html{
 
 .widget-gradient-blue{
     color: white;
-    background: linear-gradient(to right, #0c7bb3, #f2bae8);
+    background: linear-gradient(to right, #0e5c83, #339aa9);
     border: none;
 }
-.widget-gradient-yellow{
-    color: white;
-    background: linear-gradient(to right, #fbb040, #f9ed32);
-    border: none;
-}
+
 .widget-gradient-orange{
     color: white;
     background: linear-gradient(to right, #ef4136, #fbb040);
     border: none;
 }
-.widget-gradient-purple{
-    color: white;
-    background: linear-gradient(to right, #cc22e0, #5ffae0);
-    border: none;
-
-}
-.widget-gradient-blood{
-    color: white;
-    background: linear-gradient(to right, #771d32, #e65758);
-    border: none;
-}
 .widget-gradient-green{
     color: white;
-    background: linear-gradient(to right, #849b5c, #bfffc7);
-    border: none;
-}
-
-.widget-gradient-ice{
-    color: white;
-    background: linear-gradient(to right, #9fa5d5, #e8f5c8);
-    border: none;
-}
-.widget-gradient-emerald{
-    color: white;
-    background: linear-gradient(to right, #067d68, #50d5b7);
+    background: linear-gradient(to right, #20560f, #3db300);
     border: none;
 }
 
@@ -275,10 +249,10 @@ html{
     margin-top: 1em;
 }
 
-#TemplateWidgetAdminIncomeExpenses .card-body, #AdminCashFlow .card-body {
+#TemplateWidgetAdminIncomeExpenses .card-body, #WidgetAdminCashFlow .card-body {
     font-size: 3em;
 }
 
-#TemplateWidgetAdminIncomeExpenses .card-body>i,  #AdminCashFlow .card-body>i{
+#TemplateWidgetAdminIncomeExpenses .card-body>i,  #WidgetAdminCashFlow .card-body>i{
     margin-left: 1em;
 }

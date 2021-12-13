@@ -5,10 +5,11 @@ include "navbar.php";
 <div class="carousel slide" data-ride="carousel">
     <div class="carousel-inner bg-dark" role="listbox">
         <div class="carousel-item active">
-            <div class="d-flex align-items-center justify-content-center min-vh-100" id="HomePageCarousel"></div>
-            <div class="input-group input-group-lg" id="HomePageSearchFormCarousel">
-                <input type="text" class="form-control" placeholder="Cerca per nome, scuola, autore ecc..." aria-describedby="basic-addon2">
-                <span class="btn btn-success" id="basic-addon2"><i class="fas fa-search"></i> Cerca</span>
+            <div class="d-flex align-items-center justify-content-center min-vh-100" id="HomePageCarousel">
+                <div class="input-group input-group-lg " id="HomePageSearchFormCarousel">
+                    <input type="text" class="form-control" placeholder="Cerca per nome, scuola, autore ecc..." aria-describedby="basic-addon2">
+                    <span class="btn btn-success" id="basic-addon2"><i class="fas fa-search"></i> Cerca</span>
+                </div>
             </div>
         </div>
     </div>
