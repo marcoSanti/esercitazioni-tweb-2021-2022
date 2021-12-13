@@ -12,7 +12,7 @@ include "navbar.php";
         <div id="ErrorRegisterDivContent">
         </div>
     </div>
-    <span class="px-4 py-3">
+    <div class="px-4 py-3">
         <div class="mb-3">
             <label for="InputNome" class="form-label">Nome</label>
             <input type="email" class="form-control" id="InputNome" placeholder="Nome">
@@ -35,7 +35,7 @@ include "navbar.php";
         </div>
 
         <div id="RegisterFormSubmit" class="btn btn-primary">Registrati</div>
-    </span>
+    </div>
 </div>
 
 

@@ -21,3 +21,6 @@ $available_apis["log_in_check"]["FUNC"] = "userIsLogged";
 
 $available_apis["user_type_get"]["FILE"] = "./res/API_GET_USER_TYPE.php";
 $available_apis["user_type_get"]["FUNC"] = "getUserType";
+
+$available_apis["user_info_get"]["FILE"] = "./res/API_GET_USER_INFO.php";
+$available_apis["user_info_get"]["FUNC"] = "getUserInfo";

@@ -25,7 +25,7 @@ include "navbar.php";
             <h6><button class="btn rounded-pill bg-primary widget-gradient-yellow" id="AddWidgetPurchase">Appunti acquistati</button>
             </h6>
             <!-- admin only widgets-->
-            <span class="admin-only">
+            <div class="adminOnly">
                 <hr>
                 <h6>
                     <button class="btn rounded-pill bg-primary widget-gradient-green" id="AdminAddUserList">Elenco utenti</button>
@@ -39,7 +39,7 @@ include "navbar.php";
                 <h6>
                     <button class="btn rounded-pill bg-primary widget-gradient-emerald" id="AdminAddAdminList">Elenco amministratori</button>
                 </h6>
-            </span>
+            </div>
         </div>
     </nav>
     <ul class="nav nav-tabs" id="UserPageNavTabs">
@@ -56,184 +56,127 @@ include "navbar.php";
             <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowUserEarnings">Riepilogo vendite</a>
         </li>
         <!--solo admins-->
-        <li class="nav-item">
-            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminUserList">Elenco utenti</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminCashflow">Cashflow</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminDocumentList">Elenco appunti</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminAdmins">Elenco amministratori</a>
-        </li>
+
+            <li class="nav-item adminOnly">
+            <a class="nav-link " href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminUserList">Elenco utenti</a>
+            </li>
+            <li class="nav-item adminOnly">
+                <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminCashflow">Cashflow</a>
+            </li>
+            <li class="nav-item adminOnly">
+                <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminDocumentList">Elenco appunti</a>
+            </li>
+            <li class="nav-item adminOnly">
+                <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminAdmins">Elenco amministratori</a>
+            </li>
+
 
     </ul>
     <div class="container" id="UserPageContainer">
-   <span id="WidgetViewBlock">
-      <div class="row">
-         <!-- linea delle opzioni-->
-         <h3>Dashboard
-            <button class="btn btn-secondary WidgedEditProfileButton" id="ToggleEditUserPage">Personalizza
-            aspetto</button>
-         </h3>
-      </div>
-      <div class="row">
-         <!-- linea dei widget-->
-         <div class="col widget-container" id="ContainerGrid1-1">
-            <div class="UserPageOverlay" id="overlay1-1"></div>
-            <span class="ContentsContainerGrid">
-               <div class="card widget emptyWidget" id="TemplateEmptyCard"></div>
-            </span>
-         </div>
-         <div class="col widget-container" id="ContainerGrid1-2">
-            <div class="UserPageOverlay" id="overlay1-2"></div>
-            <span class="ContentsContainerGrid">
-               <div class="card widget emptyWidget" id="TemplateEmptyCard"></div>
-            </span>
-         </div>
-      </div>
-      <div class="row">
-         <!-- seconda linea dei widget-->
-         <div class="col widget-container" id="ContainerGrid2-1">
-            <div class="UserPageOverlay" id="overlay2-1"></div>
-            <span class="ContentsContainerGrid">
-               <div class="card widget emptyWidget" id="TemplateEmptyCard"></div>
-            </span>
-         </div>
-         <div class="col widget-container" id="ContainerGrid2-2">
-            <div class="UserPageOverlay" id="overlay2-2"></div>
-            <span class="ContentsContainerGrid">
-               <div class="card widget emptyWidget" id="TemplateEmptyCard"></div>
-            </span>
-         </div>
-      </div>
-   </span>
-        <span id="UserProfileViewBlock" style="display: none">
-      <span class="px-4 py-3">
-         <div class="container" id="UserPageProfileView">
-            <div class="row">
-               <div class="col-2">
-                  <img src="src/media/user.svg">
-               </div>
-               <div class="col">
-                  <div class="mb-3">
-                     <label for="UserDataName" class="form-label">Nome</label>
-                     <input type="text" class="form-control" id="UserDataName" placeholder="email@example.com">
-                  </div>
-                  <div class="mb-3">
-                     <label for="UserDataSurname" class="form-label">Cognome</label>
-                     <input type="text" class="form-control" id="UserDataSurname"
-                            placeholder="email@example.com">
-                  </div>
-                  <div class="mb-3">
-                     <label for="UserDataMail" class="form-label">Email</label>
-                     <input type="email" class="form-control" id="UserDataMail" placeholder="email@example.com">
-                  </div>
-                  <button type="submit" class="btn btn-primary" id="UserDataEditValues">Modifica i dati</button>
-               </div>
-            </div>
-         </div>
-      </span>
-   </span>
-    <span id="UserPurchaseViewBlock" style="display: none">
-      <h4>
-         Elenco appunti acquistati
-         <button class="btn btn-outline-primary dropdown-toggle WidgedEditProfileButton" type="button" data-bs-toggle="dropdown" aria-expanded="false">Azioni</button>
-         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Apri</a></li>
-            <li><a class="dropdown-item" href="#">Nascondi dalla lista</a></li>
-            <li>
-               <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Elimina</a></li>
-         </ul>
-      </h4>
-      <hr>
-      <div class="list-group">
-         <label class="list-group-item">
-         <input class="form-check-input me-1" type="checkbox" value="">
-         Appunto test di pippo caio sempronio
-            <div class="btn-group WidgedEditProfileButton" role="group">
-              <button type="button" class="btn btn-outline-success">Mostra</button>
-              <button type="button" class="btn btn-outline-danger">Elimina</button>
-            </div>
-         </label>
+        <div class="neutralTag" id="WidgetViewBlock">
+          <div class="row">
+             <!-- linea delle opzioni-->
+             <h3>Dashboard
+                <button class="btn btn-secondary WidgedEditProfileButton" id="ToggleEditUserPage">Personalizza aspetto</button>
+             </h3>
+          </div>
+          <div class="row">
+             <!-- linea dei widget-->
+             <div class="col widget-container" id="ContainerGrid1-1">
+                <div class="UserPageOverlay" id="overlay1-1"></div>
+                <div class="neutralTag ContentsContainerGrid">
+                   <div class="card widget emptyWidget" ></div>
+                </div>
+             </div>
+             <div class="col widget-container" id="ContainerGrid1-2">
+                <div class="UserPageOverlay" id="overlay1-2"></div>
+                <div class="neutralTag ContentsContainerGrid">
+                   <div class="card widget emptyWidget" ></div>
+                </div>
+             </div>
+          </div>
+          <div class="row">
+             <!-- seconda linea dei widget-->
+             <div class="col widget-container" id="ContainerGrid2-1">
+                <div class="UserPageOverlay" id="overlay2-1"></div>
+                <div class="neutralTag ContentsContainerGrid">
+                   <div class="card widget emptyWidget"></div>
+                </div>
+             </div>
+             <div class="col widget-container" id="ContainerGrid2-2">
+                <div class="UserPageOverlay" id="overlay2-2"></div>
+                <div class="neutralTag ContentsContainerGrid">
+                   <div class="card widget emptyWidget"></div>
+                </div>
+             </div>
+          </div>
+       </div>
+        <!-- Linea delle pagine da mostrare -->
+        <div class="neutralTag" id="UserProfileViewBlock" style="display: none">
+          <div class="px-4 py-3">
+             <div class="container" id="UserPageProfileView">
+                <div class="row">
+                   <div class="col-2">
+                      <img src="src/media/user.svg" alt="userPic">
+                   </div>
+                   <div class="col">
+                      <div class="mb-3">
+                         <label for="UserDataName" class="form-label">Nome</label>
+                         <input type="text" class="form-control" id="UserDataName" placeholder="Nome">
+                      </div>
+                      <div class="mb-3">
+                         <label for="UserDataSurname" class="form-label">Cognome</label>
+                         <input type="text" class="form-control" id="UserDataSurname" placeholder="Cognome">
+                      </div>
+                      <div class="mb-3">
+                         <label for="UserDataMail" class="form-label">Email</label>
+                         <input type="email" class="form-control" id="UserDataMail" placeholder="email@example.com">
+                      </div>
+                      <button type="submit" class="btn btn-primary" id="UserDataEditValues">Modifica i dati</button>
+                   </div>
+                </div>
+             </div>
+          </div>
+       </div>
+        <div class="neutralTag" id="UserPurchaseViewBlock" style="display: none">
+          <h4>
+             Elenco appunti acquistati
+          </h4>
+          <hr>
+       </div>
+        <div class="neutralTag" id="UserSellingsViewBlock" style="display: none">
+           <h4>
+                 Elenco appunti in vendita
+              </h4>
+              <hr>
+       </div>
+        <div id="AdminUserList" class="neutralTag adminOnly" style="display: none">
+            <h4>
+               Elenco utenti sito
+            </h4>
+            <hr>
 
-          <label class="list-group-item">
-         <input class="form-check-input me-1" type="checkbox" value="">
-         Appunto test di pippo caio sempronio
-            <div class="btn-group WidgedEditProfileButton" role="group">
-              <button type="button" class="btn btn-outline-success">Mostra</button>
-              <button type="button" class="btn btn-outline-danger">Elimina</button>
-            </div>
-         </label>
+         </div>
+        <div id="AdminAdminList" class="neutralTag adminOnly" style="display: none">
+            <h4>
+               Elenco amministratori sito
+            </h4>
+            <hr>
 
-          <label class="list-group-item">
-         <input class="form-check-input me-1" type="checkbox" value="">
-         Appunto test di pippo caio sempronio
-            <div class="btn-group WidgedEditProfileButton" role="group">
-              <button type="button" class="btn btn-outline-success">Mostra</button>
-              <button type="button" class="btn btn-outline-danger">Elimina</button>
-            </div>
-         </label>
+        </div>
+        <div id="AdminDocumentList" class="neutralTag adminOnly" style="display: none">
+            <h4>
+               Elenco documenti caricati sul sito
+            </h4>
+            <hr>
 
-          <label class="list-group-item">
-         <input class="form-check-input me-1" type="checkbox" value="">
-         Appunto test di pippo caio sempronio
-            <div class="btn-group WidgedEditProfileButton" role="group">
-              <button type="button" class="btn btn-outline-success">Mostra</button>
-              <button type="button" class="btn btn-outline-danger">Elimina</button>
-            </div>
-         </label>
-      </div>
-      <nav aria-label="Navigazione appunti" class="UserPageNavigator">
-         <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-         </ul>
-      </nav>
-   </span>
-        <span id="UserSellingsViewBlock" style="display: none">
-   <h4>
-         Elenco appunti in vendita
-         <button class="btn btn-outline-primary dropdown-toggle WidgedEditProfileButton" type="button" data-bs-toggle="dropdown" aria-expanded="false">Azioni</button>
-         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Apri</a></li>
-            <li><a class="dropdown-item" href="#">Nascondi dalla lista</a></li>
-            <li>
-               <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Elimina</a></li>
-         </ul>
-      </h4>
-      <hr>
-      <div class="list-group">
-         <label class="list-group-item">
-         <input class="form-check-input me-1" type="checkbox" value="">
-         Appunto in vendita che ha ricavato xyz€
-            <div class="btn-group WidgedEditProfileButton" role="group">
-              <button type="button" class="btn btn-outline-success">Mostra</button>
-              <button type="button" class="btn btn-outline-danger">Rimuovi appunto</button>
-            </div>
-         </label>
-
-
-      </div>
-      <nav aria-label="Navigazione appunti" class="UserPageNavigator">
-         <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-         </ul>
-      </nav>
-   </span>
+        </div>
+        <div id="AdminCashFlow" class="neutralTag adminOnly" style="display: none">
+            <h4>
+               CashFlow Ultimo mese
+            </h4>
+            <hr>
+        </div>
     </div>
     <div id="templates" style="display: none">
         <div class="card widget widget-gradient-purple" id="TemplateWidgetEarnings">
@@ -358,10 +301,6 @@ include "navbar.php";
                 </ul>
             </div>
         </div>
-
-
-
-
         <div class="card widget emptyWidget" id="TemplateEmptyCard"></div>
     </div>
 <?php

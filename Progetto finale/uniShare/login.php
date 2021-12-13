@@ -11,7 +11,7 @@ include "navbar.php";
         <div id="ErrorLoginDivContent">
         </div>
     </div>
-    <span class="px-4 py-3">
+    <div class="px-4 py-3">
         <div class="mb-3">
             <label for="LoginEmail" class="form-label">Email</label>
             <input type="email" class="form-control" id="LoginEmail" name="mail" placeholder="email@example.com">
@@ -24,7 +24,7 @@ include "navbar.php";
 
         </div>
         <div id="loginButton" class="btn btn-primary">Accedi</div>
-    </span>
+    </div>
 
 </form>
 

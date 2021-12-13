@@ -35,59 +35,59 @@ include "navbar.php";
         <div class="row g-2">
             <div class="col-md">
                 <div class="form-floating">
-                    <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                    <select class="form-select"  aria-label="Floating label select example">
                         <option selected>Seleziona</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
                     </select>
-                    <label for="floatingSelectGrid">Universit&agrave;</label>
+                    <label>Universit&agrave;</label>
                 </div>
             </div>
             <div class="col-md">
                 <div class="form-floating">
-                    <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                    <select class="form-select"  aria-label="Floating label select example">
                         <option selected>Seleziona</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
                     </select>
-                    <label for="floatingSelectGrid">Seleziona il corso di studi</label>
+                    <label>Seleziona il corso di studi</label>
                 </div>
             </div>
             <div class="col-md">
                 <div class="form-floating">
-                    <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                    <select class="form-select"  aria-label="Floating label select example">
                         <option selected>Seleziona</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
                     </select>
-                    <label for="floatingSelectGrid">Seleziona l'anno</label>
+                    <label>Seleziona l'anno</label>
                 </div>
             </div>
         </div>
         <div class="row g-2">
             <div class="col-md">
                 <div class="form-floating">
-                    <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                    <select class="form-select"  aria-label="Floating label select example">
                         <option selected>Seleziona</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
                     </select>
-                    <label for="floatingSelectGrid">Seleziona l'insegnamento</label>
+                    <label>Seleziona l'insegnamento</label>
                 </div>
             </div>
             <div class="col-md">
                 <div class="form-floating">
-                    <select class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
+                    <select class="form-select"  aria-label="Floating label select example">
                         <option selected>Seleziona</option>
                         <option value="1">Temi di esame</option>
                         <option value="2">Appunti lezioni</option>
                         <option value="3">Esercitazioni</option>
                     </select>
-                    <label for="floatingSelectGrid">Seleziona il tipo di appunti</label>
+                    <label>Seleziona il tipo di appunti</label>
                 </div>
             </div>
         </div>
@@ -97,7 +97,7 @@ include "navbar.php";
                 <label for="floatingInput">Nome del docente</label>
             </div>
         </div>
-        <span id="FileUploadAppuntiBlock">
+        <div class="neutralTag" id="FileUploadAppuntiBlock">
               <hr>
             <h5>Carica il file degli appunti in formato .pdf</h5>
             <div class="row g-2">
@@ -106,7 +106,7 @@ include "navbar.php";
                     <label class="input-group-text" for="inputGroupFile02">Carica gli appunti</label>
                 </div>
             </div>
-        </span>
+        </div>
         <hr>
         <div class="row g-2">
             <div class="col"><a href="./upload.php" class="btn btn-danger">Annulla</a></div>
@@ -121,18 +121,18 @@ include "navbar.php";
         <div class="row">
             <div class="col-md">
                 <div class="form-floating">
-                    <input type="date" class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
-                    <label for="floatingSelectGrid">Data</label>
+                    <input type="date" class="form-select"  aria-label="Floating label select example">
+                    <label>Data</label>
                 </div>
             </div>
             <div class="col-md">
                 <div class="form-floating">
-                    <input type="time" class="form-select" id="floatingSelectGrid" aria-label="Floating label select example">
-                    <label for="floatingSelectGrid">Ora</label>
+                    <input type="time" class="form-select"  aria-label="Floating label select example">
+                    <label>Ora</label>
                 </div>
             </div>
         </div>
-        <span style="margin-top: 1em"></span>
+        <div class="neutralTag" style="margin-top: 1em"></div>
         <h4>Recati al punto di ritiro nella data selezionata!</h4>
         <hr>
         <div class="row">
@@ -155,7 +155,21 @@ include "navbar.php";
     </div>
 
 
+    <div class="row PageContent centeredDiv UploadAppunti" id="LoginUploadAppunti" style="display: none">
+        <h3>Attenzione! per usare il servizio è necessario avere effettuato l'accesso!</h3>
 
+        <div class="row">
+
+            <div class="col">
+                <a href ="./login.php" class="btn btn-primary UploadBtnRegisterLogin">Accedi</a>
+            </div>
+            <div class="col">
+                <a href ="./register.php" class="btn btn-primary UploadBtnRegisterLogin" >Registrati</a>
+            </div>
+        </div>
+
+
+    </div>
 
 <?PHP
 include "footer.html";

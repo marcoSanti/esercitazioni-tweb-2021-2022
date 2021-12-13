@@ -34,51 +34,51 @@ function widgetMouseButtonUp(event) {
 
     if(elementToAdd === "AddWidgetProfileInfo" && lastPosition){
 
-        $("#WidgetEarnings").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        $("#WidgetAccountInfo").replaceWith($("#TemplateEmptyCard").clone().attr("id", "EmptyCard"+Math.random())); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget= $("#TemplateAccountWidget");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetAccountInfo'));
 
 
     }else if(elementToAdd === "AddWidgetEarnings" && lastPosition){
 
-        $("#WidgetEarnings").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        $("#WidgetEarnings").replaceWith($("#TemplateEmptyCard").clone().attr("id", "EmptyCard"+Math.random())); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetEarnings");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetEarnings'));
         updateEarningsGraph();
 
     }else if(elementToAdd === "AddWidgetExpenses" && lastPosition){
 
-        $("#WidgetExpenses").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        $("#WidgetExpenses").replaceWith($("#TemplateEmptyCard").clone().attr("id", "EmptyCard"+Math.random())); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetExpenses");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetExpenses'));
         updateExpensesGraph();
 
     }else if(elementToAdd === "AddWidgetPurchase" && lastPosition){
 
-        $("#WidgetPurchase").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        $("#WidgetPurchase").replaceWith($("#TemplateEmptyCard").clone().attr("id", "EmptyCard"+Math.random())); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetPurchase");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetPurchase'));
 
     }else if(elementToAdd === "AdminAddUserList" && lastPosition){
 
-        $("#AdminUserList").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        $("#AdminUserList").replaceWith($("#TemplateEmptyCard").clone().attr("id", "EmptyCard"+Math.random())); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetAdminUsers");
         replacementContainer.html(replacementWidget.clone().attr('id', 'AdminUserList'));
 
     }else if(elementToAdd === "AdminAddCashFlow" && lastPosition){
 
-        $("#AdminCashFlow").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        $("#AdminCashFlow").replaceWith($("#TemplateEmptyCard").clone().attr("id", "EmptyCard"+Math.random())); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetAdminIncomeExpenses");
         replacementContainer.html(replacementWidget.clone().attr('id', 'AdminCashFlow'));
 
     }else if(elementToAdd === "AdminAddDocumentList" && lastPosition){
 
-        $("#WidgetDocumentList").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        $("#WidgetDocumentList").replaceWith($("#TemplateEmptyCard").clone().attr("id", "EmptyCard"+Math.random())); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetAdminDocuments");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetDocumentList'));
 
     }else if(elementToAdd === "AdminAddAdminList" && lastPosition){
-        $("#WidgetAdminList").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
+        $("#WidgetAdminList").replaceWith($("#TemplateEmptyCard").clone().attr("id", "EmptyCard"+Math.random())); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetAdminAdmins");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetAdminList'));
     }
@@ -240,15 +240,55 @@ function ClearUserPageViewBlock(){
     $("#UserPurchaseViewBlock").fadeOut(10);
     $("#UserSellingsViewBlock").fadeOut(10);
     $("#WidgetViewBlock").fadeOut(10);
+    $("#AdminUserList").fadeOut(10);
+    $("#AdminCashFlow").fadeOut(10);
+    $("#AdminAdminList").fadeOut(10);
+    $("#AdminDocumentList").fadeOut(10);
+
     $("#TabShowDashboard").removeClass("active");
     $("#TabShowUserPurchase").removeClass("active");
     $("#TabShowUserProfile").removeClass("active");
     $("#TabShowUserEarnings").removeClass("active");
+    $("#TabShowAdminUserList").removeClass("active");
+    $("#TabShowAdminAdmins").removeClass("active");
+    $("#TabShowAdminCashflow").removeClass("active");
+    $("#TabShowAdminDocumentList").removeClass("active");
+}
 
+function checkUserType(){
+    $.ajax("./api/index.php",{
+        data: JSON.stringify({"api" : "user_type_get", "payload" : [] }) ,
+        type: 'POST',
+        processData: false,
+        contentType: 'application/json',
+        dataType:'json',
+        success: function (data){
+            if(data["UserType"]==="USER"){
+               $(".adminOnly").remove();
+            }
+        }
+    });
 }
 
 
+function LoadUserPageDetails(){
+    $.ajax("./api/index.php",{
+        data: JSON.stringify({"api" : "user_info_get", "payload" : [] }) ,
+        type: 'POST',
+        processData: false,
+        contentType: 'application/json',
+        dataType:'json',
+        success: function (data){
+            $("#UserDataName").val(data["Name"]);
+            $("#UserDataSurname").val(data["Surname"]);
+            $("#UserDataMail").val(data["email"]);
+
+        }
+    });
+}
+
 $(function (){
+    checkUserType();
     $("#ToggleEditUserPage").click(toggleEditPageMenu);
     $("#AddWidgetProfileInfo").on({
         mousedown: widgetMouseButtonDown,
@@ -301,6 +341,7 @@ $(function (){
         ClearUserPageViewBlock();
         $("#UserProfileViewBlock").fadeIn(10);
         $("#TabShowUserProfile").addClass("active");
+        LoadUserPageDetails();
     });
 
     $("#TabShowUserPurchase").click(function(){
@@ -313,6 +354,30 @@ $(function (){
         ClearUserPageViewBlock();
         $("#UserSellingsViewBlock").fadeIn(10);
         $("#TabShowUserEarnings").addClass("active");
+    });
+
+    $("#TabShowAdminUserList").click(function(){
+        ClearUserPageViewBlock();
+        $("#AdminUserList").fadeIn(10);
+        $("#TabShowAdminUserList").addClass("active");
+    });
+
+    $("#TabShowAdminCashflow").click(function(){
+        ClearUserPageViewBlock();
+        $("#AdminCashFlow").fadeIn(10);
+        $("#TabShowAdminCashflow").addClass("active");
+    });
+
+    $("#TabShowAdminDocumentList").click(function(){
+        ClearUserPageViewBlock();
+        $("#AdminDocumentList").fadeIn(10);
+        $("#TabShowAdminDocumentList").addClass("active");
+    });
+
+    $("#TabShowAdminAdmins").click(function(){
+        ClearUserPageViewBlock();
+        $("#AdminAdminList").fadeIn(10);
+        $("#TabShowAdminAdmins").addClass("active");
     });
 
 

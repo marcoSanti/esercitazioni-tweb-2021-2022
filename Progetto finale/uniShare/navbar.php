@@ -24,23 +24,19 @@
 
 
             </ul>
-            <span class="d-flex">
-                <span class="nav-item dropdown">
+            <div class="d-flex">
+                <div class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Area utente
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <span id="NavBarNotLoggedOnly">
-                            <li><a class="dropdown-item" href="./login.php">Accedi</a></li>
-                            <li><a class="dropdown-item" href="./register.php">Registrati</a></li>
-                        </span>
-                       <span id="NavBarLoggedOnly">
-                            <li><a class="dropdown-item" href="./user.php">Profilo</a></li>
-                            <li><span class="dropdown-item" id="ButtonEsciNavbar">Esci</span></li>
-                       </span>
-                    </ul>
-                </span>
-            </span>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item NavBarNotLoggedOnly" href="./login.php">Accedi</a></li>
+                            <li><a class="dropdown-item NavBarNotLoggedOnly" href="./register.php">Registrati</a></li>
+                            <li><a class="dropdown-item NavBarLoggedOnly" href="./user.php">Profilo</a></li>
+                            <li><span class="dropdown-item NavBarLoggedOnly" id="ButtonEsciNavbar">Esci</span></li>
+                       </ul>
+                </div>
+            </div>
         </div>
     </div>
 </nav>

@@ -34,7 +34,7 @@ function login(){
         dataType:'json',
         success: function (data){
             if(data["Ok"]!==undefined){
-                window.location.href="./";
+                window.location.href="./user.php";
             }else{
                 $("#ErrorLoginDivContent").html(data["Error"]);
                 $("#ErrorLoginDiv").fadeIn();

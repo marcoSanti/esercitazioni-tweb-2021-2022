@@ -3,6 +3,12 @@ html{
     margin-bottom: 11em;
 }
 
+/*css usato per elemento assolutamente neutro della pagina.
+è come avere un tag "invisibile*/
+.neutralTag{
+    all: unset;
+}
+
 #HomePageCarousel{
     background:linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../media/homeBg.jpg");
     background-size: cover;
@@ -95,6 +101,12 @@ html{
     position: relative;
     float: left;
 }
+
+.UploadBtnRegisterLogin{
+    width: 100% !important;
+    margin: 4em 10px 4em 0px;
+}
+
 
 .map-container{
     overflow:hidden;

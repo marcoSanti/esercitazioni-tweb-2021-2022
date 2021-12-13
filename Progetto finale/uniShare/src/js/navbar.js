@@ -1,4 +1,7 @@
 
+/*
+* questa funzione verifica il login e modifica l'aspetto della pagina di conseguenza
+* */
 function checkLogin(){
     $.ajax("./api/index.php",{
         data: JSON.stringify({"api" : "log_in_check", "payload" : [] }),
@@ -7,13 +10,14 @@ function checkLogin(){
         contentType: 'application/json',
         dataType:'json',
         success: function (data){
-            if(data["Status"] === "logged"){
-                $("#NavBarNotLoggedOnly").remove();
+            if( data["Status"] === "logged"){
+                $(".NavBarNotLoggedOnly").remove();
             }else{
-                $("#NavBarLoggedOnly").remove();
+                $(".NavBarLoggedOnly").remove();
             }
         }
     });
+
 }
 
 function logout(){

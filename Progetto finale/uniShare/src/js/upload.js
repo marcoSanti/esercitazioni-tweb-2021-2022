@@ -29,6 +29,22 @@ function done(){
 
 
 $(function(){
+    //se utente non è loggato mostro un div che dice che devi esser loggato!
+    $.ajax("./api/index.php",{
+        data: JSON.stringify({"api" : "log_in_check", "payload" : [] }),
+        type: 'POST',
+        processData: false,
+        contentType: 'application/json',
+        dataType:'json',
+        success: function (data){
+            if( data["Status"] !== "logged"){
+                $("#UploadAppunti0").css("display", "none");
+                $("#LoginUploadAppunti").fadeIn();
+            }
+        }
+    });
+
+
     $("#UploadAppunti0").fadeIn(300);
 
     $("#UploadDigitalNotes").click(function(){
