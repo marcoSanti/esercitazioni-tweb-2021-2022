@@ -423,6 +423,31 @@ function LoadDashboardWidgets(){
     });
 }
 
+function editUserInformations(){
+    var name = $("#UserDataName").val();
+    var surname = $("#UserDataSurname").val();
+
+    if(name==="" || surname===""){
+        return;
+    }
+
+    $.ajax("./api/index.php",{
+        data: JSON.stringify({"api" : "update_user_info", "payload" : {"name": name, "surname":surname} }) ,
+        type: 'POST',
+        processData: false,
+        contentType: 'application/json',
+        dataType:'json',
+        success: function (data){
+          if(data["Ok"]!==undefined){
+              $("#UserDataUpdateSuccessDiv").fadeIn();
+          }else{
+              $("#UserDataUpdateErrorDiv").fadeIn();
+          }
+        }
+    });
+
+}
+
 
 $(function (){
 
@@ -515,6 +540,10 @@ $(function (){
         ClearUserPageViewBlock();
         $("#AdminAdminList").fadeIn(10);
         $("#TabShowAdminAdmins").addClass("active");
+    });
+
+    $("#UserDataEditValues").click(function(){
+            editUserInformations();
     });
 
     //loading page contents

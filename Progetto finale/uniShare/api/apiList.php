@@ -30,6 +30,15 @@ $available_apis["user_info_get"]["FUNC"] = "getUserInfo";
 $available_apis["user_dashboard_get"]["FILE"] = "./res/API_GET_USER_DASHBOARD.php";
 $available_apis["user_dashboard_get"]["FUNC"] = "getUserDashboard";
 
+$available_apis["get_university_list"]["FILE"] = "./res/API_GET_UNIVERSITA.php";
+$available_apis["get_university_list"]["FUNC"] = "apiElencaUniversita";
+
+$available_apis["get_teaching_list"]["FILE"] = "./res/API_GET_INSEGNAMENTI.php";
+$available_apis["get_teaching_list"]["FUNC"] = "apiElencaInsegnamenti";
+
 /*SET APIS*/
 $available_apis["user_widget_pos_set"]["FILE"] = "./res/API_SET_DASHBOARD_WIDGET.php";
 $available_apis["user_widget_pos_set"]["FUNC"] = "setDashboardWidget";
+
+$available_apis["update_user_info"]["FILE"] = "./res/API_SET_USER_DATA.php";
+$available_apis["update_user_info"]["FUNC"] = "updateUserInformation";

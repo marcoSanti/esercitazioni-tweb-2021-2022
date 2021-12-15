@@ -117,6 +117,16 @@ include "navbar.php";
         <div class="neutralTag" id="UserProfileViewBlock" style="display: none">
           <div class="px-4 py-3">
              <div class="container" id="UserPageProfileView">
+                 <div class="row">
+                     <div class="alert alert-success alert-dismissible fade show" role="alert" id="UserDataUpdateSuccessDiv" style="display: none">
+                         Dati aggiornati con successo.
+                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                     </div>
+                     <div class="alert alert-danger alert-dismissible fade show" role="alert" id="UserDataUpdateErrorDiv" style="display: none">
+                         Errore durante l'aggiornamento dei dati!
+                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                     </div>
+                 </div>
                 <div class="row">
                    <div class="col-2">
                       <img src="src/media/user.svg" alt="userPic">
@@ -132,9 +142,10 @@ include "navbar.php";
                       </div>
                       <div class="mb-3">
                          <label for="UserDataMail" class="form-label">Email</label>
-                         <input type="email" class="form-control" id="UserDataMail" placeholder="email@example.com">
+                         <input type="email" class="form-control" id="UserDataMail" placeholder="email@example.com" disabled>
                       </div>
-                      <button type="submit" class="btn btn-primary" id="UserDataEditValues">Modifica i dati</button>
+                      <button class="btn btn-primary" id="UserDataEditValues">Aggiorna i dati</button>
+                      <button class="btn btn-warning" id="UserDataEditPassword">Modifica la password</button>
                    </div>
                 </div>
              </div>

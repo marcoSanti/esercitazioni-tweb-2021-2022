@@ -1,35 +1,77 @@
-var notesAreDigital = false;
 
-function showStep2(){
-    if(!notesAreDigital){
-        $("#FileUploadAppuntiBlock").remove();
-    }
-    $("#UploadAppunti0").hide("slide",{direction : "left"}, 300, function (){
-        $("#UploadAppunti1").fadeIn(200);
-    });
+function uploadData(){
+    //upload dei dati
+    var universita = $("#UploadNoteUniversita").val();
+    var annoCorso = $("#UploadNoteAnnoCorso").val();
+    var insegnamento = $("#UploadNoteInsegnamento").val();
+    var tipoDiAppunti = $("#UploadNoteTipoAppunti").val();
+    var titoloAppunti = $("#UploadNoteNomeAppunti").val();
+    var nomeDelDocente = $("#UploadNoteNomeDocente").val();
+    var file = $("#UploadNoteFile")[0].files[0];
 
-}
+    var form = new FormData();
+    form.append("universita", universita);
+    form.append("titoloAppunti", titoloAppunti);
+    form.append("annoCorso", annoCorso);
+    form.append("insegnamento",insegnamento);
+    form.append("tipoDiAppunti",tipoDiAppunti);
+    form.append("nomeDelDocente", nomeDelDocente);
+    form.append("uploadFile",file);
 
-function showStep3(){
-    $("#UploadAppunti1").hide("slide",{direction : "left"}, 300, function (){
-        if(!notesAreDigital){
-            $("#UploadAppunti2").fadeIn(200);
-        }else{
-            done();
+    $.ajax({
+        url: 'api/ApiUpload.php',
+        type: 'post',
+        data: form,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function(data){
+           if(data["Ok"]!== undefined){
+               $("#UploadAppunti").hide("slide",{direction : "left"}, 300, function (){
+                    $("#UploadAppuntiFinish").fadeIn();
+               });
+           }else{
+               console.log(data);
+           }
         }
     });
+
+
 }
 
-function done(){
-    //upload dei dati
-    $("#UploadAppunti2").hide("slide",{direction : "left"}, 300, function (){
-        $("#UploadAppunti3").fadeIn(200);
+
+function loadPageDefaults(){
+    $.ajax("./api/index.php",{
+        data: JSON.stringify({"api" : "get_university_list", "payload" : [] }),
+        type: 'POST',
+        processData: false,
+        contentType: 'application/json',
+        dataType:'json',
+        success: function (data){
+           $.each(data, function(index, item){
+                $("#UniversitaDataList").append("<option>" + item["item"] + "</option>");
+           });
+        }
+    });
+
+
+    $.ajax("./api/index.php",{
+        data: JSON.stringify({"api" : "get_teaching_list", "payload" : [] }),
+        type: 'POST',
+        processData: false,
+        contentType: 'application/json',
+        dataType:'json',
+        success: function (data){
+            $.each(data, function(index, item){
+                $("#InsegnamentoDatalist").append("<option>" + item["item"] + "</option>");
+            });
+        }
     });
 }
 
 
 $(function(){
-    //se utente non è loggato mostro un div che dice che devi esser loggato!
+    //se utente non è loggato faccio un redirect a login
     $.ajax("./api/index.php",{
         data: JSON.stringify({"api" : "log_in_check", "payload" : [] }),
         type: 'POST',
@@ -38,25 +80,13 @@ $(function(){
         dataType:'json',
         success: function (data){
             if( data["Status"] !== "logged"){
-                $("#UploadAppunti0").css("display", "none");
-                $("#LoginUploadAppunti").fadeIn();
+               window.location.href = "./login.php";
+            }else{
+                $("#caricaDatiBtn").click(uploadData);
             }
         }
     });
 
+    loadPageDefaults();
 
-    $("#UploadAppunti0").fadeIn(300);
-
-    $("#UploadDigitalNotes").click(function(){
-        notesAreDigital = true;
-        showStep2();
-    });
-
-    $("#UploadPaperNotes").click(function(){
-        notesAreDigital = false;
-        showStep2();
-    });
-
-    $("#Continua1").click(showStep3);
-    $("#Continua2").click(done);
 })

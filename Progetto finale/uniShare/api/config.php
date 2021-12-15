@@ -4,6 +4,7 @@ $port = 3306;
 $dbname = "UniShare";
 $dbUser = "root";
 $dbPass = "";
+
 try{
     $conn = new PDO("mysql:dbname=$dbname;host=$host:$port", $dbUser, $dbPass);
 }catch(PDOException $e){
@@ -11,3 +12,5 @@ try{
     echo json_encode($e);
     exit();
 }
+
+?>
