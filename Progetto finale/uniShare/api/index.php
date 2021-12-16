@@ -34,6 +34,7 @@ switch($_SERVER["REQUEST_METHOD"]){
         $api_request = $input["api"];
         $payload = $input["payload"];
 
+
         if(!array_key_exists($api_request, $available_apis)){
             http_response_code(400);
             json_encode(Array("Error"=>"No api found!"));

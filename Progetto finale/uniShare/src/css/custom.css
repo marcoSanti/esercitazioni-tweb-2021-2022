@@ -60,9 +60,14 @@ html{
     width: 18rem;
 }
 
-.card > img{
-    margin-top: 1em;
-    border-radius: 3px;
+.cardAppuntoVendita{
+    width: 95%;
+}
+
+.btn-buy-appunto{
+    width: 90%;
+    height: 90%;
+    vertical-align: middle;
 }
 
 #SearchPageCardBox{

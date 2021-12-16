@@ -36,9 +36,18 @@ $available_apis["get_university_list"]["FUNC"] = "apiElencaUniversita";
 $available_apis["get_teaching_list"]["FILE"] = "./res/API_GET_INSEGNAMENTI.php";
 $available_apis["get_teaching_list"]["FUNC"] = "apiElencaInsegnamenti";
 
+$available_apis["get_notes"]["FILE"] = "./res/API_SEARCH_DOCUMENTS.php";
+$available_apis["get_notes"]["FUNC"] = "ApiSearchNotes";
+
+$available_apis["get_bought_notes"]["FILE"] = "./res/API_GET_ACQUIRED_NOTES.php";
+$available_apis["get_bought_notes"]["FUNC"] = "getBoughtNotes";
+
 /*SET APIS*/
 $available_apis["user_widget_pos_set"]["FILE"] = "./res/API_SET_DASHBOARD_WIDGET.php";
 $available_apis["user_widget_pos_set"]["FUNC"] = "setDashboardWidget";
 
 $available_apis["update_user_info"]["FILE"] = "./res/API_SET_USER_DATA.php";
 $available_apis["update_user_info"]["FUNC"] = "updateUserInformation";
+
+$available_apis["add_bought_item"]["FILE"] = "./res/API_BUY.php";
+$available_apis["add_bought_item"]["FUNC"] = "buy";

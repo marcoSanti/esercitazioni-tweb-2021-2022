@@ -10,7 +10,7 @@ include "navbar.php";
         <div class="row g-2">
             <div class="col-md">
                 <div class="form-floating">
-                    <input class="form-select"  list="UniversitaDataList" aria-label="Floating label select example" id="UploadNoteUniversita">
+                    <input type="text" class="form-select"  list="UniversitaDataList" aria-label="Floating label select example" id="UploadNoteUniversita" required>
                     <datalist id="UniversitaDataList">
                     </datalist>
                     <label>Universit&agrave;</label>
@@ -18,8 +18,7 @@ include "navbar.php";
             </div>
             <div class="col-md">
                 <div class="form-floating">
-                    <input class="form-select" list="InsegnamentoDatalist" aria-label="Floating label select example" id="UploadNoteInsegnamento">
-
+                    <input type="text" class="form-select" list="InsegnamentoDatalist" aria-label="Floating label select example" id="UploadNoteInsegnamento" required>
                     <datalist id="InsegnamentoDatalist">
                     </datalist>
                     <label>Seleziona l'insegnamento</label>
@@ -28,8 +27,7 @@ include "navbar.php";
             </div>
             <div class="col-md">
                 <div class="form-floating">
-                    <select class="form-select"  aria-label="Floating label select example" id="UploadNoteAnnoCorso">
-                        <option selected>Seleziona</option>
+                    <select class="form-select"  aria-label="Floating label select example" id="UploadNoteAnnoCorso" required>
                         <option value="1">Primo</option>
                         <option value="2">Secondo</option>
                         <option value="3">Terzo</option>
@@ -45,34 +43,33 @@ include "navbar.php";
         <div class="row g-2">
             <div class="col-md">
                 <div class="form-floating">
-                    <input type="text" class="form-control" id="UploadNoteNomeDocente" placeholder="Nome del docente">
+                    <input type="text" class="form-control" id="UploadNoteNomeDocente" placeholder="Nome del docente" required>
                     <label for="UploadNoteNomeDocente">Nome del docente</label>
                 </div>
             </div>
             <div class="col-md">
                 <div class="form-floating">
-                    <select class="form-select"  aria-label="Floating label select example" id="UploadNoteTipoAppunti">
-                        <option selected>Seleziona</option>
+                    <select class="form-select"  aria-label="Floating label select example" id="UploadNoteTipoAppunti" required>
+
                         <option value="1">Temi di esame</option>
                         <option value="2">Appunti lezioni</option>
                         <option value="3">Esercitazioni</option>
                     </select>
-
                     <label>Seleziona il tipo di appunti</label>
                 </div>
             </div>
         </div>
         <div class="row g-2">
             <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="UploadNoteNomeAppunti" placeholder="Nome del docente">
-                <label for="UploadNoteNomeDocente">Titolo appunti</label>
+                <input type="text" class="form-control" id="UploadNoteNomeAppunti" placeholder="Nome del docente" required>
+                <label for="UploadNoteNomeAppunti">Titolo appunti</label>
             </div>
         </div>
         <div class="neutralTag" id="FileUploadAppuntiBlock">
             <div class="row g-2">
                 <div class="mb-3">
                     <label for="UploadNoteFile" class="form-label">Carica il file degli appunti in formato .pdf</label>
-                    <input class="form-control" type="file" id="UploadNoteFile">
+                    <input class="form-control" type="file" id="UploadNoteFile" required>
                 </div>
             </div>
         </div>
@@ -82,7 +79,6 @@ include "navbar.php";
             <div class="col"> <button class="btn btn-success" id="caricaDatiBtn">Avanti</button></div>
         </div>
     </div>
-
 
 
     <div class="row PageContent centeredDiv UploadAppunti" id="UploadAppuntiFinish" style="display: none">

@@ -156,6 +156,9 @@ include "navbar.php";
              Elenco appunti acquistati
           </h4>
           <hr>
+            <div id="NotesBoughtBox">
+
+            </div>
        </div>
         <div class="neutralTag" id="UserSellingsViewBlock" style="display: none">
            <h4>

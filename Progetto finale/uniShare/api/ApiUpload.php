@@ -16,12 +16,12 @@ if (!isset($_SESSION["username"])){
     exit();
 }
 
-$universita = $_POST["universita"];
-$annoCorso = $_POST["annoCorso"];
-$insegnamento = $_POST["insegnamento"];
-$tipoAppunti = $_POST["tipoDiAppunti"];
-$nomeDocente = $_POST["nomeDelDocente"];
-$titoloAppunti = $_POST["titoloAppunti"];
+$universita = htmlspecialchars($_POST["universita"]);
+$annoCorso = htmlspecialchars($_POST["annoCorso"]);
+$insegnamento = htmlspecialchars($_POST["insegnamento"]);
+$tipoAppunti = htmlspecialchars($_POST["tipoDiAppunti"]);
+$nomeDocente = htmlspecialchars($_POST["nomeDelDocente"]);
+$titoloAppunti = htmlspecialchars($_POST["titoloAppunti"]);
 
 $idScuola = null; //riempito dopo con query
 $idCorso = null; //riempito dopo con query
@@ -29,7 +29,7 @@ $newFileName = "";
 $file = $_FILES["uploadFile"];
 if (UPLOAD_ERR_OK === $file['error']) {
     $fileName = basename($file['name']);
-    $newFileName =  hash_file("sha256", $file['tmp_name']). '.pdf';
+    $newFileName =  hash_file("sha256", $file['tmp_name']  )  . time() . '.pdf';
     move_uploaded_file($file['tmp_name'],  "../uploads/" . $newFileName);
 }else{
     http_response_code(500);
@@ -80,15 +80,17 @@ try{
      *
      * il prezzo è tre centesimi a pagina, di cui due a utente e uno a gestore sito...
      * */
-    $price = 0.03 * $file["size"];
+    $price = 0.03 * ($file["size"] / 1024); //size in kb
 
     //inserisco l'appunto a database
-    $stmtInsertAppunto = $conn->prepare( "insert into appunti (Nome, Path, price, insegnamento_scuola, user) VALUES (:nomeAppunti, :pathAppunti,:prezzo,  :corso, :username);");
-    $stmtInsertAppunto->bindValue(":nomeAppunti", $tipoAppunti, PDO::PARAM_STR);
+    $stmtInsertAppunto = $conn->prepare( "insert into appunti (Nome, Path, price, insegnamento_scuola, user, tipoAppunti, nomeDocente) VALUES (:nomeAppunti, :pathAppunti,:prezzo,  :corso, :username, :tipo, :docente);");
+    $stmtInsertAppunto->bindValue(":nomeAppunti", $titoloAppunti, PDO::PARAM_STR);
     $stmtInsertAppunto->bindValue(":pathAppunti",  "../uploads/" . $newFileName, PDO::PARAM_STR);
     $stmtInsertAppunto->bindValue(":prezzo", $price, PDO::PARAM_STR);
     $stmtInsertAppunto->bindValue(":corso", $idCorso, PDO::PARAM_STR);
     $stmtInsertAppunto->bindValue(":username", $_SESSION["username"], PDO::PARAM_STR);
+    $stmtInsertAppunto->bindValue(":tipo", $tipoAppunti, PDO::PARAM_INT);
+    $stmtInsertAppunto->bindValue(":docente", $nomeDocente, PDO::PARAM_STR);
     $stmtInsertAppunto->execute();
 
     echo json_encode(Array("Ok"=>"Added!"));

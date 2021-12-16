@@ -449,6 +449,65 @@ function editUserInformations(){
 }
 
 
+function getUserBoughtNotes(){
+    $("#NotesBoughtBox").empty();
+    $.ajax("./api/index.php",{
+        data: JSON.stringify({"api" : "get_bought_notes", "payload" : [] }) ,
+        type: 'POST',
+        processData: false,
+        contentType: 'application/json',
+        dataType:'json',
+        success: function (data){
+            $.each(data, function(index, item){
+
+                if(item["tipoAppunti"] === "1") tipoAppunti = "Temi di esame";
+                else if(item["tipoAppunti"] === "2") tipoAppunti = "Appunti lezioni";
+                else  tipoAppunti = "Esercitazioni";
+
+                var btnAcquistaCode = "";
+
+
+                    btnAcquistaCode = "<button class=\"btn btn-warning btn-buy-appunto\" id='AcquistaBtn" + item["codice"] +"'>Visualizza</button>\n";
+
+
+                $("#NotesBoughtBox").append(
+                    " <div class=\"card cardAppuntoVendita\" id='Appunto' " + item["codice"] +">\n" +
+                    "                    <div class=\"card-header\">\n" +
+                    "                        <div class=\"container\">\n" +
+                    "                            <div class=\"row\">\n" +
+                    "                                <div class=\"col-10\">\n" +
+                    "                                    <strong>" + item["titolo"] +"</strong>"+
+                    "                                </div>\n" +
+                    "                                <div class=\"col\">" +
+                    "                                  <button class='btn btn-primary'>Feedback</button>" +
+                    "                                </div>\n" +
+                    "                            </div>\n" +
+                    "                        </div>\n" +
+                    "                    </div>\n" +
+                    "                    <div class=\"card-body\">\n" +
+                    "                        <div class=\"container\">\n" +
+                    "                            <div class=\"row d-flex justify-content-start\">\n" +
+                    "                                <div class=\"col-10\">\n" +
+                    "                                    <ul>\n" +
+                    "                                        <li><strong>Docente</strong> " + item["docente"] + "</li>\n" +
+                    "                                        <li><strong>Prezzo</strong> " + item["prezzo"] + "</li>\n" +
+                    "                                        <li><strong>Data di upload</strong> " + item["uploadDate"] + "</li>\n" +
+                    "                                        <li><strong>Tipo di appunti</strong> " + tipoAppunti + "</li>\n" +
+                    "                                    </ul>\n" +
+                    "                                </div>\n" +
+                    "                                <div class=\"col\">\n" +
+                    btnAcquistaCode +
+                    "                                </div>\n" +
+                    "                            </div>\n" +
+                    "                        </div>"
+                );
+
+            });
+        }
+    });
+}
+
+
 $(function (){
 
     $("#ToggleEditUserPage").click(toggleEditPageMenu);
@@ -508,6 +567,7 @@ $(function (){
 
     $("#TabShowUserPurchase").click(function(){
         ClearUserPageViewBlock();
+        getUserBoughtNotes();
         $("#UserPurchaseViewBlock").fadeIn(10);
         $("#TabShowUserPurchase").addClass("active");
     });
