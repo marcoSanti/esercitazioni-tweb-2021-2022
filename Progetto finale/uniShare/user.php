@@ -58,15 +58,11 @@ include "navbar.php";
             <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowUserEarnings">Vendite</a>
         </li>
         <!--solo admins-->
-
-            <li class="nav-item adminOnly">
-            <a class="nav-link " href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminUserList">Elenco utenti</a>
-            </li>
-            <li class="nav-item adminOnly">
-                <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminCashflow">Cashflow</a>
-            </li>
             <li class="nav-item adminOnly">
                 <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminDocumentList">Elenco appunti</a>
+            </li>
+            <li class="nav-item adminOnly">
+            <a class="nav-link " href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminUserList">Elenco utenti</a>
             </li>
             <li class="nav-item adminOnly">
                 <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminAdmins">Elenco amministratori</a>
@@ -171,6 +167,18 @@ include "navbar.php";
                Elenco utenti sito
             </h4>
             <hr>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Email</th>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                </tr>
+                </thead>
+                <tbody id="TableAdminUserList">
+
+                </tbody>
+            </table>
 
          </div>
         <div id="AdminAdminList" class="neutralTag adminOnly" style="display: none">
@@ -178,20 +186,38 @@ include "navbar.php";
                Elenco amministratori sito
             </h4>
             <hr>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Email</th>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                </tr>
+                </thead>
+                <tbody id="TableAdminAdminList">
 
+                </tbody>
+            </table>
         </div>
         <div id="AdminDocumentList" class="neutralTag adminOnly" style="display: none">
             <h4>
                Elenco documenti caricati sul sito
             </h4>
             <hr>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Document ID</th>
+                    <th>Nome</th>
+                    <th>Creatore</th>
+                    <th>Prezzo</th>
+                    <th>Azioni</th>
+                </tr>
+                </thead>
+                <tbody id="TableAdminDocumentList">
 
-        </div>
-        <div id="AdminCashFlow" class="neutralTag adminOnly" style="display: none">
-            <h4>
-               CashFlow Ultimo mese
-            </h4>
-            <hr>
+                </tbody>
+            </table>
         </div>
     </div>
     <div id="templates" style="display: none">
@@ -227,13 +253,13 @@ include "navbar.php";
                         </div>
                         <div class="col">
                             <div class="row">
-                                Marco
+placeholder
                             </div>
                             <div class="row">
-                                Santimaria
+                                placeholder
                             </div>
                             <div class="row">
-                                marco.santimaria@edu.unito.it
+                                placeholder
                             </div>
                         </div>
                     </div>

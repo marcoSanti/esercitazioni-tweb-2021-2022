@@ -69,7 +69,7 @@ include "navbar.php";
             <div class="row g-2">
                 <div class="mb-3">
                     <label for="UploadNoteFile" class="form-label">Carica il file degli appunti in formato .pdf</label>
-                    <input class="form-control" type="file" id="UploadNoteFile" required>
+                    <input class="form-control" type="file" accept="application/pdf" id="UploadNoteFile" required>
                 </div>
             </div>
         </div>

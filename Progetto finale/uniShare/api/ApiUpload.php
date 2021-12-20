@@ -28,6 +28,14 @@ $idCorso = null; //riempito dopo con query
 $newFileName = "";
 $file = $_FILES["uploadFile"];
 if (UPLOAD_ERR_OK === $file['error']) {
+
+    //controllo estensione del file
+    if(pathinfo($file["name"], PATHINFO_EXTENSION) != "pdf"){
+        http_response_code(403);
+        echo json_encode(Array("Error"=>"File extension not allowed"));
+        exit();
+    }
+
     $fileName = basename($file['name']);
     $newFileName =  hash_file("sha256", $file['tmp_name']  )  . time() . '.pdf';
     move_uploaded_file($file['tmp_name'],  "../uploads/" . $newFileName);
@@ -36,6 +44,8 @@ if (UPLOAD_ERR_OK === $file['error']) {
     echo json_encode(Array("Error" => "Unable to upload file"));
 }
 
+//rimuovo estensione dal filename
+$newFileName = str_replace(".pdf", "", $newFileName);
 
 try{
     //ottengo id scuola
@@ -85,7 +95,7 @@ try{
     //inserisco l'appunto a database
     $stmtInsertAppunto = $conn->prepare( "insert into appunti (Nome, Path, price, insegnamento_scuola, user, tipoAppunti, nomeDocente) VALUES (:nomeAppunti, :pathAppunti,:prezzo,  :corso, :username, :tipo, :docente);");
     $stmtInsertAppunto->bindValue(":nomeAppunti", $titoloAppunti, PDO::PARAM_STR);
-    $stmtInsertAppunto->bindValue(":pathAppunti",  "../uploads/" . $newFileName, PDO::PARAM_STR);
+    $stmtInsertAppunto->bindValue(":pathAppunti",  $newFileName, PDO::PARAM_STR);
     $stmtInsertAppunto->bindValue(":prezzo", $price, PDO::PARAM_STR);
     $stmtInsertAppunto->bindValue(":corso", $idCorso, PDO::PARAM_STR);
     $stmtInsertAppunto->bindValue(":username", $_SESSION["username"], PDO::PARAM_STR);

@@ -12,7 +12,7 @@ function getBoughtNotes(array $payload, PDO $conn){
         echo json_encode(Array("Error"=>"User not logged in"));
         exit();
     }else{
-        $sql = "select idappunti as codice, Nome as titolo, uploadDate, price as prezzo, insegnamento_scuola as insegnamento, tipoAppunti, nomeDocente as docente from appunti inner join acquisto on acquisto.appunto = appunti.idappunti where acquisto.user = :user;";
+        $sql = "select idappunti as codice, Nome as titolo, uploadDate, price as prezzo, insegnamento_scuola as insegnamento, tipoAppunti, nomeDocente as docente, Path from appunti inner join acquisto on acquisto.appunto = appunti.idappunti where acquisto.user = :user;";
         try{
             $stmt = $conn->prepare($sql);
             $stmt->bindValue(":user",$_SESSION["username"], PDO::PARAM_STR);

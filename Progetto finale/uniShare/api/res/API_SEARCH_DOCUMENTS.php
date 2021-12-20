@@ -12,12 +12,12 @@ function ApiSearchNotes(array $payload, PDO $conn){
         echo json_encode(Array("Error"=>"User not logged in"));
         exit();
     }else{
-        $sql = "SELECT idappunti as codice, Nome as titolo, uploadDate, price as prezzo, insegnamento_scuola as insegnamento, tipoAppunti, nomeDocente as docente FROM appunti where  nome like :input or nomeDocente like :input or insegnamento_scuola in ( select insegnamento.idInsegnamento from insegnamento where insegnamento.Nome like :input ) or insegnamento_scuola in ( select idInsegnamento from insegnamento  inner join scuola on scuola = scuola.idScuola where scuola.nomeScuola like :input )";
+        $sql = "SELECT idappunti as codice, Nome as titolo, uploadDate, price as prezzo, insegnamento_scuola as insegnamento, tipoAppunti, nomeDocente as docente FROM appunti where visible=1 and ( nome like :input or nomeDocente like :input or insegnamento_scuola in ( select insegnamento.idInsegnamento from insegnamento where insegnamento.Nome like :input ) or insegnamento_scuola in ( select idInsegnamento from insegnamento  inner join scuola on scuola = scuola.idScuola where scuola.nomeScuola like :input ))";
 
         try{
             $arrayReturn = Array();
             $stmtSearch = $conn->prepare($sql);
-            $stmtSearch->bindValue(":input", $payload["query"], PDO::PARAM_STR);
+            $stmtSearch->bindValue(":input", "%".$payload["query"] . "%", PDO::PARAM_STR); // % per poter cercare stringhe che anche solo contengono la query
             $stmtSearch->execute();
 
             foreach($stmtSearch->fetchAll(PDO::FETCH_ASSOC) as $row){

@@ -42,6 +42,15 @@ $available_apis["get_notes"]["FUNC"] = "ApiSearchNotes";
 $available_apis["get_bought_notes"]["FILE"] = "./res/API_GET_ACQUIRED_NOTES.php";
 $available_apis["get_bought_notes"]["FUNC"] = "getBoughtNotes";
 
+$available_apis["get_sale"]["FILE"] = "./res/API_GET_SALE.php";
+$available_apis["get_sale"]["FUNC"] = "getSales";
+
+$available_apis["admin_get_users"]["FILE"] = "./res/API_ADMIN_GET_USERS.php";
+$available_apis["admin_get_users"]["FUNC"] = "adminGetUserList";
+
+$available_apis["admin_list_notes"]["FILE"] = "./res/API_ADMIN_LIST_NOTES.php";
+$available_apis["admin_list_notes"]["FUNC"] = "listDocuments";
+
 /*SET APIS*/
 $available_apis["user_widget_pos_set"]["FILE"] = "./res/API_SET_DASHBOARD_WIDGET.php";
 $available_apis["user_widget_pos_set"]["FUNC"] = "setDashboardWidget";

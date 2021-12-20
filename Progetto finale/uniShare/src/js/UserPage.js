@@ -464,10 +464,7 @@ function getUserBoughtNotes(){
                 else if(item["tipoAppunti"] === "2") tipoAppunti = "Appunti lezioni";
                 else  tipoAppunti = "Esercitazioni";
 
-                var btnAcquistaCode = "";
-
-
-                    btnAcquistaCode = "<button class=\"btn btn-warning btn-buy-appunto\" id='AcquistaBtn" + item["codice"] +"'>Visualizza</button>\n";
+                var btnAcquistaCode = "<button id='" + item["Path"] + "' class=\"btn btn-warning btn-buy-appunto\" id='AcquistaBtn" + item["codice"] +"'><i class=\"fas fa-download\"></i>Scarica</button>\n";
 
 
                 $("#NotesBoughtBox").append(
@@ -502,13 +499,146 @@ function getUserBoughtNotes(){
                     "                        </div>"
                 );
 
+                $("#"+item["Path"]).click(function(){
+                    window.location.href = "./api/obtainDocument.php?doc="+item["Path"];
+                });
+
             });
         }
     });
 }
 
 
+function userLoginCheck(){
+    //se utente non è loggato faccio un redirect a login
+    $.ajax("./api/index.php",{
+        data: JSON.stringify({"api" : "log_in_check", "payload" : [] }),
+        type: 'POST',
+        processData: false,
+        contentType: 'application/json',
+        dataType:'json',
+        success: function (data){
+            if( data["Status"] !== "logged") {
+                window.location.href = "./login.php";
+            }
+        }
+    });
+}
+
+
+function showNoteSales(){
+    $("#UserSellingsViewBlock").empty();
+    $.ajax("./api/index.php",{
+        data: JSON.stringify({"api" : "get_sale", "payload" : [] }) ,
+        type: 'POST',
+        processData: false,
+        contentType: 'application/json',
+        dataType:'json',
+        success: function (data){
+            $.each(data, function(index, item){
+
+                if(item["tipoAppunti"] === "1") tipoAppunti = "Temi di esame";
+                else if(item["tipoAppunti"] === "2") tipoAppunti = "Appunti lezioni";
+                else  tipoAppunti = "Esercitazioni";
+
+                $("#UserSellingsViewBlock").append(
+                    " <div class=\"card cardAppuntoVendita\" id='Appunto' " + item["codice"] +">\n" +
+                    "                    <div class=\"card-header\">\n" +
+                    "                        <div class=\"container\">\n" +
+                    "                            <div class=\"row\">\n" +
+                    "                                <div class=\"col-10\">\n" +
+                    "                                    <strong>" + item["titolo"] +"</strong>"+
+                    "                                </div>\n" +
+                    "                                <div class=\"col\">" +
+                    "                                  <strong class='bold'>Guadagno: " +item["earnings"] + "€</strong>"+
+                    "                                </div>\n" +
+                    "                            </div>\n" +
+                    "                        </div>\n" +
+                    "                    </div>\n" +
+                    "                    <div class=\"card-body\">\n" +
+                    "                        <div class=\"container\">\n" +
+                    "                            <div class=\"row d-flex justify-content-start\">\n" +
+                    "                                <div class=\"col-10\">\n" +
+                    "                                    <ul>\n" +
+                    "                                        <li><strong>Docente</strong> " + item["docente"] + "</li>\n" +
+                    "                                        <li><strong>Prezzo</strong> " + item["prezzo"] + "</li>\n" +
+                    "                                        <li><strong>Data di upload</strong> " + item["uploadDate"] + "</li>\n" +
+                    "                                        <li><strong>Tipo di appunti</strong> " + tipoAppunti + "</li>\n" +
+                    "                                    </ul>\n" +
+                    "                                </div>\n" +
+                    "                                <div class=\"col\">\n" +
+                    "                                   <button class=\"btn btn-danger btn-buy-appunto\" id='AcquistaBtn" + item["codice"] +"'>Rimuovi dalla vendita</button>" +
+                    "                                </div>\n" +
+                    "                            </div>\n" +
+                    "                        </div>"
+                );
+
+            });
+        }
+    });
+
+}
+
+
+function getUsers(type){
+
+    if(type ===0){
+        target = "#TableAdminUserList";
+    }else if(type === 1){
+        target = "#TableAdminAdminList";
+    }else{
+        return;
+    }
+
+    $(target).empty();
+    $.ajax("./api/index.php",{
+        data: JSON.stringify({"api" : "admin_get_users", "payload" : {"type" : type} }) ,
+        type: 'POST',
+        processData: false,
+        contentType: 'application/json',
+        dataType:'json',
+        success: function (data){
+            $.each(data, function(index, item){
+                $(target).append(
+                    "<tr><td> " + item["email"] + "</td><td> " + item["Name"] + "</td><td> " + item["Surname"] + "</td></tr>"
+                );
+            });
+        }
+    });
+}
+
+function adminListDocuments(){
+
+    $("#TableAdminDocumentList").empty();
+    $.ajax("./api/index.php",{
+        data: JSON.stringify({"api" : "admin_list_notes", "payload" : [] }) ,
+        type: 'POST',
+        processData: false,
+        contentType: 'application/json',
+        dataType:'json',
+        success: function (data){
+            $.each(data, function(index, item){
+                $("#TableAdminDocumentList").append(
+                    "<tr>" +
+                    "<td> " + item["idappunti"] + "</td>" +
+                    "<td> " + item["nome"] + "</td>" +
+                    "<td> " + item["user"] + "</td>" +
+                    "<td> " + item["price"] + "</td>" +
+                    "<td><div class='btn-group'>" +
+                    "<a href = './api/obtainDocument.php?doc=" + item["Path"] + "' class='btn btn-info'>Scarica</a>" +
+                    "<button class='btn btn-warning'>Rimuovi da vendita</button>" +
+                    "<button class='btn btn-danger'>Elimina da server</button>" +
+                    "</div></td>" +
+                    "</tr>"
+                );
+            });
+        }
+    });
+}
+
 $(function (){
+
+    userLoginCheck();
 
     $("#ToggleEditUserPage").click(toggleEditPageMenu);
     $("#AddWidgetProfileInfo").on({
@@ -574,30 +704,28 @@ $(function (){
 
     $("#TabShowUserEarnings").click(function(){
         ClearUserPageViewBlock();
+        showNoteSales()
         $("#UserSellingsViewBlock").fadeIn(10);
         $("#TabShowUserEarnings").addClass("active");
     });
 
     $("#TabShowAdminUserList").click(function(){
         ClearUserPageViewBlock();
+        getUsers(0);
         $("#AdminUserList").fadeIn(10);
         $("#TabShowAdminUserList").addClass("active");
     });
 
-    $("#TabShowAdminCashflow").click(function(){
-        ClearUserPageViewBlock();
-        $("#AdminCashFlow").fadeIn(10);
-        $("#TabShowAdminCashflow").addClass("active");
-    });
-
     $("#TabShowAdminDocumentList").click(function(){
         ClearUserPageViewBlock();
+        adminListDocuments();
         $("#AdminDocumentList").fadeIn(10);
         $("#TabShowAdminDocumentList").addClass("active");
     });
 
     $("#TabShowAdminAdmins").click(function(){
         ClearUserPageViewBlock();
+        getUsers(1);
         $("#AdminAdminList").fadeIn(10);
         $("#TabShowAdminAdmins").addClass("active");
     });
