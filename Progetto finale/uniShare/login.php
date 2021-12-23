@@ -23,7 +23,8 @@ include "navbar.php";
         <div class="mb-3">
 
         </div>
-        <div id="loginButton" class="btn btn-primary">Accedi</div>
+        <div id="loginButton" class="btn btn-primary loginButton">Accedi</div>
+        <a href="register.php" class="btn btn-info loginButton">Registrati</a>
     </div>
 
 </form>

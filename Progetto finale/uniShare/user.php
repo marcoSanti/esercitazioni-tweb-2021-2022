@@ -55,7 +55,7 @@ include "navbar.php";
             <a class="nav-link" href="#" id="TabShowUserPurchase">Acquisti</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowUserEarnings">Vendite</a>
+            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowUserEarnings">In vendita</a>
         </li>
         <!--solo admins-->
             <li class="nav-item adminOnly">
@@ -161,6 +161,7 @@ include "navbar.php";
                  Elenco appunti in vendita
               </h4>
               <hr>
+              
        </div>
         <div id="AdminUserList" class="neutralTag adminOnly" style="display: none">
             <h4>
@@ -173,6 +174,7 @@ include "navbar.php";
                     <th scope="col">Email</th>
                     <th>Nome</th>
                     <th>Cognome</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody id="TableAdminUserList">

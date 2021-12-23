@@ -60,3 +60,9 @@ $available_apis["update_user_info"]["FUNC"] = "updateUserInformation";
 
 $available_apis["add_bought_item"]["FILE"] = "./res/API_BUY.php";
 $available_apis["add_bought_item"]["FUNC"] = "buy";
+
+$available_apis["pull_note"]["FILE"] = "./res/API_PULL_NOTE_FROM_SALE.php";
+$available_apis["pull_note"]["FUNC"] = "pullFromSale";
+
+$available_apis["promote_user"]["FILE"] = "./res/API_PROMOTE_ADMIN.php";
+$available_apis["promote_user"]["FUNC"] = "promote";

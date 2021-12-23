@@ -156,8 +156,9 @@ html{
     margin: 90px auto;
 }
 
-#loginButton{
+.loginButton{
     width: 100%;
+    margin-top: 5px;
 }
 
 .ErrorLoginRegisterDiv{

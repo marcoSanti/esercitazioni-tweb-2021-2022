@@ -17,7 +17,7 @@ function getSales(array $payload, PDO $conn){
 
         try{
             $return = Array();
-            $stmtGetUserSale = $conn->prepare("SELECT  idappunti as codice, Nome as titolo, uploadDate, price, insegnamento_scuola as insegnamento, tipoAppunti, nomeDocente as docente  from appunti where user = :user;");
+            $stmtGetUserSale = $conn->prepare("SELECT  idappunti as codice, Nome as titolo, uploadDate, price, insegnamento_scuola as insegnamento, tipoAppunti, nomeDocente as docente, visible  from appunti where user = :user;");
             $stmtGetUserSale->bindValue(":user", $_SESSION["username"], PDO::PARAM_STR);
             $stmtGetUserSale->execute();
 

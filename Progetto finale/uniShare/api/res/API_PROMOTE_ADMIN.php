@@ -3,13 +3,13 @@
 
 /*
  * parametri richiesti in payload:
- * type: se 0 ritorno gli utenti. se 1 gli admin
+ * username -> email user da mettere admin
  *
  * Questa api ritorna gli utenti del sito
  * */
 
 
-function adminGetUserList(array $payload, PDO $conn)
+function promote(array $payload, PDO $conn)
 {
 
     if (!isset($_SESSION["username"])) {
@@ -17,7 +17,7 @@ function adminGetUserList(array $payload, PDO $conn)
         exit();
     } else {
 
-        try {
+        try{
             //check user is admin
             $stmtCheckAdmin = $conn->prepare("SELECT * from users where email = :mail");
             $stmtCheckAdmin->bindValue(":mail", $_SESSION["username"], PDO::PARAM_STR);
@@ -28,28 +28,16 @@ function adminGetUserList(array $payload, PDO $conn)
                 exit();
             }
 
-            if($payload["type"] != 0 && $payload["type"] != 1){
-                http_response_code(500);
-                echo json_encode(array("Error" => "Type not defined"));
-                exit();
-            }
+            $stmtPromoteUser = $conn->prepare("UPDATE users SET UserType = 1 where email = :mail");
+            $stmtPromoteUser->bindValue(":mail", $payload["username"], PDO::PARAM_STR);
+            $stmtPromoteUser->execute();
 
-        
-            $return = array();
-            $stmtGetUsers = $conn->prepare("SELECT email, Name, Surname from users where UserType = :type");
-            $stmtGetUsers->bindValue(":type", $payload["type"], PDO::PARAM_STR);
-            $stmtGetUsers->execute();
-
-            while (($row = $stmtGetUsers->fetch(PDO::FETCH_ASSOC)) != null) {
-                $return[] = $row;
-            }
-            echo json_encode($return);
-        } catch (PDOException $e) {
+            echo json_encode(Array("Ok"=>"Done"));
+        }catch(PDOException $e){
             http_response_code(500);
             echo json_encode(array("Error" => $e));
             exit();
         }
 
     }
-
 }

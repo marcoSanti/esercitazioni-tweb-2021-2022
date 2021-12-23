@@ -7,9 +7,6 @@
  * */
 header("Content-Type: text/javascript");
 
-//done to suppress ide warnings...
-$conn = null;
-$available_apis = null;
 
 if(!@require_once "config.php"){
     http_response_code(500);
@@ -30,7 +27,8 @@ if (!isset($_SESSION)) { session_start(); }
  * di estendere le funzionalità del mio backend in modo semplice e pulito*/
 switch($_SERVER["REQUEST_METHOD"]){
     case 'POST':
-        $input = json_decode(file_get_contents("php://input" ), true); //obtain input without using $_POST aray
+        $input = json_decode(file_get_contents("php://input"), true); //obtain input without using $_POST aray
+
         $api_request = $input["api"];
         $payload = $input["payload"];
 
