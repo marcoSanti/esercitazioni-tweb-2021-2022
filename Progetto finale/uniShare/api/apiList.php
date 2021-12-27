@@ -66,3 +66,16 @@ $available_apis["pull_note"]["FUNC"] = "pullFromSale";
 
 $available_apis["promote_user"]["FILE"] = "./res/API_PROMOTE_ADMIN.php";
 $available_apis["promote_user"]["FUNC"] = "promote";
+
+$available_apis["add_review"]["FILE"] = "./res/API_ADD_REVIEW.php";
+$available_apis["add_review"]["FUNC"] = "insertReview";
+
+$available_apis["update_psw"]["FILE"] = "./res/API_CHANGE_PASSWORD.php";
+$available_apis["update_psw"]["FUNC"] = "updatePassword";
+
+/*DELETE APIS */
+$available_apis["drop_note"]["FILE"] = "./res/API_DELETE_NOTE.php";
+$available_apis["drop_note"]["FUNC"] = "deleteNote";
+
+$available_apis["drop_user"]["FILE"] = "./res/API_DELETE_USER.php";
+$available_apis["drop_user"]["FUNC"] = "deleteUser";

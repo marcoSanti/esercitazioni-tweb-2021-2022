@@ -105,7 +105,7 @@ try{
 
     echo json_encode(Array("Ok"=>"Added!"));
 
-}catch(PDOException | ImagickException $e){
+}catch(PDOException $e){
     http_response_code(500);
     unlink("../uploads/" . $newFileName); //delete file if error occurs
     echo json_encode(Array("Error" => $e));
