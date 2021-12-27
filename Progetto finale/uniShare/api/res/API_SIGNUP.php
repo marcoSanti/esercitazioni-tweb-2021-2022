@@ -12,11 +12,12 @@ function signup(array $payload,PDO $conn){
 
     //UserType=0 normal user, 1 admin
     try{
+        $password = hash("sha512", $payload["password"]);
         $stmt=$conn->prepare( "INSERT INTO `Users` ( `Name`, `Surname`, `email`, `password`, `UserType`) VALUES ( :name, :surname, :mail, :password, '0');");
         $stmt->bindParam(":name", $payload["name"], PDO::PARAM_STR);
         $stmt->bindParam(":surname", $payload["surname"], PDO::PARAM_STR);
         $stmt->bindParam(":mail", $payload["email"], PDO::PARAM_STR);
-        $stmt->bindParam(":password", hash("sha512", $payload["password"]), PDO::PARAM_STR);
+        $stmt->bindParam(":password", $password , PDO::PARAM_STR);
         $stmt->execute();
 
         //automatically logs in the user after registration

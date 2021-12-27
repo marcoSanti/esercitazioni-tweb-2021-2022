@@ -344,6 +344,28 @@ function LoadUserPageDetails() {
         $("#UserDataSurname").val(data["Surname"]);
         $("#UserDataMail").val(data["email"]);
     });
+
+    $("#UserDataEditPassword").click(function() {
+        $("#passwordChangeDiv").fadeIn();
+        $("#UserDataEditPassword").html("Conferma modifiche").click(function() {
+            var oldPsw = $("#oldPassword").val();
+            var newPsw = $("#newPassword1").val();
+            var newPsw1 = $("#newPassword2").val();
+            if (newPsw1 === newPsw && oldPsw !== "" && newPsw !== "") {
+                ajaxCall("update_psw", { "oldPassword": oldPsw, "newPassword": newPsw }, function(data) {
+                    if (data["Ok"] !== undefined) {
+                        $("#passwordChangeDiv").replaceWith("<div class='alert alert-success alert-dismissible' role='alert'>Password modificata con successo</div>");
+                        $("#UserDataEditPassword").fadeOut();
+                    } else {
+                        alert(data);
+                    }
+
+                });
+            } else {
+                alert("Le nuove password non coincidono oppure non hai inserito tutti i dati!")
+            }
+        });
+    })
 }
 
 function LoadDashboardWidgetsDone(data) {
@@ -548,17 +570,19 @@ function getUsers(type) {
     $(target).empty();
 
     ajaxCall("admin_get_users", { "type": type }, function(data) {
-        var i = 0;
-        $.each(data, function(index, item) {
-            if (type === 0) {
-                $(target).append("<tr id='UserRow" + i + "'><td> " + item["email"] + "</td><td> " + item["Name"] + "</td><td> " + item["Surname"] + "</td><td><button class='btn btn-primary' id='btnPromote" + i + "'>Promuovi admin</button></td></tr>");
-                $("#btnPromote" + i).click(function() {
-                    ajaxCall("promote_user", { "username": item["email"] }, function() { $("#UserRow" + i).fadeOut(); })
-                });
-            } else {
-                $(target).append("<tr><td> " + item["email"] + "</td><td> " + item["Name"] + "</td><td> " + item["Surname"] + "</td></tr>");
-            }
 
+        $.each(data, function(index, item) {
+            var buttons = "<td><button class = 'btn btn-primary' id = 'btnPromote" + index + "'> Promuovi admin </button>" +
+                "<button class = 'btn btn-danger' id = 'btnDelete" + index + "'> Elimina utente </button></td> ";
+
+            $(target).append("<tr id='UserRow" + index + "'><td> " + item["email"] + "</td><td> " + item["Name"] + "</td><td> " + item["Surname"] + "</td> " + buttons + "</tr>");
+
+            $("#btnPromote" + index).click(function() {
+                ajaxCall("promote_user", { "username": item["email"] }, function() { $("#UserRow" + index).fadeOut(); })
+            });
+            $("#btnDelete" + index).click(function() {
+                ajaxCall("drop_user", { "userId": item["email"] }, function() { $("#UserRow" + index).fadeOut(); })
+            });
         });
     });
 }
@@ -566,16 +590,21 @@ function getUsers(type) {
 function adminListDocumentsDone(data) {
     $.each(data, function(index, item) {
         $("#TableAdminDocumentList").append(
-            "<tr>" +
+            "<tr id = 'DocumentRow" + index + "'>" +
             "<td> " + item["idappunti"] + "</td>" +
             "<td> " + item["nome"] + "</td>" +
             "<td> " + item["user"] + "</td>" +
             "<td> " + item["price"] + "</td>" +
             "<td><div class='btn-group'>" +
             "<a href = './api/obtainDocument.php?doc=" + item["Path"] + "' class='btn btn-primary'>Scarica</a>" +
+            "<button class='btn btn-danger' id='deleteDocumentButton" + index + "'>Elimina Documento</button>" +
             "</div></td>" +
             "</tr>"
         );
+        $("#deleteDocumentButton" + index).click(function() {
+            ajaxCall("drop_note", { "noteId": item["idappunti"] }, function() { $("#DocumentRow" + index).fadeOut(); })
+        });
+
     });
 }
 

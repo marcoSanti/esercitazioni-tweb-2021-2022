@@ -22,8 +22,9 @@ function updatePassword(array $payload, PDO $conn)
            $oldPassword = $stmtSelectOldPaswword->fetch(PDO::FETCH_ASSOC)["password"];
 
            if($oldPassword == hash("sha512", $payload["oldPassword"])){
+               $password = hash("sha512", $payload["newPassword"]);
                 $stmtUpdatePassword = $conn->prepare("UPDATE users SET password = :password WHERE email = :user");
-                $stmtUpdatePassword->bindValue(":password",hash("sha512", $payload["newPassword"]) , PDO::PARAM_STR );
+                $stmtUpdatePassword->bindValue(":password",$password , PDO::PARAM_STR );
                 $stmtUpdatePassword->bindValue(":user", $_SESSION["username"], PDO::PARAM_STR);
                 $stmtUpdatePassword->execute();
                 jsonReturnOkEcho();

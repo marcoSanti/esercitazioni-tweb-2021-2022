@@ -18,7 +18,7 @@ function deleteNote(array $payload, PDO $conn)
 
             admin_check($conn);
 
-
+            
             $stmtDeleteReviews = $conn->prepare("DELETE FROM recensione where appunto = :appunto");
             $stmtDeleteReviews->bindValue(":appunto", $payload["noteId"], PDO::PARAM_INT);
             $stmtDeleteReviews->execute();

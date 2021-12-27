@@ -140,6 +140,21 @@ include "navbar.php";
                          <label for="UserDataMail" class="form-label">Email</label>
                          <input type="email" class="form-control" id="UserDataMail" placeholder="email@example.com" disabled>
                       </div>
+                      <div class="neutral-tag" id="passwordChangeDiv" style="display: none;">
+                          <hr>
+                        <div class="mb-3">
+                            <label for="oldPassword" class="form-label">Password precedente</label>
+                            <input type="password" class="form-control" id="oldPassword" placeholder="Vecchia password" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword1" class="form-label">Nuova password</label>
+                            <input type="password" class="form-control" id="newPassword1" placeholder="Nuova password" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword2" class="form-label">Ripeti password</label>
+                            <input type="password" class="form-control" id="newPassword2" placeholder="Ripeti password" >
+                        </div>
+                      </div>
                       <button class="btn btn-primary" id="UserDataEditValues">Aggiorna i dati</button>
                       <button class="btn btn-warning" id="UserDataEditPassword">Modifica la password</button>
                    </div>
@@ -174,7 +189,7 @@ include "navbar.php";
                     <th scope="col">Email</th>
                     <th>Nome</th>
                     <th>Cognome</th>
-                    <th></th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody id="TableAdminUserList">
@@ -194,6 +209,7 @@ include "navbar.php";
                     <th scope="col">Email</th>
                     <th>Nome</th>
                     <th>Cognome</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody id="TableAdminAdminList">
