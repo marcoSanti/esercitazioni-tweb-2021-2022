@@ -354,13 +354,10 @@ function LoadUserPageDetails() {
             if (newPsw1 === newPsw && oldPsw !== "" && newPsw !== "") {
                 ajaxCall("update_psw", { "oldPassword": oldPsw, "newPassword": newPsw }, function(data) {
                     if (data["Ok"] !== undefined) {
-                        $("#passwordChangeDiv").replaceWith("<div class='alert alert-success alert-dismissible' role='alert'>Password modificata con successo</div>");
+                        $("#passwordChangeDiv").replaceWith("<div class='alert alert-success alert-dismissible fade show' role='alert'>Password modificata con successo<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>");
                         $("#UserDataEditPassword").fadeOut();
-                    } else {
-                        alert(data);
                     }
-
-                });
+                }, function(data) { alert(data["Error"]) });
             } else {
                 alert("Le nuove password non coincidono oppure non hai inserito tutti i dati!")
             }
