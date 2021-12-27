@@ -7,7 +7,8 @@
 
 function setDashboardWidget(array $payload, PDO $conn){
 
-    $widget = $payload["widget"];
+    loginCheck();
+
 
     if($payload["position"]<1 || $payload["position"]>4){
         http_response_code(500);
@@ -20,18 +21,12 @@ function setDashboardWidget(array $payload, PDO $conn){
      * */
     $obj = "obj" . filter_var($payload["position"], FILTER_SANITIZE_NUMBER_INT);
 
-    if(isset($_SESSION["username"])){
-        $sql = "UPDATE dashboard SET $obj = :widget WHERE user = :user;";
-        try{
-            $stmt = $conn->prepare($sql);
-            $stmt->bindValue(":user", $_SESSION["username"], PDO::PARAM_STR);
-            $stmt->bindValue(":widget", $widget, PDO::PARAM_INT);
-            $stmt->execute();
-            echo json_encode(Array("Ok"=>"Updated"));
-        }catch (PDOException $e){
-            http_response_code(500);
-            echo json_encode(Array("Error"=>$e));
-            exit();
-        }
-    }
+    try{
+        $stmt = $conn->prepare("UPDATE dashboard SET $obj = :widget WHERE user = :user;");
+        $stmt->bindValue(":user", $_SESSION["username"], PDO::PARAM_STR);
+        $stmt->bindValue(":widget", $payload["widget"], PDO::PARAM_INT);
+        $stmt->execute();
+        echo json_encode(Array("Ok"=>"Updated"));
+    }catch (PDOException $e){jsonReturnEcho(500, "Error", $e);}
+    
 }

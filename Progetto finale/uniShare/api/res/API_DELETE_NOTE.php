@@ -12,22 +12,12 @@
 
 function deleteNote(array $payload, PDO $conn)
 {
-    if (!isset($_SESSION["username"])) {
-        echo json_encode(array("Error" => "User not logged in"));
-        exit();
-    } else {
+    loginCheck();
 
         try{
 
-            //check user is admin
-            $stmtCheckAdmin = $conn->prepare("SELECT * from users where email = :mail");
-            $stmtCheckAdmin->bindValue(":mail", $_SESSION["username"], PDO::PARAM_STR);
-            $stmtCheckAdmin->execute();
-            if($stmtCheckAdmin->rowCount()!=1){
-                http_response_code(403);
-                echo json_encode(Array("Error"=>"User has no rights for query"));
-                exit();
-            }
+            admin_check($conn);
+
 
             $stmtDeleteReviews = $conn->prepare("DELETE FROM recensione where appunto = :appunto");
             $stmtDeleteReviews->bindValue(":appunto", $payload["noteId"], PDO::PARAM_INT);
@@ -47,8 +37,7 @@ function deleteNote(array $payload, PDO $conn)
             $stmtDeleteNote->bindValue(":id", $payload["noteId"], PDO::PARAM_INT);
             $stmtDeleteNote->execute();
 
-            echo json_encode(Array("Ok" => "Done"));
+            jsonReturnOkEcho();
 
-        }catch(PDOException $e){echo json_encode(Array("Error"=>$e)); }
+        }catch(PDOException $e){ jsonReturnEcho(500, "Error", $e); }
     }
-}

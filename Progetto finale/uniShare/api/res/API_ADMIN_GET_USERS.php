@@ -12,29 +12,15 @@
 function adminGetUserList(array $payload, PDO $conn)
 {
 
-    if (!isset($_SESSION["username"])) {
-        echo json_encode(array("Error" => "User not logged in"));
-        exit();
-    } else {
+    loginCheck();
 
         try {
-            //check user is admin
-            $stmtCheckAdmin = $conn->prepare("SELECT * from users where email = :mail");
-            $stmtCheckAdmin->bindValue(":mail", $_SESSION["username"], PDO::PARAM_STR);
-            $stmtCheckAdmin->execute();
-            if($stmtCheckAdmin->rowCount()!=1){
-                http_response_code(403);
-                echo json_encode(Array("Error"=>"User has no rights for query"));
-                exit();
-            }
+            admin_check($conn);
 
             if($payload["type"] != 0 && $payload["type"] != 1){
-                http_response_code(500);
-                echo json_encode(array("Error" => "Type not defined"));
-                exit();
+               jsonReturnEcho(500, "Error", "Type is not valid");
             }
 
-        
             $return = array();
             $stmtGetUsers = $conn->prepare("SELECT email, Name, Surname from users where UserType = :type");
             $stmtGetUsers->bindValue(":type", $payload["type"], PDO::PARAM_STR);
@@ -44,12 +30,8 @@ function adminGetUserList(array $payload, PDO $conn)
                 $return[] = $row;
             }
             echo json_encode($return);
-        } catch (PDOException $e) {
-            http_response_code(500);
-            echo json_encode(array("Error" => $e));
-            exit();
-        }
+        } catch (PDOException $e) { jsonReturnEcho(500, "Error", $e); }
 
     }
 
-}
+

@@ -13,24 +13,13 @@
 function deleteUser(array $payload, PDO $conn)
 {
 
-    if (!isset($_SESSION["username"])) {
-        echo json_encode(array("Error" => "User not logged in"));
-        exit();
-    } else {
+    loginCheck();
         try{
-            //check user is admin
-            $stmtCheckAdmin = $conn->prepare("SELECT * from users where email = :mail");
-            $stmtCheckAdmin->bindValue(":mail", $_SESSION["username"], PDO::PARAM_STR);
-            $stmtCheckAdmin->execute();
-            if($stmtCheckAdmin->rowCount()!=1){
-                http_response_code(403);
-                echo json_encode(Array("Error"=>"User has no rights for query"));
-                exit();
-            }
+            admin_check($conn);
+
 
             if($payload["userId"] == $_SESSION["username"]){
-                echo json_encode(Array("Error"=>"Cannot delete yourself"));
-                exit();
+                jsonReturnEcho(400, "Error", "Cannot delete yourself");
             }
 
             $stmtGetFileUploaded = $conn->prepare("SELECT path from appunti where user = :user;");
@@ -56,8 +45,7 @@ function deleteUser(array $payload, PDO $conn)
 
             $stmtDropUser->bindValue(":user", $payload["userId"], PDO::PARAM_STR);
             $stmtDropUser->execute();
-            echo json_encode(Array("Ok"=>"Done"));
+           jsonReturnOkEcho();
 
-        }catch(PDOException $e){echo json_encode(Array("Error"=>$e));}
+        }catch(PDOException $e){jsonReturnEcho(500, "Error", $e);}
     }
-}

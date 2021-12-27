@@ -13,13 +13,9 @@
 function insertReview(array $payload, PDO $conn)
 {
 
-    if (!isset($_SESSION["username"])) {
-        echo json_encode(array("Error" => "User not logged in"));
-        exit();
-    } else {
+    loginCheck();
         if($payload["value"]>5 || $payload["value"]<0){
-            echo json_encode(Array("Error"=>"review value out of bounds!"));
-            exit();
+            jsonReturnEcho(400, "Error", "review value out of bounds!");
         }
         try{
             $stmtAcquisto = $conn->prepare("SELECT * from acquisto where user = :user and appunto = :appunto");
@@ -28,8 +24,7 @@ function insertReview(array $payload, PDO $conn)
             $stmtAcquisto->execute();
             
             if($stmtAcquisto->rowCount()==0){
-                echo json_encode(Array("Error"=>"Item was not bought"));
-                exit();
+                jsonReturnEcho(400, "Error", "Item was not bought");
             }
 
             $resultStmtAcquisto =  $stmtAcquisto->fetch(PDO::FETCH_ASSOC);
@@ -45,13 +40,12 @@ function insertReview(array $payload, PDO $conn)
                 $stmtInsertRecensione->bindValue(":appunto", $payload["note"], PDO::PARAM_INT);
                 $stmtInsertRecensione->bindValue(":acquisto", $resultStmtAcquisto["ID_acquisto"], PDO::PARAM_INT);
                 $stmtInsertRecensione->execute();
-                echo json_encode(Array("Ok"=>"Done"));
+                jsonReturnOkEcho();
                 
             }else{
-                echo json_encode(Array("Error"=>"Item already reviewed!"));
+                jsonReturnEcho(400, "Error", "Item already reviewed");
             }
-        }catch(PDOException $e){echo json_encode(Array("Error"=>$e)); }
+        }catch(PDOException $e){ jsonReturnEcho(500, "Error", $e); }
        
-    }
 
 }

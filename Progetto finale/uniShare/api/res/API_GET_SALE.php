@@ -10,10 +10,7 @@
 
 function getSales(array $payload, PDO $conn){
 
-    if(!isset($_SESSION["username"])){
-        echo json_encode(Array("Error"=>"User not logged in"));
-        exit();
-    }else {
+    loginCheck();
 
         try{
             $return = Array();
@@ -32,12 +29,8 @@ function getSales(array $payload, PDO $conn){
                 $return[] = $row;
             }
             echo json_encode($return);
-        }catch (PDOException $e){
-            http_response_code(500);
-            echo json_encode(Array("Error"=>$e));
-            exit();
-        }
+        }catch (PDOException $e){jsonReturnEcho(500, "Error", $e);}
 
     }
 
-}
+

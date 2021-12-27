@@ -8,21 +8,12 @@
 
 function getUserInfo(array $payload, PDO $conn){
 
-    if(!isset($_SESSION["username"])){
-        echo json_encode(Array("Error"=>"User not logged in"));
-        exit();
-    }else{
-        $sql = "SELECT Name, Surname, email FROM Users WHERE email = :mail";
+    loginCheck();
         try{
-            $stmt = $conn->prepare($sql);
+            $stmt = $conn->prepare("SELECT Name, Surname, email FROM Users WHERE email = :mail");
             $stmt->bindValue(":mail", $_SESSION["username"], PDO::PARAM_STR);
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             echo json_encode($row);
-        }catch (PDOException $e){
-            http_response_code(500);
-            echo json_encode(Array("Error"=>$e));
-            exit();
-        }
+        }catch (PDOException $e){jsonReturnEcho(500, "Error", $e);}
     }
-}

@@ -13,10 +13,7 @@
 function updatePassword(array $payload, PDO $conn)
 {
 
-    if (!isset($_SESSION["username"])) {
-        echo json_encode(array("Error" => "User not logged in"));
-        exit();
-    } else {
+    loginCheck();
         try{
            $stmtSelectOldPaswword = $conn->prepare("SELECT password from users where email = :user");
            $stmtSelectOldPaswword->bindValue(":user", $_SESSION["username"],PDO::PARAM_STR);
@@ -29,12 +26,11 @@ function updatePassword(array $payload, PDO $conn)
                 $stmtUpdatePassword->bindValue(":password",hash("sha512", $payload["newPassword"]) , PDO::PARAM_STR );
                 $stmtUpdatePassword->bindValue(":user", $_SESSION["username"], PDO::PARAM_STR);
                 $stmtUpdatePassword->execute();
-                echo json_encode(Array("Ok"=>"Done"));
+                jsonReturnOkEcho();
            }else{
-               echo json_encode(Array("Error"=>"Old password not matching"));
-               exit();
+               jsonReturnEcho(400, "Error", "Old password not matching");
            }
 
-        }catch(PDOException $e){echo json_encode(Array("Error"=>$e));}
-    }
+        }catch(PDOException $e){ jsonReturnEcho(500, "Error", $e); }
+    
 }

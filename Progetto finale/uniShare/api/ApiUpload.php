@@ -2,19 +2,20 @@
 
 header("Content-Type: text/javascript");
 
-if(!@require_once "config.php"){
+if(!@require_once "utils.php"){
     http_response_code(500);
-    echo json_encode(Array("Error" => "Unable to include config file!"));
+    echo json_encode(Array("Error" => "Unable to load utilities!"));
     exit();
+}
+
+if(!@require_once "config.php"){
+    jsonReturnEcho(500, "Error", "Unable to include config file!");
 }
 
 
 if (!isset($_SESSION)) { session_start(); }
-if (!isset($_SESSION["username"])){
-    http_response_code(400);
-    echo json_encode(Array("Error"=>"User not logged in!"));
-    exit();
-}
+
+loginCheck();
 
 $universita = htmlspecialchars($_POST["universita"]);
 $annoCorso = htmlspecialchars($_POST["annoCorso"]);
@@ -31,17 +32,14 @@ if (UPLOAD_ERR_OK === $file['error']) {
 
     //controllo estensione del file
     if(pathinfo($file["name"], PATHINFO_EXTENSION) != "pdf"){
-        http_response_code(403);
-        echo json_encode(Array("Error"=>"File extension not allowed"));
-        exit();
+        jsonReturnEcho(403, "Error", "File extension not allowed");
     }
 
     $fileName = basename($file['name']);
     $newFileName =  hash_file("sha256", $file['tmp_name']  )  . time() . '.pdf';
     move_uploaded_file($file['tmp_name'],  "../uploads/" . $newFileName);
 }else{
-    http_response_code(500);
-    echo json_encode(Array("Error" => "Unable to upload file"));
+    jsonReturnEcho(500,"Error" , "Unable to upload file");
 }
 
 //rimuovo estensione dal filename
@@ -103,13 +101,11 @@ try{
     $stmtInsertAppunto->bindValue(":docente", $nomeDocente, PDO::PARAM_STR);
     $stmtInsertAppunto->execute();
 
-    echo json_encode(Array("Ok"=>"Added!"));
+    jsonReturnOkEcho();
 
 }catch(PDOException $e){
-    http_response_code(500);
     unlink("../uploads/" . $newFileName); //delete file if error occurs
-    echo json_encode(Array("Error" => $e));
-    exit();
+    jsonReturnEcho(500, "Error", $e);
 }
 
 ?>

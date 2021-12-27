@@ -8,11 +8,11 @@
 
 function logout(array $payload, PDO $conn){
    if(isset($_SESSION["username"])){
-       unset($_SESSION["username"]);
-       session_destroy();
-       session_start();
-       echo json_encode(Array("ok"=>"User logged out"));
+        unset($_SESSION["username"]);
+        session_destroy();
+        session_start();
+        jsonEcho("ok", "User logged out");
    }else{
-       echo json_encode(Array("ok"=>"User was not logged in"));
+        jsonEcho("ok", "User was not logged in");
    }
 }

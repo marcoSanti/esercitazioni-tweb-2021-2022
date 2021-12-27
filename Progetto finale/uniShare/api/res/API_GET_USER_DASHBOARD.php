@@ -8,10 +8,7 @@
 
 function getUserDashboard(array $payload, PDO $conn){
 
-    if(!isset($_SESSION["username"])){
-        echo json_encode(Array("Error"=>"User not logged in"));
-        exit();
-    }else{
+    loginCheck();
         $sql = "SELECT obj1, obj2, obj3, obj4 FROM dashboard WHERE user = :mail";
         try{
             $stmt = $conn->prepare($sql);
@@ -19,10 +16,6 @@ function getUserDashboard(array $payload, PDO $conn){
             $stmt->execute();
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             echo json_encode($row);
-        }catch (PDOException $e){
-            http_response_code(500);
-            echo json_encode(Array("Error"=>$e));
-            exit();
-        }
-    }
+        }catch (PDOException $e){jsonReturnEcho(500, "Error", $e);}
+    
 }

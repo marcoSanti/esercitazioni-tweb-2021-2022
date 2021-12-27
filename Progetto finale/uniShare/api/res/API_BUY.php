@@ -8,10 +8,7 @@
 
 function buy(array $payload, PDO $conn){
 
-    if(!isset($_SESSION["username"])){
-        echo json_encode(Array("Error"=>"User not logged in"));
-        exit();
-    }else{
+        loginCheck();
         $sql = "insert into acquisto (user, appunto) VALUES (:username, :appunto);";
         try{
             $stmt = $conn->prepare($sql);
@@ -19,11 +16,7 @@ function buy(array $payload, PDO $conn){
             $stmt->bindValue(":username",$_SESSION["username"], PDO::PARAM_STR);
             $stmt->execute();
 
-            echo json_encode(Array("Ok"=>"Inserted!"));
-        }catch (PDOException $e){
-            http_response_code(500);
-            echo json_encode(Array("Error"=>$e));
-            exit();
-        }
+            jsonReturnOkEcho();
+
+        }catch (PDOException $e){ jsonReturnEcho(500, "Error", $e); }
     }
-}

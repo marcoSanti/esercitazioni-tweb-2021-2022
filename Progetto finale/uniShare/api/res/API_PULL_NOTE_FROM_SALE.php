@@ -11,15 +11,11 @@
 
 function pullFromSale(array $payload, PDO $conn){
 
-    if(!isset($_SESSION["username"])){
-        echo json_encode(Array("Error"=>"User not logged in"));
-        exit();
-    }else {
+    loginCheck();
         if(!isset($payload["pull"]) || !isset($payload["codice"])){
-            http_response_code(400);
-            echo json_encode(Array("Error"=>"Missing parameters"));
-            exit();
+            jsonReturnEcho(400, "Error", "Missing parameters");
         }
+        
         try{
             $stmtGetNote = $conn->prepare("SELECT * from appunti WHERE user = :username AND idappunti = :id;");
             $stmtGetNote->bindValue(":username", $_SESSION["username"], PDO::PARAM_STR);
@@ -34,16 +30,11 @@ function pullFromSale(array $payload, PDO $conn){
                     $stmtUpdatePull->bindValue(":status",1, PDO::PARAM_STR);
                 }
                 $stmtUpdatePull->execute();
-                echo json_encode(Array("Ok"=>"done"));
+                jsonReturnOkEcho();
             }
 
 
-        }catch (PDOException $e){
-            http_response_code(500);
-            echo json_encode(Array("Error"=>$e));
-            exit();
-        }
+        }catch (PDOException $e){jsonReturnEcho(500, "Error", $e);}
 
     }
 
-}

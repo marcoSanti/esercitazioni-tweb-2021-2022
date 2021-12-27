@@ -8,15 +8,11 @@
 
 function ApiSearchNotes(array $payload, PDO $conn){
 
-    if(!isset($_SESSION["username"])){
-        echo json_encode(Array("Error"=>"User not logged in"));
-        exit();
-    }else{
-        $sql = "SELECT idappunti as codice, Nome as titolo, uploadDate, price as prezzo, insegnamento_scuola as insegnamento, tipoAppunti, nomeDocente as docente FROM appunti where visible=1 and ( nome like :input or nomeDocente like :input or insegnamento_scuola in ( select insegnamento.idInsegnamento from insegnamento where insegnamento.Nome like :input ) or insegnamento_scuola in ( select idInsegnamento from insegnamento  inner join scuola on scuola = scuola.idScuola where scuola.nomeScuola like :input ))";
+    loginCheck();
 
         try{
             $arrayReturn = Array();
-            $stmtSearch = $conn->prepare($sql);
+            $stmtSearch = $conn->prepare("SELECT idappunti as codice, Nome as titolo, uploadDate, price as prezzo, insegnamento_scuola as insegnamento, tipoAppunti, nomeDocente as docente FROM appunti where visible=1 and ( nome like :input or nomeDocente like :input or insegnamento_scuola in ( select insegnamento.idInsegnamento from insegnamento where insegnamento.Nome like :input ) or insegnamento_scuola in ( select idInsegnamento from insegnamento  inner join scuola on scuola = scuola.idScuola where scuola.nomeScuola like :input ))");
             $stmtSearch->bindValue(":input", "%".$payload["query"] . "%", PDO::PARAM_STR); // % per poter cercare stringhe che anche solo contengono la query
             $stmtSearch->execute();
 
@@ -46,10 +42,6 @@ function ApiSearchNotes(array $payload, PDO $conn){
 
             echo json_encode($arrayReturn);
 
-        }catch (PDOException $e){
-            http_response_code(500);
-            echo json_encode(Array("Error"=>$e));
-            exit();
-        }
-    }
+        }catch (PDOException $e){jsonReturnEcho(500, "Error", $e);}
+    
 }

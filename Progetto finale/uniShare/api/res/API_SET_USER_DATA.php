@@ -9,26 +9,20 @@
 
 function updateUserInformation(array $payload, PDO $conn){
 
-    $nome = $payload["name"];
-    $cognome = $payload["surname"];
+    loginCheck();
 
     //UserType=0 normal user, 1 admin
     $query = "UPDATE users SET Name=:name, Surname=:surname WHERE email=:email";
     try{
         $stmt=$conn->prepare($query);
-        $stmt->bindParam(":name", $nome, PDO::PARAM_STR);
-        $stmt->bindParam(":surname", $cognome, PDO::PARAM_STR);
+        $stmt->bindParam(":name", $payload["name"], PDO::PARAM_STR);
+        $stmt->bindParam(":surname", $payload["surname"], PDO::PARAM_STR);
         $stmt->bindParam(":email", $_SESSION["username"], PDO::PARAM_STR);
         $stmt->execute();
 
-        echo json_encode(Array("Ok"=>"Updated"));
-        exit();
+        jsonReturnOkEcho();
 
-    }catch (PDOException $e){
-        http_response_code(500);
-        echo json_encode(Array("Error"=>$e));
-        exit();
-    }
+    }catch (PDOException $e){jsonReturnEcho(500, "Error", $e);}
 
 
 

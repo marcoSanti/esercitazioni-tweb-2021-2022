@@ -12,12 +12,10 @@ function login(array $payload, PDO $conn){
     $password = hash("sha512", $payload["password"]);
 
     if(isset($_SESSION["username"])){
-        echo json_encode(Array("Ok"=>"Logged"));
-        exit();
+        jsonEcho("Ok", "Logged");
     }else{
-        $sql = "SELECT * FROM Users WHERE email = :mail AND password = :password";
         try{
-            $stmt = $conn->prepare($sql);
+            $stmt = $conn->prepare("SELECT * FROM Users WHERE email = :mail AND password = :password");
             $stmt->bindValue(":mail", $username, PDO::PARAM_STR);
             $stmt->bindValue(":password", $password, PDO::PARAM_STR);
             $stmt->execute();
@@ -25,14 +23,10 @@ function login(array $payload, PDO $conn){
                 session_destroy();
                 session_start();
                 $_SESSION["username"] = filter_var($username, FILTER_VALIDATE_EMAIL);
-                echo json_encode(Array("Ok"=>"Logged"));
+                jsonEcho("Ok", "Logged");
             }else{
-                echo json_encode(Array("Error"=>"Credenziali errate"));
+                jsonEcho("Error", "Username o password errati");
             }
-        }catch (PDOException $e){
-            http_response_code(500);
-            echo json_encode(Array("Error"=>$e));
-            exit();
-        }
+        }catch (PDOException $e){jsonReturnEcho(500, "Error", $e);}
     }
 }

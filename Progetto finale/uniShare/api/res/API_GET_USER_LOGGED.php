@@ -8,8 +8,8 @@
 
 function userIsLogged(array $payload, PDO $conn){
     if(isset($_SESSION["username"])){
-        echo json_encode(Array("Status"=>"logged"));
+        jsonEcho("Status", "logged");
     }else{
-        echo json_encode(Array("Status"=>"not_logged"));
+        jsonEcho("Status", "not_logged");
     }
 }

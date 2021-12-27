@@ -8,10 +8,7 @@
 
 function apiElencaUniversita(array $payload, PDO $conn){
 
-    if(!isset($_SESSION["username"])){
-        echo json_encode(Array("Error"=>"User not logged in"));
-        exit();
-    }else{
+    loginCheck();
         $sql = "SELECT nomeScuola as item FROM scuola ";
         try{
             $return = array();
@@ -22,10 +19,6 @@ function apiElencaUniversita(array $payload, PDO $conn){
                 $return[]["item"] = $row["item"];
             }
             echo json_encode($return);
-        }catch (PDOException $e){
-            http_response_code(500);
-            echo json_encode(Array("Error"=>$e));
-            exit();
-        }
-    }
+        }catch (PDOException $e){jsonReturnEcho(500, "Error", $e);}
+    
 }
