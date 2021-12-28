@@ -1,84 +1,86 @@
-
-html{
+html {
     margin-bottom: 11em;
 }
 
+
 /*css usato per elemento assolutamente neutro della pagina.
 è come avere un tag "invisibile*/
-.neutralTag{
+
+.neutralTag {
     all: unset;
 }
 
-#HomePageCarousel{
-    background:linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../media/homeBg.jpg");
+#HomePageCarousel {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../media/homeBg.jpg");
     background-size: cover;
 }
 
-#HomePageSearchFormCarousel{
+#HomePageSearchFormCarousel {
     width: 40em;
 }
 
-.PageContent{
+.PageContent {
     margin-bottom: 10em;
 }
 
-#SearchPageContainer{
+#SearchPageContainer {
     margin-top: 80px;
     margin-left: 10px;
 }
-#SearchPageFilterOptions{
+
+#SearchPageFilterOptions {
     border: 1px solid #ced4da;
     border-radius: 3px;
     padding: 1em;
-    margin-top:5em;
+    margin-top: 5em;
 }
 
-#SearchPageFilterOptions label{
-    padding-left:20pt;
+#SearchPageFilterOptions label {
+    padding-left: 20pt;
 }
 
-#SearchPageFilterOptions button{
+#SearchPageFilterOptions button {
     width: 100%;
     margin-top: 20px;
 }
 
-#SearchPageFilterOptions>div{
+#SearchPageFilterOptions>div {
     margin-top: 20px;
 }
 
-#SearchPageSearchDocument{
+#SearchPageSearchDocument {
     width: 100%;
 }
 
-#SearchPageSecondCol{
+#SearchPageSecondCol {
     margin-right: 2em;
 }
 
-.card{
+.card {
     margin-left: 2em;
     margin-top: 2em;
     width: 18rem;
 }
 
-.cardAppuntoVendita{
+.cardAppuntoVendita {
     width: 95%;
 }
 
-.btn-buy-appunto{
+.btn-buy-appunto {
     width: 90%;
     height: 90%;
     vertical-align: middle;
 }
 
-#SearchPageCardBox{
+#SearchPageCardBox {
     margin-bottom: 2em;
 }
 
-.centeredDiv{
-    margin : 0 auto;
+.centeredDiv {
+    margin: 0 auto;
 }
 
-.UploadAppunti{
+.UploadAppunti {
     border: 1px solid #ced4da;
     border-radius: 5px;
     padding: 10px;
@@ -86,14 +88,14 @@ html{
     width: 50em;
 }
 
-.UploadAppunti .card{
+.UploadAppunti .card {
     margin-top: 1em;
     padding: 10px;
     border-radius: 20px;
     height: 95%;
 }
 
-.UploadAppunti .btn{
+.UploadAppunti .btn {
     width: 10em;
 }
 
@@ -102,77 +104,76 @@ html{
     float: right;
 }
 
-.UploadAppunti .btn-danger{
+.UploadAppunti .btn-danger {
     position: relative;
     float: left;
 }
 
-.UploadBtnRegisterLogin{
+.UploadBtnRegisterLogin {
     width: 100% !important;
     margin: 4em 10px 4em 0px;
 }
 
-
-.map-container{
-    overflow:hidden;
-    padding-bottom:56.25%;
-    position:relative;
-    height:0;
-}
-.map-container iframe{
-    left:0;
-    top:0;
-    height:100%;
-    width:100%;
-    position:absolute;
+.map-container {
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+    height: 0;
 }
 
-#btnFinishUpload{
+.map-container iframe {
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+#btnFinishUpload {
     width: 20em;
     margin: 0 auto;
-
 }
 
-#DoneUploadImg{
+#DoneUploadImg {
     width: 60%;
     height: 60%;
     margin: 3em auto 3em auto;
 }
-#UploadDoneDigitalizeCode{
+
+#UploadDoneDigitalizeCode {
     text-align: center;
     font-weight: bold;
 }
 
-
-#LoginForm{
+#LoginForm {
     width: 20em;
     vertical-align: center;
     margin: 90px auto;
 }
 
-#RegisterForm{
+#RegisterForm {
     width: 20em;
     vertical-align: center;
     margin: 90px auto;
 }
 
-.loginButton{
+.loginButton {
     width: 100%;
     margin-top: 5px;
 }
 
-.ErrorLoginRegisterDiv{
+.ErrorLoginRegisterDiv {
     margin-top: 1em;
     margin-bottom: 1em;
     display: none;
 }
 
-.widget{
+.widget {
     width: 100%;
     height: 100%;
 }
 
-.widget-container{
+.widget-container {
     padding: 1em;
     position: relative
 }
@@ -181,32 +182,33 @@ html{
     overflow-y: scroll;
 }
 
-.WidgedEditProfileButton{
+.WidgedEditProfileButton {
     float: right;
 }
 
-.WidgetGraphWrapper{
-   width: 15em;
+.WidgetGraphWrapper {
+    width: 15em;
 }
 
-.widget-gradient-blue{
+.widget-gradient-blue {
     color: white;
     background: linear-gradient(to right, #0e5c83, #339aa9);
     border: none;
 }
 
-.widget-gradient-orange{
+.widget-gradient-orange {
     color: white;
     background: linear-gradient(to right, #ef4136, #fbb040);
     border: none;
 }
-.widget-gradient-green{
+
+.widget-gradient-green {
     color: white;
     background: linear-gradient(to right, #20560f, #3db300);
     border: none;
 }
 
-#SideMenuEditPage{
+#SideMenuEditPage {
     position: absolute;
     width: 20em;
     color: white;
@@ -216,17 +218,17 @@ html{
     z-index: 200;
 }
 
-#SideMenuEditPage-Wrapper{
+#SideMenuEditPage-Wrapper {
     margin-top: 90px;
     padding: 1em;
 }
 
-#SideMenuEditPage button{
+#SideMenuEditPage button {
     width: 15em;
     text-align: center;
 }
 
-.UserPageOverlay{
+.UserPageOverlay {
     margin-left: 3em;
     margin-top: 3em;
     position: absolute;
@@ -235,30 +237,38 @@ html{
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 2;
 }
 
-.emptyWidget{
+.emptyWidget {
     min-height: 5em;
 }
 
-#UserPageNavTabs{
+#UserPageNavTabs {
     margin-bottom: 1em;
 }
 
-#UserPageProfileView{
+#UserPageProfileView {
     width: 60%;
 }
 
-.UserPageNavigator{
+.UserPageNavigator {
     margin-top: 1em;
 }
 
-#TemplateWidgetAdminIncomeExpenses .card-body, #WidgetAdminCashFlow .card-body {
+#TemplateWidgetAdminIncomeExpenses .card-body,
+#WidgetAdminCashFlow .card-body {
     font-size: 3em;
 }
 
-#TemplateWidgetAdminIncomeExpenses .card-body>i,  #WidgetAdminCashFlow .card-body>i{
+#TemplateWidgetAdminIncomeExpenses .card-body>i,
+#WidgetAdminCashFlow .card-body>i {
     margin-left: 1em;
+}
+
+#BannerContainerViewer {
+    position: absolute;
+    right: 1em;
+    width: 28%;
 }

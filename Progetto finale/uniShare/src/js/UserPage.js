@@ -9,7 +9,7 @@ function toggleEditPageMenu() {
     var button = $("#ToggleEditUserPage");
     if (!menuShow) {
         $("#SideMenuEditPage").fadeIn(100);
-        button.html('Conferma');
+        button.html('Concludi personalizzazione');
     } else {
         $("#SideMenuEditPage").fadeOut(100);
         button.html('Personalizza aspetto');
@@ -23,6 +23,12 @@ function widgetMouseButtonDown(event) {
     oldX = event.pageX; // remember this square for
     oldY = event.pageY;
 
+}
+
+function showAlert(type, title, message) {
+    $("#BannerContainerViewer").html("<div class='alert alert-" + type + " alert-dismissible fade show' role='alert'>" +
+        "<strong>" + title + "</strong> " + message +
+        "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>").delay(3000).fadeOut();
 }
 
 /*
@@ -111,7 +117,7 @@ function widgetMouseButtonUp(event) {
             return;
     }
 
-    ajaxCall("user_widget_pos_set", { "position": ajaxUpdateObject, "widget": ajaxWidgetUpdate });
+    ajaxCall("user_widget_pos_set", { "position": ajaxUpdateObject, "widget": ajaxWidgetUpdate }, function() { showAlert("success", "", "Widget salvato!") });
 }
 
 function addWidgetToPage(replacementContainer, widgetToAdd) {
@@ -346,24 +352,34 @@ function LoadUserPageDetails() {
     });
 
     $("#UserDataEditPassword").click(function() {
-        $("#passwordChangeDiv").fadeIn();
-        $("#UserDataEditPassword").html("Conferma modifiche").click(function() {
-            var oldPsw = $("#oldPassword").val();
-            var newPsw = $("#newPassword1").val();
-            var newPsw1 = $("#newPassword2").val();
-            if (newPsw1 === newPsw && oldPsw !== "" && newPsw !== "") {
-                ajaxCall("update_psw", { "oldPassword": oldPsw, "newPassword": newPsw }, function(data) {
-                    if (data["Ok"] !== undefined) {
-                        $("#passwordChangeDiv").replaceWith("<div class='alert alert-success alert-dismissible fade show' role='alert'>Password modificata con successo<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>");
-                        $("#UserDataEditPassword").fadeOut();
-                    }
-                }, function(data) { alert(data["Error"]) });
-            } else {
-                alert("Le nuove password non coincidono oppure non hai inserito tutti i dati!")
-            }
-        });
+        $("#passwordChangeDiv").toggle();
+        $("#oldPassword").val("");
+        $("#newPassword1").val("");
+        $("#newPassword2").val("");
+
+        $("#btnConfirmChangePassword").click(changePassword);
     })
 }
+
+function changePassword() {
+    var oldPsw = $("#oldPassword").val();
+    var newPsw = $("#newPassword1").val();
+    var newPsw1 = $("#newPassword2").val();
+    if (newPsw1 === newPsw && oldPsw !== "" && newPsw !== "") {
+        ajaxCall("update_psw", { "oldPassword": oldPsw, "newPassword": newPsw }, function(data) {
+            if (data["Ok"] !== undefined) {
+                $("#passwordChangeDiv").fadeOut();
+                showAlert("success", "Successo!", "password modificata con successo");
+            }
+        }, function(data) {
+            var errorMessage = JSON.parse(data["responseText"]);
+            showAlert("danger", "Errore", errorMessage["Error"]);
+        });
+    } else {
+        showAlert("warning", "Attenzione", "Le password nuove non coincidono");
+    }
+}
+
 
 function LoadDashboardWidgetsDone(data) {
     var widgetToAdd;
@@ -430,9 +446,10 @@ function editUserInformations() {
 
     ajaxCall("update_user_info", { "name": name, "surname": surname }, function(data) {
         if (data["Ok"] !== undefined) {
-            $("#UserDataUpdateSuccessDiv").fadeIn();
+            showAlert("success", "", "Dati aggiornati con successo");
         } else {
-            $("#UserDataUpdateErrorDiv").fadeIn();
+            showAlert("danger", "Error", "Errore nell'aggiornamento dei dati");
+            console.log(data);
         }
     });
 }
@@ -456,7 +473,7 @@ function getUserBoughtNoteDone(data) {
             "                                    <strong>" + item["titolo"] + "</strong>" +
             "                                </div>\n" +
             "                                <div class=\"col\">" +
-            "                                  <button class='btn btn-primary'>Feedback</button>" +
+            "                                  <button class='btn btn-primary' id='feedbackBtn" + item["codice"] + "'>Feedback</button>" +
             "                                </div>\n" +
             "                            </div>\n" +
             "                        </div>\n" +
@@ -479,6 +496,28 @@ function getUserBoughtNoteDone(data) {
             "                        </div>"
         );
 
+        $("#feedbackBtn" + item["codice"]).click(function() {
+            $("#feedbackBtn" + item["codice"]).replaceWith(
+                "<div class='input-group' id='feedbackInput" + item["codice"] + "'> " +
+                "<select class='form-select' id='reviewValue" + item["codice"] + "'>" +
+                "<option value='1'>1/5</option>" +
+                "<option value='2'>2/5</option>" +
+                "<option value='3'>3/5</option>" +
+                "<option value='4'>4/5</option>" +
+                "<option value='5' selected>5/5</option>" +
+                "</select> <button id='btnAddReview" + item["codice"] + "' class='btn btn-success'>Conferma</button></div>");
+
+            $("#btnAddReview" + item["codice"]).click(function() {
+                ajaxCall("add_review", { "note": item["codice"], "value": $("#reviewValue" + item["codice"]).val() }, function(data) {
+                    if (data["Ok"] !== undefined) {
+                        showAlert("success", "", "Recensione aggiunta con successo");
+                        $("#feedbackInput" + item["codice"]).fadeOut();
+                    }
+                });
+            });
+        });
+
+
         $("#" + item["Path"]).click(function() {
             window.location.href = "./api/obtainDocument.php?doc=" + item["Path"];
         });
@@ -490,8 +529,7 @@ function userLoginCheck() {
     //se utente non è loggato faccio un redirect a login
     ajaxCall("log_in_check", {}, function(data) {
         if (data["Status"] === undefined || data["Status"] !== "logged") {
-            console.log(data);
-            //window.location.href = "./login.php";
+            window.location.href = "./login.php";
         }
     });
 }
@@ -569,16 +607,27 @@ function getUsers(type) {
     ajaxCall("admin_get_users", { "type": type }, function(data) {
 
         $.each(data, function(index, item) {
-            var buttons = "<td><button class = 'btn btn-primary' id = 'btnPromote" + index + "'> Promuovi admin </button>" +
-                "<button class = 'btn btn-danger' id = 'btnDelete" + index + "'> Elimina utente </button></td> ";
+            if (type === 0) {
+                var buttons = "<td><button class = 'btn btn-primary' id = 'btnPromote" + index + "'> Promuovi admin </button>" +
+                    "<button class = 'btn btn-danger' id = 'btnDelete" + index + "'> Elimina utente </button></td> ";
+            } else {
+                var buttons = "<td><button class = 'btn btn-danger' id = 'btnDelete" + index + "'> Elimina utente </button></td> ";
+
+            }
 
             $(target).append("<tr id='UserRow" + index + "'><td> " + item["email"] + "</td><td> " + item["Name"] + "</td><td> " + item["Surname"] + "</td> " + buttons + "</tr>");
 
             $("#btnPromote" + index).click(function() {
-                ajaxCall("promote_user", { "username": item["email"] }, function() { $("#UserRow" + index).fadeOut(); })
+                ajaxCall("promote_user", { "username": item["email"] }, function() {
+                    showAlert("success", "Success", "Utente promosso a amministratore");
+                    $("#UserRow" + index).fadeOut();
+                })
             });
             $("#btnDelete" + index).click(function() {
-                ajaxCall("drop_user", { "userId": item["email"] }, function() { $("#UserRow" + index).fadeOut(); })
+                ajaxCall("drop_user", { "userId": item["email"] }, function() {
+                    showAlert("success", "", "Utente eliminato");
+                    $("#UserRow" + index).fadeOut();
+                })
             });
         });
     });
@@ -599,7 +648,10 @@ function adminListDocumentsDone(data) {
             "</tr>"
         );
         $("#deleteDocumentButton" + index).click(function() {
-            ajaxCall("drop_note", { "noteId": item["idappunti"] }, function() { $("#DocumentRow" + index).fadeOut(); })
+            ajaxCall("drop_note", { "noteId": item["idappunti"] }, function() {
+                showAlert("success", "", "Utente eliminato con successo");
+                $("#DocumentRow" + index).fadeOut();
+            })
         });
 
     });
@@ -660,6 +712,7 @@ $(function() {
 
     $("#TabShowUserProfile").click(function() {
         ClearUserPageViewBlock();
+        $("#passwordChangeDiv").hide();
         $("#UserProfileViewBlock").fadeIn(10);
         $("#TabShowUserProfile").addClass("active");
         LoadUserPageDetails();
