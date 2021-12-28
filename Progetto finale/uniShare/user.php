@@ -240,11 +240,7 @@ include "navbar.php";
                     </div>
                     <div class="col">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Earning 1</li>
-                            <li class="list-group-item">Earning 2</li>
-                            <li class="list-group-item">Earning 3</li>
-                            <li class="list-group-item">Earning 4</li>
-                            <li class="list-group-item">Earning 5</li>
+                    
                         </ul>
                     </div>
                 </div>
@@ -261,22 +257,14 @@ include "navbar.php";
                         <img src="src/media/user.svg" alt="userPicPlaceholder">
                     </div>
                     <div class="col">
-                        <div class="row">
-                            placeholder
-                        </div>
-                        <div class="row">
-                            placeholder
-                        </div>
-                        <div class="row">
-                            placeholder
-                        </div>
+                       
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="card widget widget-gradient-orange" id="TemplateWidgetExpenses">
-        <h5 class="card-header">Acquisti per insegnamento</h5>
+        <h5 class="card-header">Numero di acquisti per insegnamento</h5>
         <div class="card-body">
             <div class="container">
                 <div class="row">
@@ -285,11 +273,7 @@ include "navbar.php";
                     </div>
                     <div class="col">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Expense 1</li>
-                            <li class="list-group-item">Expense 2</li>
-                            <li class="list-group-item">Expense 3</li>
-                            <li class="list-group-item">Expense 4</li>
-                            <li class="list-group-item">Expense 5</li>
+                           
                         </ul>
                     </div>
                 </div>
@@ -299,11 +283,7 @@ include "navbar.php";
     <div class="card widget widget-gradient-green" id="TemplateWidgetPurchase">
         <h5 class="card-header">Appunti acquistati</h5>
         <div class="card-body">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
-            </ul>
+            
         </div>
     </div>
     <!--Admins only templates-->
@@ -312,9 +292,7 @@ include "navbar.php";
         </h5>
         <div class="card-body">
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
+               
             </ul>
         </div>
     </div>
@@ -323,8 +301,7 @@ include "navbar.php";
         <h5 class="card-header">Cashflow ultimo mese
         </h5>
         <div class="card-body">
-            <i class="fas fa-arrow-up"></i> 123,45€
-            <i class="fas fa-arrow-down"></i> 678,90€
+           
         </div>
     </div>
 
@@ -332,11 +309,7 @@ include "navbar.php";
         <h5 class="card-header">Appunti del sito
         </h5>
         <div class="card-body">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
-            </ul>
+            
         </div>
     </div>
     <div class="card widget widget-gradient-blue" id="TemplateWidgetAdminAdmins">
@@ -344,9 +317,7 @@ include "navbar.php";
         </h5>
         <div class="card-body">
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">An item</li>
-                <li class="list-group-item">A second item</li>
-                <li class="list-group-item">A third item</li>
+                
             </ul>
         </div>
     </div>

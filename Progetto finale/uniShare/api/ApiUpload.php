@@ -88,7 +88,7 @@ try{
      *
      * il prezzo è tre centesimi a pagina, di cui due a utente e uno a gestore sito...
      * */
-    $price = 0.03 * ($file["size"] / 1024); //size in kb
+    $price =round( 0.03 * ($file["size"] / 1024) , 2); //size in kb arrotondato in 2 decimali
 
     //inserisco l'appunto a database
     $stmtInsertAppunto = $conn->prepare( "insert into appunti (Nome, Path, price, insegnamento_scuola, user, tipoAppunti, nomeDocente) VALUES (:nomeAppunti, :pathAppunti,:prezzo,  :corso, :username, :tipo, :docente);");

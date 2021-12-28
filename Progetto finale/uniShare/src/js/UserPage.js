@@ -128,50 +128,56 @@ function addWidgetToPage(replacementContainer, widgetToAdd) {
         $("#WidgetAccountInfo").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateAccountWidget");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetAccountInfo'));
-
+        widgetLoadUserInfo();
 
     } else if (widgetToAdd === "AddWidgetEarnings") {
 
         $("#WidgetEarnings").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetEarnings");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetEarnings'));
-        updateEarningsGraph();
+        ajaxCall("chart_income", {}, function(data) { updateEarningsGraph(data); });
 
     } else if (widgetToAdd === "AddWidgetExpenses") {
 
         $("#WidgetExpenses").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetExpenses");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetExpenses'));
-        updateExpensesGraph();
+        ajaxCall("chart_buy", {}, function(data) { updateExpensesGraph(data); })
+
 
     } else if (widgetToAdd === "AddWidgetPurchase") {
 
         $("#WidgetPurchase").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetPurchase");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetPurchase'));
+        widgetLoadBoughtNotes();
 
     } else if (widgetToAdd === "AdminAddUserList") {
 
         $("#WidgetAdminUserList").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetAdminUsers");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetAdminUserList'));
+        widgetLoadSiteUsersAdmins(0);
 
     } else if (widgetToAdd === "AdminAddCashFlow") {
 
         $("#WidgetAdminCashFlow").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetAdminIncomeExpenses");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetAdminCashFlow'));
+        widgetLoadCashFlow();
 
     } else if (widgetToAdd === "AdminAddDocumentList") {
 
         $("#WidgetAdminDocumentList").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetAdminDocuments");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetAdminDocumentList'));
+        widgetLoadNotesOnSale();
 
     } else if (widgetToAdd === "AdminAddAdminList") {
         $("#WidgetAdminList").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetAdminAdmins");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetAdminList'));
+        widgetLoadSiteUsersAdmins(1);
     }
 }
 
@@ -249,15 +255,15 @@ function widgetAddMove(event) {
     }
 }
 
-
-function updateExpensesGraph() {
+/*WIDGETS */
+function updateExpensesGraph(serverData) {
     var ExpensesChartCanvas = $("#Expenses_canvas");
     if (ExpensesChartCanvas) {
         const data = {
-            labels: ['Appunto1', 'Appunto2', 'Appunto3', 'Appunto4', 'Appunto5'],
+            labels: serverData["labels"],
             datasets: [{
                 label: 'Guadagni mensili',
-                data: [100, 200, 300, 400, 500],
+                data: serverData["values"],
                 backgroundColor: Object.values(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236', '#166a8f', '#00a950', '#58595b', '#8549ba']),
             }]
         };
@@ -279,17 +285,20 @@ function updateExpensesGraph() {
             },
         };
         var ExpensesChart = new Chart(ExpensesChartCanvas, config);
+        $(serverData["labels"]).each(function(index, item) {
+            $("#WidgetExpenses ul").append(" <li class='list-group-item'>" + item + "</li>");
+        })
     }
 }
 
-function updateEarningsGraph() {
+function updateEarningsGraph(serverData) {
     var EarningsChartCanvas = $("#Earnings_canvas");
     if (EarningsChartCanvas) {
         const data = {
-            labels: ['Appunto1', 'Appunto2', 'Appunto3', 'Appunto4', 'Appunto5'],
+            labels: serverData["labels"],
             datasets: [{
                 label: 'Guadagni mensili',
-                data: [100, 200, 300, 400, 500],
+                data: serverData["values"],
                 backgroundColor: Object.values(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236', '#166a8f', '#00a950', '#58595b', '#8549ba']),
             }]
         };
@@ -312,8 +321,54 @@ function updateEarningsGraph() {
         };
         var EarningChartCanvas = new Chart(EarningsChartCanvas, config);
     }
+
+    $(serverData["labels"]).each(function(index, item) {
+        $("#WidgetEarnings ul").append(" <li class='list-group-item'>" + item + "</li>");
+    })
+
 }
 
+function widgetLoadSiteUsersAdmins(type) {
+    ajaxCall("admin_get_users", { "type": type }, function(data) {
+        var target = "";
+        if (type === 1) target = "WidgetAdminList";
+        else target = "WidgetAdminUserList";
+
+        $.each(data, function(index, item) {
+            $("#" + target + " ul").append(" <li class='list-group-item'>" + item["Name"] + " " + item["Surname"] + "</li>");
+        });
+    });
+}
+
+function widgetLoadUserInfo() {
+    ajaxCall("user_info_get", {}, function(data) {
+        $("#WidgetAccountInfo .col").eq(1).append(
+            "<div class='row'>" + data["Name"] + "</div>" +
+            "<div class='row'>" + data["Surname"] + "</div>" +
+            "<div class='row'>" + data["email"] + "</div>"
+        );
+    });
+}
+
+function widgetLoadBoughtNotes() {
+    ajaxCall("get_bought_notes", {}, function(data) {
+        $("#WidgetPurchase div").append("<h5>Hai acquistato <strong>" + data.length + "</strong> appunti.</h5");
+    });
+}
+
+function widgetLoadNotesOnSale() {
+    ajaxCall("get_sale", {}, function(data) {
+        $("#WidgetAdminDocumentList div").append("<h5>Sono presenti <strong>" + data.length + "</strong> appunti sul sito.</h5");
+    });
+}
+
+
+function widgetLoadCashFlow() {
+    ajaxCall("cashflow", {}, function(data) {
+        $("#WidgetAdminCashFlow div").append("<i class='fas fa-arrow-up'></i> " + data["in"] + "€  <i class='fas fa-arrow-down'></i> " + data["out"] + "€");
+    });
+}
+/**FINE WIDGETS */
 
 function ClearUserPageViewBlock() {
     $("#UserProfileViewBlock").fadeOut(10);
@@ -455,14 +510,18 @@ function editUserInformations() {
 }
 
 function getUserBoughtNoteDone(data) {
+
     $.each(data, function(index, item) {
 
         if (item["tipoAppunti"] === "1") tipoAppunti = "Temi di esame";
         else if (item["tipoAppunti"] === "2") tipoAppunti = "Appunti lezioni";
         else tipoAppunti = "Esercitazioni";
 
-        var btnAcquistaCode = "<button id='" + item["Path"] + "' class=\"btn btn-warning btn-buy-appunto\" id='AcquistaBtn" + item["codice"] + "'><i class=\"fas fa-download\"></i>Scarica</button>\n";
+        var review = "";
 
+        if (item["reviewed"] === false) {
+            review = "                                  <button class='btn btn-primary' id='feedbackBtn" + item["codice"] + "'>Feedback</button>";
+        }
 
         $("#NotesBoughtBox").append(
             " <div class=\"card cardAppuntoVendita\" id='Appunto' " + item["codice"] + ">\n" +
@@ -473,7 +532,7 @@ function getUserBoughtNoteDone(data) {
             "                                    <strong>" + item["titolo"] + "</strong>" +
             "                                </div>\n" +
             "                                <div class=\"col\">" +
-            "                                  <button class='btn btn-primary' id='feedbackBtn" + item["codice"] + "'>Feedback</button>" +
+            review +
             "                                </div>\n" +
             "                            </div>\n" +
             "                        </div>\n" +
@@ -490,7 +549,7 @@ function getUserBoughtNoteDone(data) {
             "                                    </ul>\n" +
             "                                </div>\n" +
             "                                <div class=\"col\">\n" +
-            btnAcquistaCode +
+            "                                   <button id='" + item["Path"] + "' class=\"btn btn-warning btn-buy-appunto\" id='AcquistaBtn" + item["codice"] + "'><i class=\"fas fa-download\"></i>Scarica</button>\n" +
             "                                </div>\n" +
             "                            </div>\n" +
             "                        </div>"
@@ -562,7 +621,7 @@ function showNoteSalesDone(data) {
             "                                <div class=\"col-10\">\n" +
             "                                    <ul>\n" +
             "                                        <li><strong>Docente</strong> " + item["docente"] + "</li>\n" +
-            "                                        <li><strong>Prezzo</strong> " + item["prezzo"] + "</li>\n" +
+            "                                        <li><strong>Prezzo</strong> " + item["price"] + "</li>\n" +
             "                                        <li><strong>Data di upload</strong> " + item["uploadDate"] + "</li>\n" +
             "                                        <li><strong>Tipo di appunti</strong> " + tipoAppunti + "</li>\n" +
             "                                    </ul>\n" +
@@ -656,6 +715,9 @@ function adminListDocumentsDone(data) {
 
     });
 }
+
+
+
 
 $(function() {
 

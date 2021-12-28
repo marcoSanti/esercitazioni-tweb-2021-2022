@@ -73,6 +73,15 @@ $available_apis["add_review"]["FUNC"] = "insertReview";
 $available_apis["update_psw"]["FILE"] = "./res/API_CHANGE_PASSWORD.php";
 $available_apis["update_psw"]["FUNC"] = "updatePassword";
 
+$available_apis["cashflow"]["FILE"] = "./res/API_ADMIN_GET_CASHFLOW.php";
+$available_apis["cashflow"]["FUNC"] = "getCash";
+
+$available_apis["chart_income"]["FILE"] = "./res/API_GET_CHART_INCOME.php";
+$available_apis["chart_income"]["FUNC"] = "getIncomeChart";
+
+$available_apis["chart_buy"]["FILE"] = "./res/API_CHART_GET_NOTES.php";
+$available_apis["chart_buy"]["FUNC"] = "getChartNotes";
+
 /*DELETE APIS */
 $available_apis["drop_note"]["FILE"] = "./res/API_DELETE_NOTE.php";
 $available_apis["drop_note"]["FUNC"] = "deleteNote";
