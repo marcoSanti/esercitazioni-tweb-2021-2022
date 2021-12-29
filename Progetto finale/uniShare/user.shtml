@@ -2,9 +2,8 @@
 <!--#include virtual="src/html/navbar.html"-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js" integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="src/js/UserPage.js"></script>
+<!--Usato per fare spazio sotto alla navbar visto che ha una altezza di 80px circa ed è in position absolute-->
 <div style="height: 88px;"></div>
-<div id="BannerContainerViewer"></div>
-<!--avoid space used by navbar-->
 <nav id="SideMenuEditPage" class="bg-info" style="display: none">
     <div id="SideMenuEditPage-Wrapper">
         <div class="sidebar-header">
@@ -51,21 +50,22 @@
         <a class="nav-link" href="#" id="TabShowUserPurchase">Acquisti</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowUserEarnings">In vendita</a>
+        <a class="nav-link" href="#" tabindex="-1" id="TabShowUserEarnings">In vendita</a>
     </li>
     <!--solo admins-->
     <li class="nav-item adminOnly">
-        <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminDocumentList"><i class="fas fa-cogs"></i> Elenco appunti</a>
+        <a class="nav-link" href="#" tabindex="-1" id="TabShowAdminDocumentList"><i class="fas fa-cogs"></i> Elenco appunti</a>
     </li>
     <li class="nav-item adminOnly">
-        <a class="nav-link " href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminUserList"><i class="fas fa-cogs"></i> Elenco utenti</a>
+        <a class="nav-link " href="#" tabindex="-1" id="TabShowAdminUserList"><i class="fas fa-cogs"></i> Elenco utenti</a>
     </li>
     <li class="nav-item adminOnly">
-        <a class="nav-link" href="#" tabindex="-1" aria-disabled="true" id="TabShowAdminAdmins"><i class="fas fa-cogs"></i> Elenco amministratori</a>
+        <a class="nav-link" href="#" tabindex="-1" id="TabShowAdminAdmins"><i class="fas fa-cogs"></i> Elenco amministratori</a>
     </li>
 
 
 </ul>
+
 <div class="container" id="UserPageContainer">
     <div class="neutralTag" id="WidgetViewBlock">
         <div class="row">

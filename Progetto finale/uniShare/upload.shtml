@@ -8,7 +8,7 @@
     <div class="row g-2">
         <div class="col-md">
             <div class="form-floating">
-                <input type="text" class="form-select" list="UniversitaDataList" aria-label="Floating label select example" id="UploadNoteUniversita" required>
+                <input type="text" class="form-select" list="UniversitaDataList" id="UploadNoteUniversita" required>
                 <datalist id="UniversitaDataList">
                     </datalist>
                 <label>Universit&agrave;</label>
@@ -16,7 +16,7 @@
         </div>
         <div class="col-md">
             <div class="form-floating">
-                <input type="text" class="form-select" list="InsegnamentoDatalist" aria-label="Floating label select example" id="UploadNoteInsegnamento" required>
+                <input type="text" class="form-select" list="InsegnamentoDatalist" id="UploadNoteInsegnamento" required>
                 <datalist id="InsegnamentoDatalist">
                     </datalist>
                 <label>Seleziona l'insegnamento</label>
@@ -25,7 +25,7 @@
         </div>
         <div class="col-md">
             <div class="form-floating">
-                <select class="form-select" aria-label="Floating label select example" id="UploadNoteAnnoCorso" required>
+                <select class="form-select" id="UploadNoteAnnoCorso">
                         <option value="1">Primo</option>
                         <option value="2">Secondo</option>
                         <option value="3">Terzo</option>
@@ -47,7 +47,7 @@
         </div>
         <div class="col-md">
             <div class="form-floating">
-                <select class="form-select" aria-label="Floating label select example" id="UploadNoteTipoAppunti" required>
+                <select class="form-select" id="UploadNoteTipoAppunti">
 
                         <option value="1">Temi di esame</option>
                         <option value="2">Appunti lezioni</option>
@@ -73,7 +73,7 @@
     </div>
     <hr>
     <div class="row g-2">
-        <div class="col"><a href="./upload.shtml" class="btn btn-danger">Annulla</a></div>
+        <div class="col"><a href="./upload" class="btn btn-danger">Annulla</a></div>
         <div class="col"> <button class="btn btn-success" id="caricaDatiBtn">Avanti</button></div>
     </div>
 </div>

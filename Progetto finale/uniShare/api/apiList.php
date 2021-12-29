@@ -51,6 +51,9 @@ $available_apis["admin_get_users"]["FUNC"] = "adminGetUserList";
 $available_apis["admin_list_notes"]["FILE"] = "./res/API_ADMIN_LIST_NOTES.php";
 $available_apis["admin_list_notes"]["FUNC"] = "listDocuments";
 
+$available_apis["get_teachers"]["FILE"] = "./res/API_GET_TEACHERS.php";
+$available_apis["get_teachers"]["FUNC"] = "getTeachers";
+
 /*SET APIS*/
 $available_apis["user_widget_pos_set"]["FILE"] = "./res/API_SET_DASHBOARD_WIDGET.php";
 $available_apis["user_widget_pos_set"]["FUNC"] = "setDashboardWidget";

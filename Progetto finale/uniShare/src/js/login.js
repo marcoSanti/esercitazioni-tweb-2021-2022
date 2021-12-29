@@ -1,48 +1,43 @@
+/**
+ * questa funzione verifica il login. se ha successo, viene rimandato alla home page altrimenti viene 
+ * mostrato un messaggio di errore
+ * @returns 
+ */
+
 function login() {
     var email = $("#LoginEmail").val();
     var password = $("#LoginPassword").val();
     if (email === "" || password === "") {
-        $("#ErrorLoginDivContent").html("Email e password non possono essere lasciati vuoti!");
-        $("#ErrorLoginDiv").fadeIn();
+        showAlert("danger", "Errore", "Username e/o password non possono essere lasciati vuoti!");
         return;
-    }
-
-    /*
-     * Questa funzione controlla che la email inserita rispetti i criteri delle email.
-     * Espressione regolare presa da: RFC2822 e in particolare https://gist.github.com/gregseth/5582254 (by sonyarianto  on 8 Nov)
-     * Questa espressione regolare accetta anche indirizzi email con utf-8
-     * */
-    function validateMail(mail) {
-        return mail.toLowerCase().match(
-            /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g
-        );
     }
 
 
     if (!validateMail(email)) {
-        $("#ErrorLoginDivContent").html("Indirizzo email non valido!");
-        $("#ErrorLoginDiv").fadeIn();
+        showAlert("danger", "Errore", "Indirizzo email non valido!");
         return;
     }
 
-    var sendData = JSON.stringify({ "api": "log_in", "payload": { "email": email, "password": password } });
-    $.ajax("./api/index.php", {
-        data: sendData,
-        type: 'POST',
-        processData: false,
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function(data) {
-            if (data["Ok"] !== undefined) {
-                window.location.href = "./user.shtml";
-            } else {
-                $("#ErrorLoginDivContent").html(data["Error"]);
-                $("#ErrorLoginDiv").fadeIn();
-            }
+    ajaxCall("log_in", { "email": email, "password": password }, function(data) {
+        if (data["Ok"] !== undefined) {
+            window.location.href = "./user.shtml";
+        } else {
+            showAlert("danger", "Errore", "Credenziali di accesso errate o non esistenti");
         }
     });
+
 }
 
+/**
+ * questa funzione aggiunge gli handler quando la pagina è caricata, infine binda il tasto enter
+ * alla funzione login
+ */
 $(function() {
     $("#loginButton").click(login);
-})
+}).keypress(function(e) {
+    var key = e.which;
+    if (key == 13) // pulsante invio
+    {
+        login();
+    }
+});

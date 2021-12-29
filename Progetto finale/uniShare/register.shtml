@@ -31,7 +31,8 @@
             <input type="password" class="form-control" id="InputPassword2" placeholder="Password">
         </div>
 
-        <div id="RegisterFormSubmit" class="btn btn-primary">Registrati</div>
+        <div id="RegisterFormSubmit" class="btn btn-primary loginButton">Registrati</div>
+        <a href="./login" class="btn btn-info loginButton">Accedi</a>
     </div>
 </div>
 

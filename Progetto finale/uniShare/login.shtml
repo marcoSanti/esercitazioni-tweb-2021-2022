@@ -21,7 +21,7 @@
 
         </div>
         <div id="loginButton" class="btn btn-primary loginButton">Accedi</div>
-        <a href="register.shtml" class="btn btn-info loginButton">Registrati</a>
+        <a href="./register" class="btn btn-info loginButton">Registrati</a>
     </div>
 
 </form>

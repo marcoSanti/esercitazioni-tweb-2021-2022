@@ -1,10 +1,17 @@
+/**Variabili globali per quando trascino e sposto il widget */
 var oldX = null;
 var oldY = null;
 var moving = null;
 var maxZ = 1000;
 var lastPosition;
+
+//variabile di stato per sapere se sto visualizzando il menu di personalizzazione dei widget
 var menuShow = false;
 
+/**
+ * Questa funzione mostra e nasconde il menu laterale per la 
+ * personalizzazione della dashboard della pagina utente
+ */
 function toggleEditPageMenu() {
     var button = $("#ToggleEditUserPage");
     if (!menuShow) {
@@ -17,42 +24,25 @@ function toggleEditPageMenu() {
     menuShow = !menuShow;
 }
 
+/*
+Questa funzione viene richiamata nel momento in cui vado a selezionare un nuovo widget
+da aggiungere alla pagina 
+*/
 function widgetMouseButtonDown(event) {
     $(this).css({ "z-index": ++maxZ, "position": "absolute" }); // move clicked square to top
     moving = this;
     oldX = event.pageX; // remember this square for
     oldY = event.pageY;
-
 }
 
-function showAlert(type, title, message) {
-    $("#BannerContainerViewer").html("<div class='alert alert-" + type + " alert-dismissible fade show' role='alert'>" +
-        "<strong>" + title + "</strong> " + message +
-        "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button></div>").delay(3000).fadeOut();
-}
-
-/*
- * funzione wrapper del metodo ajax.
- * payload è un oggetto json
- * whendone deve accettare come risultato data che è l'output del server
- * */
-function ajaxCall(api, payload, whenDone = function(data) {}, whenError = function(data) { console.log(data) }) {
-    var sendData = JSON.stringify({ "api": api, "payload": payload });
-    $.ajax("./api/index.php", {
-        data: sendData,
-        type: 'POST',
-        processData: false,
-        contentType: 'application/json',
-        dataType: 'text'
-    }).done(function(data, status) {
-        var obj = JSON.parse(data);
-        whenDone(obj);
-    }).fail(function(data, status) {
-        console.log(sendData);
-        whenError(data);
-    });
-}
-
+/**
+ * Questa funzione viene richiamata nel momento in cui rilascio il 
+ * trascinamento del mouse, quando vado ad aggiungere un nuovo widget alla dashboard
+ * come prima cosa, nasconde tutti gli overlay delle posizioni dei widget. dopo di che 
+ * richiama la funzione di aggiunta del widget, infine va a preparare i dati per la chiamata al server
+ * dove viene aggiornata la composizione della dashboard salvata a database con ajaxCall() 
+ * @param {*} event l'oggetto soggetto dell'evento
+ */
 function widgetMouseButtonUp(event) {
     $("#" + event.target.id).css({ "position": "", "z-index": "", "top": "", "left": "" });
 
@@ -120,6 +110,14 @@ function widgetMouseButtonUp(event) {
     ajaxCall("user_widget_pos_set", { "position": ajaxUpdateObject, "widget": ajaxWidgetUpdate }, function() { showAlert("success", "", "Widget salvato!") });
 }
 
+/**
+ * Questa funzione va ad aggiungere un widget alla pagina.
+ * Questo avviene andando a prendere il template del widget, il quale viene poi clonato (con la funzione .clone() di jquery).
+ * Viene rimosso un eventuale widget dello stesso tipo già presente e infine viene aggiunto il widget nel target div
+ * andando a richiamare la funzione che inizializza le informazioni del widget.
+ * @param {*} replacementContainer il container target della sostituzione
+ * @param {*} widgetToAdd  il widget che deve essere aggiunto
+ */
 function addWidgetToPage(replacementContainer, widgetToAdd) {
     var replacementWidget = null;
 
@@ -181,6 +179,16 @@ function addWidgetToPage(replacementContainer, widgetToAdd) {
     }
 }
 
+
+/**
+ * Questa funzione viene richiamata nel momento in cui sto trascinando un widget da aggiungere alla pagina. 
+ * Se la posizione dell'oggetto è diversa, calcola la nuova posizione dell'oggetto, 
+ * sposta il widget che si sta spostando, e infine va a calcolare se deve essere mostrato un overlay (nel caso il widget
+ * trascinato si trovi al di sopra di una posizione valida, calcolata con gli attributi .left e .right di ognino 
+ * dei 4 div presenti) andando anche a nascondere quello precedente.
+ * 
+ * @param {*} event 
+ */
 function widgetAddMove(event) {
 
     if (this === moving && oldX !== null && oldY !== null) {
@@ -256,6 +264,13 @@ function widgetAddMove(event) {
 }
 
 /*WIDGETS */
+
+/**
+ * Questa funzione va a inizializzare i dati del grafico del widget degli acquisti.
+ * Il grafico è gestito da chart.js
+ * 
+ * @param {*} serverData i dati da mostrare ricevuti da backend 
+ */
 function updateExpensesGraph(serverData) {
     var ExpensesChartCanvas = $("#Expenses_canvas");
     if (ExpensesChartCanvas) {
@@ -291,6 +306,12 @@ function updateExpensesGraph(serverData) {
     }
 }
 
+/**
+ * Questa funzione va a inizializzare i dati del grafico del widget degli incassi delle vendite di appunti.
+ * Il grafico è gestito da chart.js
+ * 
+ * @param {*} serverData i dati da mostrare ricevuti da backend 
+ */
 function updateEarningsGraph(serverData) {
     var EarningsChartCanvas = $("#Earnings_canvas");
     if (EarningsChartCanvas) {
@@ -328,6 +349,12 @@ function updateEarningsGraph(serverData) {
 
 }
 
+/**
+ * Questa funzione va a impostare sia i widget (visibili solamente da admin) che elenca gli utenti
+ * sia il widget che elenca gli amministratori del sito.
+ * 
+ * @param {*} type il tipo: se voglio avere gli utenti del sito o gli amministratori del sito 
+ */
 function widgetLoadSiteUsersAdmins(type) {
     ajaxCall("admin_get_users", { "type": type }, function(data) {
         var target = "";
@@ -340,6 +367,9 @@ function widgetLoadSiteUsersAdmins(type) {
     });
 }
 
+/**
+ * Questa funzione va a impostare il widget che mostra le informazioni dell'utente corrente
+ */
 function widgetLoadUserInfo() {
     ajaxCall("user_info_get", {}, function(data) {
         $("#WidgetAccountInfo .col").eq(1).append(
@@ -350,18 +380,29 @@ function widgetLoadUserInfo() {
     });
 }
 
+/**
+ * Questa funzione inizializza il widget che va a mostrare il numero di note che sono 
+ * state acquistate
+ */
 function widgetLoadBoughtNotes() {
     ajaxCall("get_bought_notes", {}, function(data) {
         $("#WidgetPurchase div").append("<h5>Hai acquistato <strong>" + data.length + "</strong> appunti.</h5");
     });
 }
 
+/**
+ * Questa funzione inizializza il widget che va a mostrare il numero di note che sono in vendita
+ */
 function widgetLoadNotesOnSale() {
     ajaxCall("get_sale", {}, function(data) {
         $("#WidgetAdminDocumentList div").append("<h5>Sono presenti <strong>" + data.length + "</strong> appunti sul sito.</h5");
     });
 }
 
+/**
+ * Questa funzione inizializza il widget, visibile solo agli admin, che mostra quanti sono i soldi guadagnati dalle vendite
+ * e quanti sono i soldi che sono stati pagati ai proprietari del sito
+ */
 
 function widgetLoadCashFlow() {
     ajaxCall("cashflow", {}, function(data) {
@@ -370,6 +411,12 @@ function widgetLoadCashFlow() {
 }
 /**FINE WIDGETS */
 
+
+/**
+ * Questa funzione serve per la navigazione tra i tab della pagina utente.
+ * va a pulire l'area vista dall'utente e a rimuovere il tag attivo alla etichetta
+ * della tab.
+ */
 function ClearUserPageViewBlock() {
     $("#UserProfileViewBlock").fadeOut(10);
     $("#UserPurchaseViewBlock").fadeOut(10);
@@ -390,6 +437,10 @@ function ClearUserPageViewBlock() {
     $("#TabShowAdminDocumentList").removeClass("active");
 }
 
+/**
+ * Questa funzione verifica il tipo di utente, e se esso non è amministratore,+rimuove tutti gli elementi
+ * della pagina user marchiati con la classe adminOnly
+ */
 function checkUserType() {
     ajaxCall("user_type_get", {}, function(data) {
         if (data["UserType"] === "USER") {
@@ -398,7 +449,10 @@ function checkUserType() {
     });
 }
 
-
+/**
+ * Questa funione carica le informazioni dell'utente da mostrare nella 
+ * tab delle informaizoni dell'utente
+ */
 function LoadUserPageDetails() {
     ajaxCall("user_info_get", {}, function(data) {
         $("#UserDataName").val(data["Name"]);
@@ -416,6 +470,11 @@ function LoadUserPageDetails() {
     })
 }
 
+/**
+ * Questa funzione va a cambiare la password, confrontando prima che l'utente
+ * abbia inserito correttamente la password entrambe le volte
+ * e poi facendo la chiamata alle api del server con ajaxCall
+ */
 function changePassword() {
     var oldPsw = $("#oldPassword").val();
     var newPsw = $("#newPassword1").val();
@@ -435,7 +494,13 @@ function changePassword() {
     }
 }
 
-
+/**
+ * Questa funzione va a aggiungere i widget alla dashboard nel momento in cui accedo alla pagina, 
+ * in base a cosa ho salvao a server. Va a selezionare prima quale sia il quadrante target e 
+ * successivamente a selezionare quale widget deve aggiungere nel target
+ * 
+ * @param {*} data i dati ricevuti dal server 
+ */
 function LoadDashboardWidgetsDone(data) {
     var widgetToAdd;
     var targetDiv;
@@ -491,11 +556,17 @@ function LoadDashboardWidgetsDone(data) {
     });
 }
 
+
+/**
+ * 
+ * Questa funzione si occupa di inviare al server le modifiche al nome e al cognome dell'utente
+ */
 function editUserInformations() {
     var name = $("#UserDataName").val();
     var surname = $("#UserDataSurname").val();
 
     if (name === "" || surname === "") {
+        showAlert("danger", "Errore", "Nome e cognome devono essere presenti!");
         return;
     }
 
@@ -508,6 +579,13 @@ function editUserInformations() {
         }
     });
 }
+
+/**
+ * Questa funzione aggiunge le note acquistate alla pagina mostrata all'utente, andando a preparare le
+ * varie parti della linea mostrata
+ * 
+ * @param {*} data i dati ricevuti dal server
+ */
 
 function getUserBoughtNoteDone(data) {
 
@@ -584,15 +662,11 @@ function getUserBoughtNoteDone(data) {
     });
 }
 
-function userLoginCheck() {
-    //se utente non è loggato faccio un redirect a login
-    ajaxCall("log_in_check", {}, function(data) {
-        if (data["Status"] === undefined || data["Status"] !== "logged") {
-            window.location.href = "./login.shtml";
-        }
-    });
-}
 
+/**
+ * Questa funzione va a mostrare gli appunti in vendita
+ * @param {*} data le informazioni ricevute dal server
+ */
 function showNoteSalesDone(data) {
     $.each(data, function(index, item) {
 
@@ -641,7 +715,17 @@ function showNoteSalesDone(data) {
 
     });
 }
-//funzione per fare toggle sul pulsante per rimuovere le note in vendita
+
+/**
+ * Questa funzione va a togliere o a rimettere in vendita un appunto 
+ * 
+ * @param {*} id id dell'oggetto da togliere o da rimetterer in vendita
+ * @param {*} pull se la nota è da rimuovere (true) o da rimettere in vendita (false)
+ * @param {*} oldLabel etichetta precedente del pulsante
+ * @param {*} newLabel  nuova etichetta del pulsante
+ * @param {*} removeClass vecchio tipo del pulsante
+ * @param {*} addClass nuovo tipo del pulsante
+ */
 function pullNoteInner(id, pull, oldLabel, newLabel, removeClass, addClass) {
     ajaxCall("pull_note", { "codice": id, "pull": pull }, function() {
         $("#pullNota" + id).removeClass(addClass).addClass(removeClass).html(oldLabel).off("click").click(function() {
@@ -651,6 +735,13 @@ function pullNoteInner(id, pull, oldLabel, newLabel, removeClass, addClass) {
 
 }
 
+/**
+ * Questa funzione va a elencare o gli utenti del sito o gli amministratori del sito e li
+ * va a mostrare nel giusto posto a seconda del tipo. per ogni utente va poi a aggiungere
+ * i pulsanti (solo elmina in caso di admin) elimina e promuovi e a collegare i relativi
+ * handler dei click
+ * @param {*} type il tipo dell'utente: 0=ottiene gli user, 1=ottiene gli admin
+ */
 function getUsers(type) {
 
     if (type === 0) {
@@ -692,6 +783,12 @@ function getUsers(type) {
     });
 }
 
+/**
+ * Questa funzione va a  elencare i documenti che sono stati acquistati aggiungendo il pulsante per poter scaricare
+ * il documento.
+ * 
+ * @param {*} data i dati ricevuti dal server
+ */
 function adminListDocumentsDone(data) {
     $.each(data, function(index, item) {
         $("#TableAdminDocumentList").append(
@@ -716,6 +813,12 @@ function adminListDocumentsDone(data) {
     });
 }
 
+/**
+ * Funzione eseguita quando la pagina è caricata completamente.
+ * si compone principalmente di due parti: la prima va a impostare gli handler per gli eventi del mouse
+ * nel menu di aggiuta dei widget della dashboard.
+ * La seconda parte invece va a impostare i comportamenti del cambio di visualizzazione del tab
+ */
 $(function() {
 
     userLoginCheck();
@@ -802,10 +905,8 @@ $(function() {
 
     $("#TabShowAdminDocumentList").click(function() {
         ClearUserPageViewBlock();
-
         $("#TableAdminDocumentList").empty();
         ajaxCall("admin_list_notes", {}, adminListDocumentsDone);
-
         $("#AdminDocumentList").fadeIn(10);
         $("#TabShowAdminDocumentList").addClass("active");
     });

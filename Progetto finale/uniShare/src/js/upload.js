@@ -1,5 +1,11 @@
+/**
+ * Questa funzione ottiene tutte le informazioni e va a inviarle al 
+ * server. NB: non ho potuto usare ajaxCall() in quanto qua la codifica
+ * deve essere form-encoded in quando vado a caricare un documento pdf
+ * Il funzionamento del metodo è semplice:
+ * ottengo tutti i valori del form, successivamente li aggiungo a un form fittizio e invio quello
+ */
 function uploadData() {
-    //upload dei dati
     var universita = $("#UploadNoteUniversita").val();
     var annoCorso = $("#UploadNoteAnnoCorso").val();
     var insegnamento = $("#UploadNoteInsegnamento").val();
@@ -38,54 +44,29 @@ function uploadData() {
 
 }
 
-
+/**
+ * Questa funzione carica le informazioni di default della pagina. in particolare le informazioni 
+ * sull'autocompletamento delle informazioni sulle università e sugli insegnamenti
+ */
 function loadPageDefaults() {
-    $.ajax("./api/index.php", {
-        data: JSON.stringify({ "api": "get_university_list", "payload": [] }),
-        type: 'POST',
-        processData: false,
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function(data) {
-            $.each(data, function(index, item) {
-                $("#UniversitaDataList").append("<option>" + item["item"] + "</option>");
-            });
-        }
+    ajaxCall("get_university_list", {}, function(data) {
+        $.each(data, function(index, item) {
+            $("#UniversitaDataList").append("<option>" + item["item"] + "</option>");
+        });
     });
 
-
-    $.ajax("./api/index.php", {
-        data: JSON.stringify({ "api": "get_teaching_list", "payload": [] }),
-        type: 'POST',
-        processData: false,
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function(data) {
-            $.each(data, function(index, item) {
-                $("#InsegnamentoDatalist").append("<option>" + item["item"] + "</option>");
-            });
-        }
+    ajaxCall("get_teaching_list", {}, function(data) {
+        $.each(data, function(index, item) {
+            $("#InsegnamentoDatalist").append("<option>" + item["item"] + "</option>");
+        });
     });
 }
 
 
 $(function() {
     //se utente non è loggato faccio un redirect a login
-    $.ajax("./api/index.php", {
-        data: JSON.stringify({ "api": "log_in_check", "payload": [] }),
-        type: 'POST',
-        processData: false,
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function(data) {
-            if (data["Status"] !== "logged") {
-                window.location.href = "./login.shtml";
-            } else {
-                $("#caricaDatiBtn").click(uploadData);
-            }
-        }
-    });
-
+    userLoginCheck();
+    $("#caricaDatiBtn").click(uploadData);
     loadPageDefaults();
 
 })

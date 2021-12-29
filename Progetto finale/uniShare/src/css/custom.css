@@ -271,4 +271,6 @@ html {
     position: absolute;
     right: 1em;
     width: 28%;
+    display: none;
+    z-index: 100000;
 }
