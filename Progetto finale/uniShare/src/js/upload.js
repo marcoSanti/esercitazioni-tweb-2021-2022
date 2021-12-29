@@ -36,6 +36,7 @@ function uploadData() {
                     $("#UploadAppuntiFinish").fadeIn();
                 });
             } else {
+                showAlert("error", "Errore", "Un errore lato server è stao generato");
                 console.log(data);
             }
         }

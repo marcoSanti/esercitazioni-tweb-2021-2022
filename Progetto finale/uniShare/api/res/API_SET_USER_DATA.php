@@ -5,6 +5,8 @@
  * -name
  * -surname
  * -email
+ * 
+ * Questa api permette di aggiornare le informazioni dell'utente
  * */
 
 function updateUserInformation(array $payload, PDO $conn){

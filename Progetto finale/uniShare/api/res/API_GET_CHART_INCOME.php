@@ -5,7 +5,11 @@
  * parametri richiesti in payload:
  * nil
  *
- * Questa api ritorna gli utenti del sito
+ * Questa api prepara i dati per poter essere visualizzati dal grafico degli incassi
+ * delle vendite nella dashboard
+ * esistono due colonne dell'array che viene ritornato:
+ * values: i valori numerici,
+ * labels: le labels dei numeri
  * */
 
 

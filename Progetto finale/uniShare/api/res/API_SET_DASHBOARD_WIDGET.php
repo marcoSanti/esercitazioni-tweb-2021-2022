@@ -3,6 +3,8 @@
  * parametri richiesti in payload:
  * -position
  * -widget
+ * 
+ * Questa pi permette di salvare una modifica all'aspetto della dashboard di un utente
  * */
 
 function setDashboardWidget(array $payload, PDO $conn){

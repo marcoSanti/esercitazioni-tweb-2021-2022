@@ -600,7 +600,7 @@ function getUserBoughtNoteDone(data) {
         if (item["reviewed"] === false) {
             review = "                                  <button class='btn btn-primary' id='feedbackBtn" + item["codice"] + "'>Feedback</button>";
         }
-
+        console.log(item);
         $("#NotesBoughtBox").append(
             " <div class=\"card cardAppuntoVendita\" id='Appunto' " + item["codice"] + ">\n" +
             "                    <div class=\"card-header\">\n" +
@@ -653,7 +653,6 @@ function getUserBoughtNoteDone(data) {
                 });
             });
         });
-
 
         $("#" + item["Path"]).click(function() {
             window.location.href = "./api/obtainDocument.php?doc=" + item["Path"];
@@ -805,7 +804,7 @@ function adminListDocumentsDone(data) {
         );
         $("#deleteDocumentButton" + index).click(function() {
             ajaxCall("drop_note", { "noteId": item["idappunti"] }, function() {
-                showAlert("success", "", "Utente eliminato con successo");
+                showAlert("success", "", "Documento eliminato con successo");
                 $("#DocumentRow" + index).fadeOut();
             })
         });

@@ -3,7 +3,8 @@
  * parametri richiesti in payload:
  * productId
  *
- * Questa api ritorna le università a db
+ * Questa api simula un acquisto. idealmente servirebbe l'integrazione con servizi terzi di pagamento 
+ * qualy paypal, ma questo va oltre lo scopo del progetto
  * */
 
 function buy(array $payload, PDO $conn){

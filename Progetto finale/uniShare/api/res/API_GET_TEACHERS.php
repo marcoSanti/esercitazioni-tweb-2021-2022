@@ -3,7 +3,7 @@
  * parametri richiesti in payload:
  * nil
  *
- * Questa api ritorna le università a db
+ * Questa api ritorna i docenti presenti a db
  * */
 
 function getTeachers(array $payload, PDO $conn){

@@ -5,7 +5,7 @@
  * parametri richiesti in payload:
  * username -> email user da mettere admin
  *
- * Questa api ritorna gli utenti del sito
+ * Questa api provvede a promuovere un utente normale a amministratore
  * */
 
 

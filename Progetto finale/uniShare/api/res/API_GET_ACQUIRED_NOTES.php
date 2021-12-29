@@ -4,7 +4,9 @@
  * parametri richiesti in payload:
  * nil
  *
- * Questa api ritorna le università a db
+ * Questa api ritorna tutte le note acquistate da un utente
+ * deve essere fatta in due parti in quanto nella prima prendo la nota e nella 
+ * seconda query vado a verificare se l'acquisto è stato recensito.
  * */
 function getBoughtNotes(array $payload, PDO $conn){
 

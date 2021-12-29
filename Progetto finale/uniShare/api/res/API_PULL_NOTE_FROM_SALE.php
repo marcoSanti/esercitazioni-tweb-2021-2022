@@ -5,7 +5,9 @@
  * codice
  * pull : 1 o 0 (se 1 la nota viene tolta dalla vendita altrimenti viene messo in vendita)
  *
- * Questa api ritorna le vendite per ogni utente
+ * Questa api consente di rimuovere un appunto dalla vendita, senza andarlo a eliminare da db
+ * il risultato è che gli utenti che lo hanno acquistato ancora possono accedervi, mentre se un utente prova a cercare
+ * l'appunto, esso non viene mostrato
  * */
 
 

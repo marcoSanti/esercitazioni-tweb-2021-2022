@@ -6,7 +6,7 @@
  * oldPassword: id appunto della recensione
  * newPassword: valore della recensione
  *
- * Questa api ritorna gli utenti del sito
+ * Questa api provvede a cambiare la password se la vecchia password corrisponde, con l'hash della nuova
  * */
 
 

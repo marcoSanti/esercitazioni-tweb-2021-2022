@@ -1,5 +1,6 @@
 <?PHP
 
+//questa funzione verifica se un utente è amministratore o meno
 function admin_check($conn){
     $stmtCheckAdmin = $conn->prepare("SELECT * from users where email = :mail and UserType = 1");
     $stmtCheckAdmin->bindValue(":mail", $_SESSION["username"], PDO::PARAM_STR);
@@ -9,6 +10,11 @@ function admin_check($conn){
     }
 }
 
+
+/**
+ * Le funzioni qua sotto sono dei wrapper per una stampa in json di vari oggetti con
+ * vari parametri diversi. Servono a rendere il codice più pulito
+ */
 function jsonEcho($a, $b){
     if(__DEBUG__){
         echo json_encode(Array($a=>$b));

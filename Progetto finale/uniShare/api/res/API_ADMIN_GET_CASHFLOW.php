@@ -5,10 +5,9 @@
  * parametri richiesti in payload:
  * nil
  *
- * Questa api ritorna gli utenti del sito
+ * Questa api ritorna il totale degli incassi del sito. Funziona su tutta la vita del sito.
+ * per farla funzionare su base mensile servirebbe aggiungere un timestamp a database e filtrare per quello
  * */
-
-
 
 function getCash(array $payload, PDO $conn)
 {

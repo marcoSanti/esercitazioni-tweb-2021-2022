@@ -270,6 +270,7 @@ html {
 #BannerContainerViewer {
     position: absolute;
     right: 1em;
+    top: 2em;
     width: 28%;
     display: none;
     z-index: 100000;

@@ -5,7 +5,7 @@
  * parametri richiesti in payload:
  * nil
  *
- * Questa api ritorna gli utenti del sito
+ * Questa api ritorna tutti i documenti caricati sul server
  * */
 
 

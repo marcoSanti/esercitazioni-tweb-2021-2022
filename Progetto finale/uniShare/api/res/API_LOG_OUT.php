@@ -3,7 +3,7 @@
  * parametri richiesti in payload:
  * nil
  *
- * Se login ok allora espone username = la email nella variabile $_SESSION
+ * Questa api provvede a effettuare il login dell'utente andado a rimuovere la variabile $_SESSION["username"]
  * */
 
 function logout(array $payload, PDO $conn){

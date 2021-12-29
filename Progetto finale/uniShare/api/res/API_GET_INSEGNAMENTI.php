@@ -3,7 +3,7 @@
  * parametri richiesti in payload:
  * nil
  *
- * Questa api ritorna le università a db
+ * Questa api ritorna gli insegnamenti a db
  * */
 
 function apiElencaInsegnamenti(array $payload, PDO $conn){

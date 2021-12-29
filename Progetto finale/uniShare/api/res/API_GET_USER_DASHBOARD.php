@@ -3,7 +3,7 @@
  * parametri richiesti in payload:
  * nil
  *
- * Questa api ritorna la dashboard
+ * Questa api ritorna la dashboard dell'utente
  * */
 
 function getUserDashboard(array $payload, PDO $conn){

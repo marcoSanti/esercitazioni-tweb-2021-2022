@@ -74,7 +74,9 @@
     <hr>
     <div class="row g-2">
         <div class="col"><a href="./upload" class="btn btn-danger">Annulla</a></div>
-        <div class="col"> <button class="btn btn-success" id="caricaDatiBtn">Avanti</button></div>
+        <div class="col">
+            <div class="btn btn-success" id="caricaDatiBtn">Avanti</div>
+        </div>
     </div>
 </div>
 

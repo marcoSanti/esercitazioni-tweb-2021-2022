@@ -6,7 +6,7 @@
  *
  * userId : user da eliminare
  *
- * Questa api ritorna gli utenti del sito
+ * Questa api consente a un amministratore di eliminare un utente andando a eliminare tutte le informazioni correlate a quell'utente prima
  * */
 
 

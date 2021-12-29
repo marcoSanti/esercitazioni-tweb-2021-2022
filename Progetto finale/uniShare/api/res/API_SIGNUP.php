@@ -6,6 +6,8 @@
  * -surname
  * -email
  * -password
+ * 
+ * Questa api permette di registrare un utente sul sito internet
  * */
 
 function signup(array $payload,PDO $conn){

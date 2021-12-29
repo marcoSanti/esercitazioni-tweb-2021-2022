@@ -1,5 +1,7 @@
 <?php
 
+//questa variabile definisce cosa verrà ritornato agli utenti come errore...
+//se true vengono mostrati gli errori a db, altrimenti viene mostrato un errore generico
 define("__DEBUG__", TRUE);
 
 $host = "localhost";

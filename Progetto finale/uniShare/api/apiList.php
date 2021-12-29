@@ -2,6 +2,8 @@
 /*
  * Questo file contiene un array che al suo interno ha tutte le api disponibili al sito web. in questo modo,
  * evito che un utente maligno carichi il suo script e lo possa richiamare come api.
+ * Evito quindi di valutare o eseguire input diretto dell'utente, passando sempre attraverso un elenco di funzionalità
+ * hardcoded.
  *
  * */
 

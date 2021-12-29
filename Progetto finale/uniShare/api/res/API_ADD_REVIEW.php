@@ -6,7 +6,10 @@
  * note: id appunto della recensione
  * value: valore della recensione
  *
- * Questa api ritorna gli utenti del sito
+ * questa api permette di inserire una recensione di un prodotto. la query deve essere fatta in 3 parti 
+ * in quanto nella prima select controllo che le righe siano !=0  (ho acquistato il prodotto)
+ * e nella seconda query controllo che siano uguali a 0 (non ho ancora recensito il prodotto).
+ * se queste due condizioni sono verificate, allora procedo all'inseriemtno della recensione
  * */
 
 

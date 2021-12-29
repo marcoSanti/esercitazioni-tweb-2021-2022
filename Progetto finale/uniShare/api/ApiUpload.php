@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Questa api contiene il codice per gestire l'upload di un documento a server.
+ * Viene gestitia in modo diverso in quanto la codifica dei dati è per forza form-encoded e non json
+ */
+
 header("Content-Type: text/javascript");
 
 if(!@require_once "utils.php"){
@@ -17,6 +22,7 @@ if (!isset($_SESSION)) { session_start(); }
 
 loginCheck();
 
+//filtro caratteri html dell'input utente
 $universita = htmlspecialchars($_POST["universita"]);
 $annoCorso = htmlspecialchars($_POST["annoCorso"]);
 $insegnamento = htmlspecialchars($_POST["insegnamento"]);
@@ -24,26 +30,21 @@ $tipoAppunti = htmlspecialchars($_POST["tipoDiAppunti"]);
 $nomeDocente = htmlspecialchars($_POST["nomeDelDocente"]);
 $titoloAppunti = htmlspecialchars($_POST["titoloAppunti"]);
 
-$idScuola = null; //riempito dopo con query
-$idCorso = null; //riempito dopo con query
-$newFileName = "";
+
 $file = $_FILES["uploadFile"];
-if (UPLOAD_ERR_OK === $file['error']) {
+if ($file['error']===UPLOAD_ERR_OK) {
 
     //controllo estensione del file
     if(pathinfo($file["name"], PATHINFO_EXTENSION) != "pdf"){
         jsonReturnEcho(403, "Error", "File extension not allowed");
     }
 
-    $fileName = basename($file['name']);
-    $newFileName =  hash_file("sha256", $file['tmp_name']  )  . time() . '.pdf';
-    move_uploaded_file($file['tmp_name'],  "../uploads/" . $newFileName);
+    $newFileName =  hash_file("sha256", $file['tmp_name']  ) . time()  ;
+    move_uploaded_file($file['tmp_name'],  "../uploads/" . $newFileName. '.pdf');
 }else{
     jsonReturnEcho(500,"Error" , "Unable to upload file");
 }
 
-//rimuovo estensione dal filename
-$newFileName = str_replace(".pdf", "", $newFileName);
 
 try{
     //ottengo id scuola
@@ -91,7 +92,7 @@ try{
     $price =round( 0.03 * ($file["size"] / 1024) , 2); //size in kb arrotondato in 2 decimali
 
     //inserisco l'appunto a database
-    $stmtInsertAppunto = $conn->prepare( "insert into appunti (Nome, Path, price, insegnamento_scuola, user, tipoAppunti, nomeDocente) VALUES (:nomeAppunti, :pathAppunti,:prezzo,  :corso, :username, :tipo, :docente);");
+    $stmtInsertAppunto = $conn->prepare( "INSERT into appunti (Nome, Path, price, insegnamento_scuola, user, tipoAppunti, nomeDocente) VALUES (:nomeAppunti, :pathAppunti,:prezzo,  :corso, :username, :tipo, :docente);");
     $stmtInsertAppunto->bindValue(":nomeAppunti", $titoloAppunti, PDO::PARAM_STR);
     $stmtInsertAppunto->bindValue(":pathAppunti",  $newFileName, PDO::PARAM_STR);
     $stmtInsertAppunto->bindValue(":prezzo", $price, PDO::PARAM_STR);

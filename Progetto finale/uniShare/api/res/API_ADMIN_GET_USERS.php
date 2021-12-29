@@ -5,7 +5,8 @@
  * parametri richiesti in payload:
  * type: se 0 ritorno gli utenti. se 1 gli admin
  *
- * Questa api ritorna gli utenti del sito
+ * Questa api per gli admin soli, provvede a ritornare o l'elenco degli utenti, se $payload["type"] = 0
+ * oppure gli admin se =  a 1
  * */
 
 
