@@ -65,7 +65,7 @@ function search() {
                     });
                 } else {
                     $("#AcquistatoBtn" + item["codice"]).click(function() {
-                        window.location.href = "user.php"
+                        window.location.href = "user.shtml"
                     })
                 }
 
@@ -89,7 +89,7 @@ function buyItem(item) {
             if (data["Ok"] !== undefined) {
                 $(item).removeClass("btn-info").addClass("btn-success").html("Acquistato");
                 $(item).attr("id", "AcquistatoBtn" + buyItemCode).click(function() {
-                    window.location.href = "user.php"
+                    window.location.href = "user.shtml"
                 });
             } else {
                 $(item).removeClass("btn-info").addClass("btn-danger").html("Errore: impossibile acquistare");
@@ -112,7 +112,7 @@ $(function() {
         dataType: 'json',
         success: function(data) {
             if (data["Status"] !== "logged") {
-                window.location.href = "./login.php";
+                window.location.href = "./login.shtml";
             } else {
                 $("#QueryFieldSubmitButton").click(search);
                 //verifico che non sia settato un get:

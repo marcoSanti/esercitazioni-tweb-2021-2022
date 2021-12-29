@@ -1,8 +1,5 @@
-<?php
-include "header.html";
-include "navbar.php";
-
-?>
+<!--#include virtual="src/html/header.html"-->
+<!--#include virtual="src/html/navbar.html"-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js" integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="src/js/UserPage.js"></script>
 <div style="height: 88px;"></div>
@@ -240,7 +237,7 @@ include "navbar.php";
                     </div>
                     <div class="col">
                         <ul class="list-group list-group-flush">
-                    
+
                         </ul>
                     </div>
                 </div>
@@ -257,7 +254,7 @@ include "navbar.php";
                         <img src="src/media/user.svg" alt="userPicPlaceholder">
                     </div>
                     <div class="col">
-                       
+
                     </div>
                 </div>
             </div>
@@ -273,7 +270,7 @@ include "navbar.php";
                     </div>
                     <div class="col">
                         <ul class="list-group list-group-flush">
-                           
+
                         </ul>
                     </div>
                 </div>
@@ -283,7 +280,7 @@ include "navbar.php";
     <div class="card widget widget-gradient-green" id="TemplateWidgetPurchase">
         <h5 class="card-header">Appunti acquistati</h5>
         <div class="card-body">
-            
+
         </div>
     </div>
     <!--Admins only templates-->
@@ -292,7 +289,7 @@ include "navbar.php";
         </h5>
         <div class="card-body">
             <ul class="list-group list-group-flush">
-               
+
             </ul>
         </div>
     </div>
@@ -301,7 +298,7 @@ include "navbar.php";
         <h5 class="card-header">Cashflow ultimo mese
         </h5>
         <div class="card-body">
-           
+
         </div>
     </div>
 
@@ -309,7 +306,7 @@ include "navbar.php";
         <h5 class="card-header">Appunti del sito
         </h5>
         <div class="card-body">
-            
+
         </div>
     </div>
     <div class="card widget widget-gradient-blue" id="TemplateWidgetAdminAdmins">
@@ -317,12 +314,10 @@ include "navbar.php";
         </h5>
         <div class="card-body">
             <ul class="list-group list-group-flush">
-                
+
             </ul>
         </div>
     </div>
     <div class="card widget emptyWidget" id="TemplateEmptyCard"></div>
 </div>
-<?php
-include "footer.html";
-?>
+<!--#include virtual="src/html/footer.html"-->

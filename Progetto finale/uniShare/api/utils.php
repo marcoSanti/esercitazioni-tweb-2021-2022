@@ -1,7 +1,5 @@
 <?PHP
 
-define("__DEBUG__", TRUE);
-
 function admin_check($conn){
     $stmtCheckAdmin = $conn->prepare("SELECT * from users where email = :mail and UserType = 1");
     $stmtCheckAdmin->bindValue(":mail", $_SESSION["username"], PDO::PARAM_STR);
@@ -15,7 +13,7 @@ function jsonEcho($a, $b){
     if(__DEBUG__){
         echo json_encode(Array($a=>$b));
     }else{
-        echo json_encode(Array($a=>"")); //se non ho debug attivom stampo comunque il motivo ma non il messaggio specifico!
+        echo json_encode(Array($a=>"A server error has occured. please contact the administrator to get assitance...")); //se non ho debug attivom stampo comunque il motivo ma non il messaggio specifico!
     }
 }
 

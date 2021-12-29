@@ -27,7 +27,9 @@ if (!isset($_SESSION)) { session_start(); }
 
 /*
  * impostando il codice in questo modo mi lascio la possibilità
- * di estendere le funzionalità del mio backend in modo semplice e pulito*/
+ * di estendere le funzionalità del mio backend in modo semplice e pulito
+ * uso solo il metodo post perchè in questo modo non traccio mai i parametri delle richieste nei file di log!
+ * */
 switch($_SERVER["REQUEST_METHOD"]){
     case 'POST':
         $input = json_decode(file_get_contents("php://input"), true); //obtain input without using $_POST aray

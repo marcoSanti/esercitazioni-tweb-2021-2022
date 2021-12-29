@@ -588,7 +588,7 @@ function userLoginCheck() {
     //se utente non è loggato faccio un redirect a login
     ajaxCall("log_in_check", {}, function(data) {
         if (data["Status"] === undefined || data["Status"] !== "logged") {
-            window.location.href = "./login.php";
+            window.location.href = "./login.shtml";
         }
     });
 }
@@ -715,9 +715,6 @@ function adminListDocumentsDone(data) {
 
     });
 }
-
-
-
 
 $(function() {
 

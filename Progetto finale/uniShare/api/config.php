@@ -1,4 +1,7 @@
 <?php
+
+define("__DEBUG__", TRUE);
+
 $host = "localhost";
 $port = 3306;
 $dbname = "UniShare";
