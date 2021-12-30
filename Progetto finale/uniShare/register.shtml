@@ -4,11 +4,6 @@
 
 <div id="RegisterForm">
     <h4>Creazione nuovo utente</h4>
-    <div class="alert alert-danger ErrorLoginRegisterDiv" role="alert" id="ErrorRegisterDiv">
-        <strong>Errore: </strong>
-        <div id="ErrorRegisterDivContent">
-        </div>
-    </div>
     <div class="px-4 py-3">
         <div class="mb-3">
             <label for="InputNome" class="form-label">Nome</label>

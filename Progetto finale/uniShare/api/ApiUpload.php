@@ -18,6 +18,16 @@ if(!@require_once "config.php"){
 }
 
 
+/**
+ * Questa funzione calcola il numero di pagine di un documento pdf
+ */
+function countPages($path) {
+    $pdftext = file_get_contents($path);
+    $num = preg_match_all("/\/Page\W/", $pdftext, $dummy);
+    return $num;
+}
+
+
 if (!isset($_SESSION)) { session_start(); }
 
 loginCheck();
@@ -83,13 +93,13 @@ try{
 
     /*
      * ATTENZIONE
-     * qua calcolo il prezzo del documento: idealmente dovrebbe essere fatto calcolando il numero di
-     * pagine del documento, usando una estensione come imagemagick, ma questo richiede
-     * l'installazione del plugin, quindi prendo la dimensione del file come se fosse il numero delle pagine...
+     * qua calcolo il prezzo del documento.
      *
      * il prezzo è tre centesimi a pagina, di cui due a utente e uno a gestore sito...
      * */
-    $price =round( 0.03 * ($file["size"] / 1024) , 2); //size in kb arrotondato in 2 decimali
+
+     $price = countPages("../uploads/" . $newFileName. '.pdf') * 0.03;
+    
 
     //inserisco l'appunto a database
     $stmtInsertAppunto = $conn->prepare( "INSERT into appunti (Nome, Path, price, insegnamento_scuola, user, tipoAppunti, nomeDocente) VALUES (:nomeAppunti, :pathAppunti,:prezzo,  :corso, :username, :tipo, :docente);");

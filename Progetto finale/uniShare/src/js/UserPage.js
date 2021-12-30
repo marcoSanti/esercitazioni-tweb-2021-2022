@@ -51,10 +51,8 @@ function widgetMouseButtonUp(event) {
 
     addWidgetToPage(replacementContainer, elementToAdd, false);
 
-    $("#overlay1-2").fadeOut();
-    $("#overlay2-1").fadeOut();
-    $("#overlay2-2").fadeOut();
-    $("#overlay1-1").fadeOut();
+    $(".UserPageOverlay").fadeOut(); //nascondo tutti gli overlay
+
     moving = null;
 
     var ajaxUpdateObject;
@@ -73,7 +71,6 @@ function widgetMouseButtonUp(event) {
             ajaxUpdateObject = 4;
             break;
         default:
-            console.log("UpdateWidgetServer1");
             return;
     }
 
@@ -103,7 +100,6 @@ function widgetMouseButtonUp(event) {
             ajaxWidgetUpdate = 7;
             break;
         default:
-            console.log("UpdateWidgetServer2");
             return;
     }
 
@@ -133,14 +129,14 @@ function addWidgetToPage(replacementContainer, widgetToAdd) {
         $("#WidgetEarnings").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetEarnings");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetEarnings'));
-        ajaxCall("chart_income", {}, function(data) { updateEarningsGraph(data); });
+        updateEarningsGraph();
 
     } else if (widgetToAdd === "AddWidgetExpenses") {
 
         $("#WidgetExpenses").replaceWith($("#TemplateEmptyCard").clone()); //delete other widgets of same type to avoid problems with multiple equal id
         replacementWidget = $("#TemplateWidgetExpenses");
         replacementContainer.html(replacementWidget.clone().attr('id', 'WidgetExpenses'));
-        ajaxCall("chart_buy", {}, function(data) { updateExpensesGraph(data); })
+        updateExpensesGraph();
 
 
     } else if (widgetToAdd === "AddWidgetPurchase") {
@@ -186,6 +182,9 @@ function addWidgetToPage(replacementContainer, widgetToAdd) {
  * sposta il widget che si sta spostando, e infine va a calcolare se deve essere mostrato un overlay (nel caso il widget
  * trascinato si trovi al di sopra di una posizione valida, calcolata con gli attributi .left e .right di ognino 
  * dei 4 div presenti) andando anche a nascondere quello precedente.
+ * 
+ * Sfortunatamente, non è possibile semplificare questo codice, senza entrare in uno scomodo effetto strobo degli overlay.
+ * Essi infatti, se si prova a semplificare il codice, iniziano a lampeggiare, come passo sopra con il mouse.
  * 
  * @param {*} event 
  */
@@ -269,84 +268,85 @@ function widgetAddMove(event) {
  * Questa funzione va a inizializzare i dati del grafico del widget degli acquisti.
  * Il grafico è gestito da chart.js
  * 
- * @param {*} serverData i dati da mostrare ricevuti da backend 
  */
-function updateExpensesGraph(serverData) {
-    var ExpensesChartCanvas = $("#Expenses_canvas");
-    if (ExpensesChartCanvas) {
-        const data = {
-            labels: serverData["labels"],
-            datasets: [{
-                label: 'Guadagni mensili',
-                data: serverData["values"],
-                backgroundColor: Object.values(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236', '#166a8f', '#00a950', '#58595b', '#8549ba']),
-            }]
-        };
-        const config = {
-            type: 'doughnut',
-            data: data,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        // position: 'right',
-                        display: false
-                    },
-                    title: {
-                        display: false,
-                    },
+function updateExpensesGraph() {
+    ajaxCall("chart_buy", {}, function(serverData) {
+        var ExpensesChartCanvas = $("#Expenses_canvas");
+        if (ExpensesChartCanvas) {
+            const data = {
+                labels: serverData["labels"],
+                datasets: [{
+                    label: 'Guadagni mensili',
+                    data: serverData["values"],
+                    backgroundColor: Object.values(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236', '#166a8f', '#00a950', '#58595b', '#8549ba']),
+                }]
+            };
+            const config = {
+                type: 'doughnut',
+                data: data,
+                options: {
                     responsive: true,
-                }
-            },
-        };
-        var ExpensesChart = new Chart(ExpensesChartCanvas, config);
-        $(serverData["labels"]).each(function(index, item) {
-            $("#WidgetExpenses ul").append(" <li class='list-group-item'>" + item + "</li>");
-        })
-    }
+                    plugins: {
+                        legend: {
+                            // position: 'right',
+                            display: false
+                        },
+                        title: {
+                            display: false,
+                        },
+                        responsive: true,
+                    }
+                },
+            };
+            var ExpensesChart = new Chart(ExpensesChartCanvas, config);
+            $(serverData["labels"]).each(function(index, item) {
+                $("#WidgetExpenses ul").append(" <li class='list-group-item'>" + item + "</li>");
+            })
+        }
+    })
 }
 
 /**
  * Questa funzione va a inizializzare i dati del grafico del widget degli incassi delle vendite di appunti.
  * Il grafico è gestito da chart.js
  * 
- * @param {*} serverData i dati da mostrare ricevuti da backend 
  */
-function updateEarningsGraph(serverData) {
-    var EarningsChartCanvas = $("#Earnings_canvas");
-    if (EarningsChartCanvas) {
-        const data = {
-            labels: serverData["labels"],
-            datasets: [{
-                label: 'Guadagni mensili',
-                data: serverData["values"],
-                backgroundColor: Object.values(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236', '#166a8f', '#00a950', '#58595b', '#8549ba']),
-            }]
-        };
-        const config = {
-            type: 'doughnut',
-            data: data,
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        // position: 'right',
-                        display: false
-                    },
-                    title: {
-                        display: false,
-                    },
+function updateEarningsGraph() {
+    ajaxCall("chart_income", {}, function(serverData) {
+        var EarningsChartCanvas = $("#Earnings_canvas");
+        if (EarningsChartCanvas) {
+            const data = {
+                labels: serverData["labels"],
+                datasets: [{
+                    label: 'Guadagni mensili',
+                    data: serverData["values"],
+                    backgroundColor: Object.values(['#4dc9f6', '#f67019', '#f53794', '#537bc4', '#acc236', '#166a8f', '#00a950', '#58595b', '#8549ba']),
+                }]
+            };
+            const config = {
+                type: 'doughnut',
+                data: data,
+                options: {
                     responsive: true,
-                }
-            },
-        };
-        var EarningChartCanvas = new Chart(EarningsChartCanvas, config);
-    }
+                    plugins: {
+                        legend: {
+                            // position: 'right',
+                            display: false
+                        },
+                        title: {
+                            display: false,
+                        },
+                        responsive: true,
+                    }
+                },
+            };
+            var EarningChartCanvas = new Chart(EarningsChartCanvas, config);
+        }
 
-    $(serverData["labels"]).each(function(index, item) {
-        $("#WidgetEarnings ul").append(" <li class='list-group-item'>" + item + "</li>");
-    })
-
+        $(serverData["labels"]).each(function(index, item) {
+            $("#WidgetEarnings ul").append(" <li class='list-group-item'>" + item + "</li>");
+        })
+    });
 }
 
 /**
@@ -418,23 +418,8 @@ function widgetLoadCashFlow() {
  * della tab.
  */
 function ClearUserPageViewBlock() {
-    $("#UserProfileViewBlock").fadeOut(10);
-    $("#UserPurchaseViewBlock").fadeOut(10);
-    $("#UserSellingsViewBlock").fadeOut(10);
-    $("#WidgetViewBlock").fadeOut(10);
-    $("#AdminUserList").fadeOut(10);
-    $("#AdminCashFlow").fadeOut(10);
-    $("#AdminAdminList").fadeOut(10);
-    $("#AdminDocumentList").fadeOut(10);
-
-    $("#TabShowDashboard").removeClass("active");
-    $("#TabShowUserPurchase").removeClass("active");
-    $("#TabShowUserProfile").removeClass("active");
-    $("#TabShowUserEarnings").removeClass("active");
-    $("#TabShowAdminUserList").removeClass("active");
-    $("#TabShowAdminAdmins").removeClass("active");
-    $("#TabShowAdminCashflow").removeClass("active");
-    $("#TabShowAdminDocumentList").removeClass("active");
+    $(".view-block").fadeOut(10);
+    $(".nav-link").removeClass("active");
 }
 
 /**
@@ -499,61 +484,63 @@ function changePassword() {
  * in base a cosa ho salvao a server. Va a selezionare prima quale sia il quadrante target e 
  * successivamente a selezionare quale widget deve aggiungere nel target
  * 
- * @param {*} data i dati ricevuti dal server 
  */
-function LoadDashboardWidgetsDone(data) {
-    var widgetToAdd;
-    var targetDiv;
-    $.each(data, function(index, value) {
+function LoadDashboardWidgets() {
+    ajaxCall("user_dashboard_get", {}, function(data) {
+        var widgetToAdd;
+        var targetDiv;
+        $.each(data, function(index, value) {
 
-        switch (index) {
-            case "obj1":
-                targetDiv = $("#ContainerGrid1-1 .ContentsContainerGrid");
-                break;
-            case "obj2":
-                targetDiv = $("#ContainerGrid1-2 .ContentsContainerGrid");
-                break;
-            case "obj3":
-                targetDiv = $("#ContainerGrid2-1 .ContentsContainerGrid");
-                break;
-            case "obj4":
-                targetDiv = $("#ContainerGrid2-2 .ContentsContainerGrid");
-                break;
-            default:
-                return;
-        }
+            switch (index) {
+                case "obj1":
+                    targetDiv = $("#ContainerGrid1-1 .ContentsContainerGrid");
+                    break;
+                case "obj2":
+                    targetDiv = $("#ContainerGrid1-2 .ContentsContainerGrid");
+                    break;
+                case "obj3":
+                    targetDiv = $("#ContainerGrid2-1 .ContentsContainerGrid");
+                    break;
+                case "obj4":
+                    targetDiv = $("#ContainerGrid2-2 .ContentsContainerGrid");
+                    break;
+                default:
+                    return;
+            }
 
-        switch (parseInt(value)) {
-            case 0:
-                widgetToAdd = "AddWidgetProfileInfo";
-                break;
-            case 1:
-                widgetToAdd = "AddWidgetEarnings";
-                break;
-            case 2:
-                widgetToAdd = "AddWidgetExpenses";
-                break;
-            case 3:
-                widgetToAdd = "AddWidgetPurchase";
-                break;
-            case 4:
-                widgetToAdd = "AdminAddUserList";
-                break;
-            case 5:
-                widgetToAdd = "AdminAddCashFlow";
-                break;
-            case 6:
-                widgetToAdd = "AdminAddDocumentList";
-                break;
-            case 7:
-                widgetToAdd = "AdminAddAdminList";
-                break;
-            default:
-                return;
-        }
+            switch (parseInt(value)) {
+                case 0:
+                    widgetToAdd = "AddWidgetProfileInfo";
+                    break;
+                case 1:
+                    widgetToAdd = "AddWidgetEarnings";
+                    break;
+                case 2:
+                    widgetToAdd = "AddWidgetExpenses";
+                    break;
+                case 3:
+                    widgetToAdd = "AddWidgetPurchase";
+                    break;
+                case 4:
+                    widgetToAdd = "AdminAddUserList";
+                    break;
+                case 5:
+                    widgetToAdd = "AdminAddCashFlow";
+                    break;
+                case 6:
+                    widgetToAdd = "AdminAddDocumentList";
+                    break;
+                case 7:
+                    widgetToAdd = "AdminAddAdminList";
+                    break;
+                default:
+                    return;
+            }
 
-        addWidgetToPage(targetDiv, widgetToAdd);
+            addWidgetToPage(targetDiv, widgetToAdd);
+        });
     });
+
 }
 
 
@@ -584,134 +571,135 @@ function editUserInformations() {
  * Questa funzione aggiunge le note acquistate alla pagina mostrata all'utente, andando a preparare le
  * varie parti della linea mostrata
  * 
- * @param {*} data i dati ricevuti dal server
  */
 
-function getUserBoughtNoteDone(data) {
+function getUserBoughtNote() {
+    ajaxCall("get_bought_notes", {}, function(data) {
+        $.each(data, function(index, item) {
 
-    $.each(data, function(index, item) {
+            if (item["tipoAppunti"] === "1") tipoAppunti = "Temi di esame";
+            else if (item["tipoAppunti"] === "2") tipoAppunti = "Appunti lezioni";
+            else tipoAppunti = "Esercitazioni";
 
-        if (item["tipoAppunti"] === "1") tipoAppunti = "Temi di esame";
-        else if (item["tipoAppunti"] === "2") tipoAppunti = "Appunti lezioni";
-        else tipoAppunti = "Esercitazioni";
+            var review = "";
 
-        var review = "";
+            if (item["reviewed"] === false) {
+                review = "                                  <button class='btn btn-primary' id='feedbackBtn" + item["codice"] + "'>Feedback</button>";
+            }
+            console.log(item);
+            $("#NotesBoughtBox").append(
+                " <div class=\"card cardAppuntoVendita\" id='Appunto' " + item["codice"] + ">\n" +
+                "                    <div class=\"card-header\">\n" +
+                "                        <div class=\"container\">\n" +
+                "                            <div class=\"row\">\n" +
+                "                                <div class=\"col-10\">\n" +
+                "                                    <strong>" + item["titolo"] + "</strong>" +
+                "                                </div>\n" +
+                "                                <div class=\"col\">" +
+                review +
+                "                                </div>\n" +
+                "                            </div>\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                    <div class=\"card-body\">\n" +
+                "                        <div class=\"container\">\n" +
+                "                            <div class=\"row d-flex justify-content-start\">\n" +
+                "                                <div class=\"col-10\">\n" +
+                "                                    <ul>\n" +
+                "                                        <li><strong>Docente</strong> " + item["docente"] + "</li>\n" +
+                "                                        <li><strong>Prezzo</strong> " + item["prezzo"] + "</li>\n" +
+                "                                        <li><strong>Data di upload</strong> " + item["uploadDate"] + "</li>\n" +
+                "                                        <li><strong>Tipo di appunti</strong> " + tipoAppunti + "</li>\n" +
+                "                                    </ul>\n" +
+                "                                </div>\n" +
+                "                                <div class=\"col\">\n" +
+                "                                   <button id='" + item["Path"] + "' class=\"btn btn-warning btn-buy-appunto\" id='AcquistaBtn" + item["codice"] + "'><i class=\"fas fa-download\"></i>Scarica</button>\n" +
+                "                                </div>\n" +
+                "                            </div>\n" +
+                "                        </div>"
+            );
 
-        if (item["reviewed"] === false) {
-            review = "                                  <button class='btn btn-primary' id='feedbackBtn" + item["codice"] + "'>Feedback</button>";
-        }
-        console.log(item);
-        $("#NotesBoughtBox").append(
-            " <div class=\"card cardAppuntoVendita\" id='Appunto' " + item["codice"] + ">\n" +
-            "                    <div class=\"card-header\">\n" +
-            "                        <div class=\"container\">\n" +
-            "                            <div class=\"row\">\n" +
-            "                                <div class=\"col-10\">\n" +
-            "                                    <strong>" + item["titolo"] + "</strong>" +
-            "                                </div>\n" +
-            "                                <div class=\"col\">" +
-            review +
-            "                                </div>\n" +
-            "                            </div>\n" +
-            "                        </div>\n" +
-            "                    </div>\n" +
-            "                    <div class=\"card-body\">\n" +
-            "                        <div class=\"container\">\n" +
-            "                            <div class=\"row d-flex justify-content-start\">\n" +
-            "                                <div class=\"col-10\">\n" +
-            "                                    <ul>\n" +
-            "                                        <li><strong>Docente</strong> " + item["docente"] + "</li>\n" +
-            "                                        <li><strong>Prezzo</strong> " + item["prezzo"] + "</li>\n" +
-            "                                        <li><strong>Data di upload</strong> " + item["uploadDate"] + "</li>\n" +
-            "                                        <li><strong>Tipo di appunti</strong> " + tipoAppunti + "</li>\n" +
-            "                                    </ul>\n" +
-            "                                </div>\n" +
-            "                                <div class=\"col\">\n" +
-            "                                   <button id='" + item["Path"] + "' class=\"btn btn-warning btn-buy-appunto\" id='AcquistaBtn" + item["codice"] + "'><i class=\"fas fa-download\"></i>Scarica</button>\n" +
-            "                                </div>\n" +
-            "                            </div>\n" +
-            "                        </div>"
-        );
+            $("#feedbackBtn" + item["codice"]).click(function() {
+                $("#feedbackBtn" + item["codice"]).replaceWith(
+                    "<div class='input-group' id='feedbackInput" + item["codice"] + "'> " +
+                    "<select class='form-select' id='reviewValue" + item["codice"] + "'>" +
+                    "<option value='1'>1/5</option>" +
+                    "<option value='2'>2/5</option>" +
+                    "<option value='3'>3/5</option>" +
+                    "<option value='4'>4/5</option>" +
+                    "<option value='5' selected>5/5</option>" +
+                    "</select> <button id='btnAddReview" + item["codice"] + "' class='btn btn-success'>Conferma</button></div>");
 
-        $("#feedbackBtn" + item["codice"]).click(function() {
-            $("#feedbackBtn" + item["codice"]).replaceWith(
-                "<div class='input-group' id='feedbackInput" + item["codice"] + "'> " +
-                "<select class='form-select' id='reviewValue" + item["codice"] + "'>" +
-                "<option value='1'>1/5</option>" +
-                "<option value='2'>2/5</option>" +
-                "<option value='3'>3/5</option>" +
-                "<option value='4'>4/5</option>" +
-                "<option value='5' selected>5/5</option>" +
-                "</select> <button id='btnAddReview" + item["codice"] + "' class='btn btn-success'>Conferma</button></div>");
-
-            $("#btnAddReview" + item["codice"]).click(function() {
-                ajaxCall("add_review", { "note": item["codice"], "value": $("#reviewValue" + item["codice"]).val() }, function(data) {
-                    if (data["Ok"] !== undefined) {
-                        showAlert("success", "", "Recensione aggiunta con successo");
-                        $("#feedbackInput" + item["codice"]).fadeOut();
-                    }
+                $("#btnAddReview" + item["codice"]).click(function() {
+                    ajaxCall("add_review", { "note": item["codice"], "value": $("#reviewValue" + item["codice"]).val() }, function(data) {
+                        if (data["Ok"] !== undefined) {
+                            showAlert("success", "", "Recensione aggiunta con successo");
+                            $("#feedbackInput" + item["codice"]).fadeOut();
+                        }
+                    });
                 });
             });
-        });
 
-        $("#" + item["Path"]).click(function() {
-            window.location.href = "./api/obtainDocument.php?doc=" + item["Path"];
-        });
+            $("#" + item["Path"]).click(function() {
+                window.location.href = "./api/obtainDocument.php?doc=" + item["Path"];
+            });
 
+        });
     });
 }
 
 
 /**
  * Questa funzione va a mostrare gli appunti in vendita
- * @param {*} data le informazioni ricevute dal server
  */
-function showNoteSalesDone(data) {
-    $.each(data, function(index, item) {
+function showNoteSales() {
+    ajaxCall("get_sale", {}, function(data) {
+        $.each(data, function(index, item) {
 
-        if (item["tipoAppunti"] === "1") tipoAppunti = "Temi di esame";
-        else if (item["tipoAppunti"] === "2") tipoAppunti = "Appunti lezioni";
-        else tipoAppunti = "Esercitazioni";
-
-
-        $("#UserSellingsViewBlock").append(
-            " <div class=\"card cardAppuntoVendita\" id='Appunto' " + item["codice"] + ">\n" +
-            "                    <div class=\"card-header\">\n" +
-            "                        <div class=\"container\">\n" +
-            "                            <div class=\"row\">\n" +
-            "                                <div class=\"col-10\">\n" +
-            "                                    <strong>" + item["titolo"] + "</strong>" +
-            "                                </div>\n" +
-            "                                <div class=\"col\">" +
-            "                                  <strong class='bold'>Guadagno: " + item["earnings"] + "€</strong>" +
-            "                                </div>\n" +
-            "                            </div>\n" +
-            "                        </div>\n" +
-            "                    </div>\n" +
-            "                    <div class=\"card-body\">\n" +
-            "                        <div class=\"container\">\n" +
-            "                            <div class=\"row d-flex justify-content-start\">\n" +
-            "                                <div class=\"col-10\">\n" +
-            "                                    <ul>\n" +
-            "                                        <li><strong>Docente</strong> " + item["docente"] + "</li>\n" +
-            "                                        <li><strong>Prezzo</strong> " + item["price"] + "</li>\n" +
-            "                                        <li><strong>Data di upload</strong> " + item["uploadDate"] + "</li>\n" +
-            "                                        <li><strong>Tipo di appunti</strong> " + tipoAppunti + "</li>\n" +
-            "                                    </ul>\n" +
-            "                                </div>\n" +
-            "                                <div class=\"col\">\n" +
-            "                                   <button class=\"btn btn-buy-appunto\" id='pullNota" + item["codice"] + "'></button>" +
-            "                                </div>\n" +
-            "                            </div>\n" +
-            "                        </div>"
-        );
+            if (item["tipoAppunti"] === "1") tipoAppunti = "Temi di esame";
+            else if (item["tipoAppunti"] === "2") tipoAppunti = "Appunti lezioni";
+            else tipoAppunti = "Esercitazioni";
 
 
-        if (item["visible"] === "0")
-            $("#pullNota" + item["codice"]).addClass("btn-primary").html("Metti in vendita").click(function() { pullNoteInner(item["codice"], 0, "Rimuovi dalla vendita", "Metti in vendita", "btn-danger", "btn-primary") });
-        else
-            $("#pullNota" + item["codice"]).addClass("btn-danger").html("Rimuovi dalla vendita").click(function() { pullNoteInner(item["codice"], 1, "Metti in vendita", "Rimuovi dalla vendita", "btn-primary", "btn-danger") });
+            $("#UserSellingsViewBlock").append(
+                " <div class=\"card cardAppuntoVendita\" id='Appunto' " + item["codice"] + ">\n" +
+                "                    <div class=\"card-header\">\n" +
+                "                        <div class=\"container\">\n" +
+                "                            <div class=\"row\">\n" +
+                "                                <div class=\"col-10\">\n" +
+                "                                    <strong>" + item["titolo"] + "</strong>" +
+                "                                </div>\n" +
+                "                                <div class=\"col\">" +
+                "                                  <strong class='bold'>Guadagno: " + item["earnings"] + "€</strong>" +
+                "                                </div>\n" +
+                "                            </div>\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                    <div class=\"card-body\">\n" +
+                "                        <div class=\"container\">\n" +
+                "                            <div class=\"row d-flex justify-content-start\">\n" +
+                "                                <div class=\"col-10\">\n" +
+                "                                    <ul>\n" +
+                "                                        <li><strong>Docente</strong> " + item["docente"] + "</li>\n" +
+                "                                        <li><strong>Prezzo</strong> " + item["price"] + "</li>\n" +
+                "                                        <li><strong>Data di upload</strong> " + item["uploadDate"] + "</li>\n" +
+                "                                        <li><strong>Tipo di appunti</strong> " + tipoAppunti + "</li>\n" +
+                "                                    </ul>\n" +
+                "                                </div>\n" +
+                "                                <div class=\"col\">\n" +
+                "                                   <button class=\"btn btn-buy-appunto\" id='pullNota" + item["codice"] + "'></button>" +
+                "                                </div>\n" +
+                "                            </div>\n" +
+                "                        </div>"
+            );
 
+
+            if (item["visible"] === "0")
+                $("#pullNota" + item["codice"]).addClass("btn-primary").html("Metti in vendita").click(function() { pullNoteInner(item["codice"], 0, "Rimuovi dalla vendita", "Metti in vendita", "btn-danger", "btn-primary") });
+            else
+                $("#pullNota" + item["codice"]).addClass("btn-danger").html("Rimuovi dalla vendita").click(function() { pullNoteInner(item["codice"], 1, "Metti in vendita", "Rimuovi dalla vendita", "btn-primary", "btn-danger") });
+
+        });
     });
 }
 
@@ -786,29 +774,30 @@ function getUsers(type) {
  * Questa funzione va a  elencare i documenti che sono stati acquistati aggiungendo il pulsante per poter scaricare
  * il documento.
  * 
- * @param {*} data i dati ricevuti dal server
  */
-function adminListDocumentsDone(data) {
-    $.each(data, function(index, item) {
-        $("#TableAdminDocumentList").append(
-            "<tr id = 'DocumentRow" + index + "'>" +
-            "<td> " + item["idappunti"] + "</td>" +
-            "<td> " + item["nome"] + "</td>" +
-            "<td> " + item["user"] + "</td>" +
-            "<td> " + item["price"] + "</td>" +
-            "<td><div class='btn-group'>" +
-            "<a href = './api/obtainDocument.php?doc=" + item["Path"] + "' class='btn btn-primary'>Scarica</a>" +
-            "<button class='btn btn-danger' id='deleteDocumentButton" + index + "'>Elimina Documento</button>" +
-            "</div></td>" +
-            "</tr>"
-        );
-        $("#deleteDocumentButton" + index).click(function() {
-            ajaxCall("drop_note", { "noteId": item["idappunti"] }, function() {
-                showAlert("success", "", "Documento eliminato con successo");
-                $("#DocumentRow" + index).fadeOut();
-            })
-        });
+function adminListDocuments() {
+    ajaxCall("admin_list_notes", {}, function(data) {
+        $.each(data, function(index, item) {
+            $("#TableAdminDocumentList").append(
+                "<tr id = 'DocumentRow" + index + "'>" +
+                "<td> " + item["idappunti"] + "</td>" +
+                "<td> " + item["nome"] + "</td>" +
+                "<td> " + item["user"] + "</td>" +
+                "<td> " + item["price"] + "</td>" +
+                "<td><div class='btn-group'>" +
+                "<a href = './api/obtainDocument.php?doc=" + item["Path"] + "' class='btn btn-primary'>Scarica</a>" +
+                "<button class='btn btn-danger' id='deleteDocumentButton" + index + "'>Elimina Documento</button>" +
+                "</div></td>" +
+                "</tr>"
+            );
+            $("#deleteDocumentButton" + index).click(function() {
+                ajaxCall("drop_note", { "noteId": item["idappunti"] }, function() {
+                    showAlert("success", "", "Documento eliminato con successo");
+                    $("#DocumentRow" + index).fadeOut();
+                })
+            });
 
+        });
     });
 }
 
@@ -824,42 +813,7 @@ $(function() {
 
     $("#ToggleEditUserPage").click(toggleEditPageMenu);
 
-    $("#AddWidgetProfileInfo").on({
-        mousedown: widgetMouseButtonDown,
-        mouseup: widgetMouseButtonUp,
-        mousemove: widgetAddMove,
-    });
-    $("#AddWidgetPurchase").on({
-        mousedown: widgetMouseButtonDown,
-        mouseup: widgetMouseButtonUp,
-        mousemove: widgetAddMove,
-    });
-    $("#AddWidgetEarnings").on({
-        mousedown: widgetMouseButtonDown,
-        mouseup: widgetMouseButtonUp,
-        mousemove: widgetAddMove,
-    });
-    $("#AddWidgetExpenses").on({
-        mousedown: widgetMouseButtonDown,
-        mouseup: widgetMouseButtonUp,
-        mousemove: widgetAddMove,
-    });
-    $("#AdminAddAdminList").on({
-        mousedown: widgetMouseButtonDown,
-        mouseup: widgetMouseButtonUp,
-        mousemove: widgetAddMove,
-    });
-    $("#AdminAddCashFlow").on({
-        mousedown: widgetMouseButtonDown,
-        mouseup: widgetMouseButtonUp,
-        mousemove: widgetAddMove,
-    });
-    $("#AdminAddDocumentList").on({
-        mousedown: widgetMouseButtonDown,
-        mouseup: widgetMouseButtonUp,
-        mousemove: widgetAddMove,
-    });
-    $("#AdminAddUserList").on({
+    $(".widget-add-button").on({
         mousedown: widgetMouseButtonDown,
         mouseup: widgetMouseButtonUp,
         mousemove: widgetAddMove,
@@ -874,15 +828,15 @@ $(function() {
     $("#TabShowUserProfile").click(function() {
         ClearUserPageViewBlock();
         $("#passwordChangeDiv").hide();
+        LoadUserPageDetails();
         $("#UserProfileViewBlock").fadeIn(10);
         $("#TabShowUserProfile").addClass("active");
-        LoadUserPageDetails();
     });
 
     $("#TabShowUserPurchase").click(function() {
         ClearUserPageViewBlock();
         $("#NotesBoughtBox").empty();
-        ajaxCall("get_bought_notes", {}, getUserBoughtNoteDone);
+        getUserBoughtNote();
         $("#UserPurchaseViewBlock").fadeIn(10);
         $("#TabShowUserPurchase").addClass("active");
     });
@@ -890,7 +844,7 @@ $(function() {
     $("#TabShowUserEarnings").click(function() {
         ClearUserPageViewBlock();
         $("#UserSellingsViewBlock").empty();
-        ajaxCall("get_sale", {}, showNoteSalesDone);
+        showNoteSales();
         $("#UserSellingsViewBlock").fadeIn(10);
         $("#TabShowUserEarnings").addClass("active");
     });
@@ -905,7 +859,7 @@ $(function() {
     $("#TabShowAdminDocumentList").click(function() {
         ClearUserPageViewBlock();
         $("#TableAdminDocumentList").empty();
-        ajaxCall("admin_list_notes", {}, adminListDocumentsDone);
+        adminListDocuments();
         $("#AdminDocumentList").fadeIn(10);
         $("#TabShowAdminDocumentList").addClass("active");
     });
@@ -923,5 +877,5 @@ $(function() {
 
     //loading page contents
     checkUserType();
-    ajaxCall("user_dashboard_get", {}, LoadDashboardWidgetsDone);
+    LoadDashboardWidgets();
 });

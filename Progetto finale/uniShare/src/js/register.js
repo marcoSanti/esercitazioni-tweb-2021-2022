@@ -10,20 +10,17 @@ function register() {
     var password2 = $("#InputPassword2").val();
 
     if (nome === "" || cognome === "" || email === "" || password1 === "" || password2 === "") {
-        $("#ErrorRegisterDivContent").html("Inserire tutti i campi!");
-        $("#ErrorRegisterDiv").fadeIn();
+        showAlert("danger", "Attenzione", "Inserire tutte le informazioni richieste");
         return;
     }
 
     if (password2 != password1) {
-        $("#ErrorRegisterDivContent").html("Le password non coincidono!");
-        $("#ErrorRegisterDiv").fadeIn();
+        showAlert("danger", "Errore", "Le password non coincidono!");
         return;
     }
 
     if (!validateMail(email)) {
-        $("#ErrorRegisterDivContent").html("L'indirizzo email non è valido!");
-        $("#ErrorRegisterDiv").fadeIn();
+        showAlert("danger", "Errore", "Le password non coincidono");
         return;
     }
 
@@ -31,8 +28,7 @@ function register() {
         if (data["Ok"] !== undefined) {
             window.location.href = "./";
         } else {
-            $("#ErrorLoginDivContent").html(data["Error"]);
-            $("#ErrorLoginDiv").fadeIn();
+            showAlert("danger", "Errore", data["Error"]);
         }
     });
 }

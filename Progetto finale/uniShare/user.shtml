@@ -12,29 +12,28 @@
         <hr>
         <h6>Trascina il widget che preferisci nel quadrante che preferisci!</h6>
         <h6>
-            <button class="btn rounded-pill bg-primary widget-gradient-blue" id="AddWidgetProfileInfo">Profilo</button>
+            <button class="btn rounded-pill bg-primary widget-gradient-blue widget-add-button" id="AddWidgetProfileInfo">Profilo</button>
         </h6>
         <h6>
-            <button class="btn rounded-pill bg-primary widget-gradient-blue adminOnly" id="AdminAddUserList"><i class="fas fa-cogs"></i> Elenco utenti</button>
+            <button class="btn rounded-pill bg-primary widget-gradient-blue adminOnly widget-add-button" id="AdminAddUserList"><i class="fas fa-cogs"></i> Elenco utenti</button>
         </h6>
         <h6>
-            <button class="btn rounded-pill bg-primary widget-gradient-blue adminOnly" id="AdminAddAdminList"><i class="fas fa-cogs"></i> Elenco amministratori</button>
+            <button class="btn rounded-pill bg-primary widget-gradient-blue adminOnly widget-add-button" id="AdminAddAdminList"><i class="fas fa-cogs"></i> Elenco amministratori</button>
         </h6>
         <h6>
-            <button class="btn rounded-pill bg-primary widget-gradient-orange" id="AddWidgetEarnings">Guadagni</button>
+            <button class="btn rounded-pill bg-primary widget-gradient-orange widget-add-button" id="AddWidgetEarnings">Guadagni</button>
         </h6>
         <h6>
-            <button class="btn rounded-pill bg-primary widget-gradient-orange" id="AddWidgetExpenses">Spese</button>
+            <button class="btn rounded-pill bg-primary widget-gradient-orange widget-add-button" id="AddWidgetExpenses">Spese</button>
         </h6>
         <h6>
-            <button class="btn rounded-pill bg-primary widget-gradient-orange adminOnly" id="AdminAddCashFlow"><i class="fas fa-cogs"></i> Cashflow</button>
+            <button class="btn rounded-pill bg-primary widget-gradient-orange adminOnly widget-add-button" id="AdminAddCashFlow"><i class="fas fa-cogs"></i> Cashflow</button>
         </h6>
         <h6>
-            <button class="btn rounded-pill bg-primary widget-gradient-green" id="AddWidgetPurchase">Appunti acquistati</button>
+            <button class="btn rounded-pill bg-primary widget-gradient-green widget-add-button" id="AddWidgetPurchase">Appunti acquistati</button>
         </h6>
-
         <h6>
-            <button class="btn rounded-pill bg-primary widget-gradient-green adminOnly" id="AdminAddDocumentList"><i class="fas fa-cogs"></i> Elenco appunti in negozio</button>
+            <button class="btn rounded-pill bg-primary widget-gradient-green adminOnly widget-add-button" id="AdminAddDocumentList"><i class="fas fa-cogs"></i> Elenco appunti in negozio</button>
         </h6>
 
     </div>
@@ -67,7 +66,7 @@
 </ul>
 
 <div class="container" id="UserPageContainer">
-    <div class="neutralTag" id="WidgetViewBlock">
+    <div class="neutralTag view-block" id="WidgetViewBlock">
         <div class="row">
             <!-- linea delle opzioni-->
             <h3>Dashboard
@@ -106,7 +105,7 @@
         </div>
     </div>
     <!-- Linea delle pagine da mostrare -->
-    <div class="neutralTag" id="UserProfileViewBlock" style="display: none">
+    <div class="neutralTag view-block" id="UserProfileViewBlock" style="display: none">
         <div class="px-4 py-3">
             <div class="container" id="UserPageProfileView">
                 <div class="row">
@@ -150,7 +149,7 @@
             </div>
         </div>
     </div>
-    <div class="neutralTag" id="UserPurchaseViewBlock" style="display: none">
+    <div class="neutralTag view-block" id="UserPurchaseViewBlock" style="display: none">
         <h4>
             Elenco appunti acquistati
         </h4>
@@ -159,14 +158,14 @@
 
         </div>
     </div>
-    <div class="neutralTag" id="UserSellingsViewBlock" style="display: none">
+    <div class="neutralTag view-block" id="UserSellingsViewBlock" style="display: none">
         <h4>
             Elenco appunti in vendita
         </h4>
         <hr>
 
     </div>
-    <div id="AdminUserList" class="neutralTag adminOnly" style="display: none">
+    <div id="AdminUserList" class="neutralTag adminOnly view-block" style="display: none">
         <h4>
             Elenco utenti sito
         </h4>
@@ -186,7 +185,7 @@
         </table>
 
     </div>
-    <div id="AdminAdminList" class="neutralTag adminOnly" style="display: none">
+    <div id="AdminAdminList" class="neutralTag adminOnly view-block" style="display: none">
         <h4>
             Elenco amministratori sito
         </h4>
@@ -205,7 +204,7 @@
             </tbody>
         </table>
     </div>
-    <div id="AdminDocumentList" class="neutralTag adminOnly" style="display: none">
+    <div id="AdminDocumentList" class="neutralTag adminOnly view-block" style="display: none">
         <h4>
             Elenco documenti caricati sul sito
         </h4>

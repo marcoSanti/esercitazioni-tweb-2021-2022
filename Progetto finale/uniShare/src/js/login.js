@@ -20,7 +20,7 @@ function login() {
 
     ajaxCall("log_in", { "email": email, "password": password }, function(data) {
         if (data["Ok"] !== undefined) {
-            window.location.href = "./user.shtml";
+            window.location.href = "./user";
         } else {
             showAlert("danger", "Errore", "Credenziali di accesso errate o non esistenti");
         }

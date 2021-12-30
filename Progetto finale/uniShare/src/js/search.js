@@ -59,7 +59,7 @@ function appendElementQuerySearch(item) {
         "                                <div class=\"col-10\">\n" +
         "                                    <ul>\n" +
         "                                        <li><strong>Docente</strong> " + item["docente"] + "</li>\n" +
-        "                                        <li><strong>Prezzo</strong> " + item["prezzo"] + "</li>\n" +
+        "                                        <li><strong>Prezzo</strong> " + item["prezzo"] + "€</li>\n" +
         "                                        <li><strong>Data di upload</strong> " + item["uploadDate"] + "</li>\n" +
         "                                        <li><strong>Tipo di appunti</strong> " + tipoAppunti + "</li>\n" +
         "                                    </ul>\n" +
