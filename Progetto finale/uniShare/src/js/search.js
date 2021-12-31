@@ -8,6 +8,11 @@ function search() {
     var queryParam = $("#QueryField").val();
     $("#SearchPageCardBox").empty();
 
+    if (queryParam == "") {
+        showAlert("info", "", "Per fvore inserisci una chiave di ricerca!");
+        return;
+    }
+
     ajaxCall("get_notes", { "query": queryParam }, function(data) {
         queryResult = data;
         if (Object.keys(data).length === 0) {

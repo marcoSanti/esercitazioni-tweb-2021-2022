@@ -24,7 +24,7 @@
             <button class="btn rounded-pill bg-primary widget-gradient-orange widget-add-button" id="AddWidgetEarnings">Guadagni</button>
         </h6>
         <h6>
-            <button class="btn rounded-pill bg-primary widget-gradient-orange widget-add-button" id="AddWidgetExpenses">Spese</button>
+            <button class="btn rounded-pill bg-primary widget-gradient-orange widget-add-button" id="AddWidgetExpenses">Riepilogo categorie acquisti</button>
         </h6>
         <h6>
             <button class="btn rounded-pill bg-primary widget-gradient-orange adminOnly widget-add-button" id="AdminAddCashFlow"><i class="fas fa-cogs"></i> Cashflow</button>
