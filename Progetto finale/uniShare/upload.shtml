@@ -81,7 +81,7 @@
 </div>
 
 
-<div class="row PageContent centeredDiv UploadAppunti" id="UploadAppuntiFinish" style="display: none">
+<div class="row PageContent centeredDiv UploadAppunti hide" id="UploadAppuntiFinish">
     <h3>Grazie per aver usato il servizio!</h3>
     <img src="src/media/done.svg" id="DoneUploadImg" alt="finish">
     <a href="./" class="btn btn-success" id="btnFinishUpload">Torna alla homepage</a>

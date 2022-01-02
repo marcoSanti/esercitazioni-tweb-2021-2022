@@ -275,3 +275,7 @@ html {
     display: none;
     z-index: 100000;
 }
+
+.hide {
+    display: none;
+}

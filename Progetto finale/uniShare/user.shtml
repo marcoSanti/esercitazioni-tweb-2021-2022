@@ -4,7 +4,7 @@
 <script src="src/js/UserPage.js"></script>
 <!--Usato per fare spazio sotto alla navbar visto che ha una altezza di 80px circa ed è in position absolute-->
 <div style="height: 88px;"></div>
-<nav id="SideMenuEditPage" class="bg-info" style="display: none">
+<nav id="SideMenuEditPage" class="bg-info hide">
     <div id="SideMenuEditPage-Wrapper">
         <div class="sidebar-header">
             <h3>Personalizza la homePage</h3>
@@ -105,7 +105,7 @@
         </div>
     </div>
     <!-- Linea delle pagine da mostrare -->
-    <div class="neutralTag view-block" id="UserProfileViewBlock" style="display: none">
+    <div class="neutralTag view-block hide" id="UserProfileViewBlock">
         <div class="px-4 py-3">
             <div class="container" id="UserPageProfileView">
                 <div class="row">
@@ -127,7 +127,7 @@
                         </div>
                         <button class="btn btn-primary" id="UserDataEditValues">Aggiorna i dati</button>
                         <button class="btn btn-warning" id="UserDataEditPassword">Modifica la password</button>
-                        <div class="neutral-tag" id="passwordChangeDiv" style="display: none;">
+                        <div class="neutral-tag hide" id="passwordChangeDiv">
                             <hr>
                             <div class="mb-3">
                                 <label for="oldPassword" class="form-label">Password precedente</label>
@@ -149,7 +149,7 @@
             </div>
         </div>
     </div>
-    <div class="neutralTag view-block" id="UserPurchaseViewBlock" style="display: none">
+    <div class="neutralTag view-block hide" id="UserPurchaseViewBlock">
         <h4>
             Elenco appunti acquistati
         </h4>
@@ -158,14 +158,14 @@
 
         </div>
     </div>
-    <div class="neutralTag view-block" id="UserSellingsViewBlock" style="display: none">
+    <div class="neutralTag view-block hide" id="UserSellingsViewBlock">
         <h4>
             Elenco appunti in vendita
         </h4>
         <hr>
 
     </div>
-    <div id="AdminUserList" class="neutralTag adminOnly view-block" style="display: none">
+    <div id="AdminUserList" class="neutralTag adminOnly view-block hide">
         <h4>
             Elenco utenti sito
         </h4>
@@ -185,7 +185,7 @@
         </table>
 
     </div>
-    <div id="AdminAdminList" class="neutralTag adminOnly view-block" style="display: none">
+    <div id="AdminAdminList" class="neutralTag adminOnly view-block hide">
         <h4>
             Elenco amministratori sito
         </h4>
@@ -204,7 +204,7 @@
             </tbody>
         </table>
     </div>
-    <div id="AdminDocumentList" class="neutralTag adminOnly view-block" style="display: none">
+    <div id="AdminDocumentList" class="neutralTag adminOnly view-block hide">
         <h4>
             Elenco documenti caricati sul sito
         </h4>
@@ -225,7 +225,7 @@
         </table>
     </div>
 </div>
-<div id="templates" style="display: none">
+<div id="templates" class="hide">
     <div class="card widget widget-gradient-orange" id="TemplateWidgetEarnings">
         <h5 class="card-header">Ricavi vendite</h5>
         <div class="card-body">
