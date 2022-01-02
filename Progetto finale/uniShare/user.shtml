@@ -21,10 +21,10 @@
             <button class="btn rounded-pill bg-primary widget-gradient-blue adminOnly widget-add-button" id="AdminAddAdminList"><i class="fas fa-cogs"></i> Elenco amministratori</button>
         </h6>
         <h6>
-            <button class="btn rounded-pill bg-primary widget-gradient-orange widget-add-button" id="AddWidgetEarnings">Guadagni</button>
+            <button class="btn rounded-pill bg-primary widget-gradient-orange widget-add-button" id="AddWidgetEarnings">Ricavi vendite</button>
         </h6>
         <h6>
-            <button class="btn rounded-pill bg-primary widget-gradient-orange widget-add-button" id="AddWidgetExpenses">Riepilogo categorie acquisti</button>
+            <button class="btn rounded-pill bg-primary widget-gradient-orange widget-add-button" id="AddWidgetExpenses">Acquisti per categoria</button>
         </h6>
         <h6>
             <button class="btn rounded-pill bg-primary widget-gradient-orange adminOnly widget-add-button" id="AdminAddCashFlow"><i class="fas fa-cogs"></i> Cashflow</button>
@@ -33,7 +33,7 @@
             <button class="btn rounded-pill bg-primary widget-gradient-green widget-add-button" id="AddWidgetPurchase">Appunti acquistati</button>
         </h6>
         <h6>
-            <button class="btn rounded-pill bg-primary widget-gradient-green adminOnly widget-add-button" id="AdminAddDocumentList"><i class="fas fa-cogs"></i> Elenco appunti in negozio</button>
+            <button class="btn rounded-pill bg-primary widget-gradient-green adminOnly widget-add-button" id="AdminAddDocumentList"><i class="fas fa-cogs"></i> Appunti a negozio</button>
         </h6>
 
     </div>
@@ -46,10 +46,10 @@
         <a class="nav-link" href="#" id="TabShowUserProfile">Profilo utente</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#" id="TabShowUserPurchase">Acquisti</a>
+        <a class="nav-link" href="#" id="TabShowUserPurchase">Appunti acquistati</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="#" tabindex="-1" id="TabShowUserEarnings">In vendita</a>
+        <a class="nav-link" href="#" tabindex="-1" id="TabShowUserEarnings">Appunti in vendita</a>
     </li>
     <!--solo admins-->
     <li class="nav-item adminOnly">
@@ -227,7 +227,7 @@
 </div>
 <div id="templates" style="display: none">
     <div class="card widget widget-gradient-orange" id="TemplateWidgetEarnings">
-        <h5 class="card-header">Ricavi dalle vendite dei tuoi appunti</h5>
+        <h5 class="card-header">Ricavi vendite</h5>
         <div class="card-body">
             <div class="container">
                 <div class="row">
@@ -244,7 +244,7 @@
         </div>
     </div>
     <div class="card widget widget-gradient-blue" id="TemplateAccountWidget">
-        <h5 class="card-header">Account
+        <h5 class="card-header">Profilo
         </h5>
         <div class="card-body">
             <div class="container">
@@ -260,7 +260,7 @@
         </div>
     </div>
     <div class="card widget widget-gradient-orange" id="TemplateWidgetExpenses">
-        <h5 class="card-header">Numero di acquisti per insegnamento</h5>
+        <h5 class="card-header">Acquisti per categoria</h5>
         <div class="card-body">
             <div class="container">
                 <div class="row">
@@ -284,7 +284,7 @@
     </div>
     <!--Admins only templates-->
     <div class="card widget widget-gradient-blue" id="TemplateWidgetAdminUsers">
-        <h5 class="card-header">Utenti del sito
+        <h5 class="card-header">Elenco utenti
         </h5>
         <div class="card-body">
             <ul class="list-group list-group-flush">
@@ -294,7 +294,7 @@
     </div>
 
     <div class="card widget widget-gradient-orange" id="TemplateWidgetAdminIncomeExpenses">
-        <h5 class="card-header">Cashflow ultimo mese
+        <h5 class="card-header">Cashflow
         </h5>
         <div class="card-body">
 
@@ -302,14 +302,14 @@
     </div>
 
     <div class="card widget widget-gradient-green" id="TemplateWidgetAdminDocuments">
-        <h5 class="card-header">Appunti del sito
+        <h5 class="card-header">Appunti a negozio
         </h5>
         <div class="card-body">
 
         </div>
     </div>
     <div class="card widget widget-gradient-blue" id="TemplateWidgetAdminAdmins">
-        <h5 class="card-header">Amministratori del sito
+        <h5 class="card-header">Elenco amministratori
         </h5>
         <div class="card-body">
             <ul class="list-group list-group-flush">
