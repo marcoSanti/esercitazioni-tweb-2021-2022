@@ -80,6 +80,14 @@ html {
     margin: 0 auto;
 }
 
+#UploadAppuntiFinish {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 88px;
+    width: 50em;
+}
+
 .UploadAppunti {
     border: 1px solid #ced4da;
     border-radius: 5px;

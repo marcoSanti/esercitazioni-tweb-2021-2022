@@ -26,7 +26,10 @@ function register() {
 
     ajaxCall("sign_up", { "name": nome, "surname": cognome, "email": email, "password": password1 }, function(data) {
         if (data["Ok"] !== undefined) {
-            window.location.href = "./";
+            showAlert("success", "", "Registrazione effettuata con successo!... verrai reindirizzato presto");
+            setInterval(function() {
+                window.location.href = "./user";
+            }, 3000);
         } else {
             showAlert("danger", "Errore", data["Error"]);
         }

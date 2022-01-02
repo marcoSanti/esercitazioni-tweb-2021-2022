@@ -41,7 +41,7 @@ function appendElementQuerySearch(item) {
     if (!item["bought"]) {
         btnAcquistaCode = "<button class=\"btn btn-primary btn-buy-appunto\" id='AcquistaBtn" + item["codice"] + "'><i class=\"fas fa-shopping-cart\"></i> Acquista</button>\n";
     } else {
-        btnAcquistaCode = "<button class=\"btn btn-success btn-buy-appunto\" id='AcquistatoBtn" + item["codice"] + "'>Acquistato</button>\n";
+        btnAcquistaCode = "<p>Appunto acquistato. Naviga alla tua <a href='./user'>userpage</a> per poter visualizzare l'appunto</p>";
     }
 
     $("#SearchPageCardBox").append(
@@ -100,10 +100,9 @@ function buyItem(item) {
 
     ajaxCall("add_bought_item", { "productId": buyItemCode }, function(data) {
         if (data["Ok"] !== undefined) {
-            $(item).removeClass("btn-info").addClass("btn-success").html("Acquistato");
-            $(item).attr("id", "AcquistatoBtn" + buyItemCode).click(function() {
-                window.location.href = "user.shtml"
-            });
+            $(item).replaceWith(
+                "<p>Appunto acquistato con successo. Naviga alla tua <a href='./user'>userpage</a> per poter visualizzare l'appunto</p>"
+            );
         } else {
             $(item).removeClass("btn-info").addClass("btn-danger").html("Errore: impossibile acquistare");
             $(item).attr("id", "AcquistatoBtn" + buyItemCode).click(function() {

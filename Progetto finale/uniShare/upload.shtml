@@ -4,7 +4,7 @@
 <script src="src/js/upload.js"></script>
 
 <div class="row PageContent centeredDiv UploadAppunti" id="UploadAppunti">
-    <h3>Inserisci i dati richiesti</h3>
+    <h3>Compila tutti i campi per vendere il tuo appunto</h3>
     <div class="row g-2">
         <div class="col-md">
             <div class="form-floating">
@@ -81,9 +81,14 @@
 </div>
 
 
-<div class="row PageContent centeredDiv UploadAppunti hide" id="UploadAppuntiFinish">
+<div class="PageContent centeredDiv hide" id="UploadAppuntiFinish">
     <h3>Grazie per aver usato il servizio!</h3>
-    <img src="src/media/done.svg" id="DoneUploadImg" alt="finish">
-    <a href="./" class="btn btn-success" id="btnFinishUpload">Torna alla homepage</a>
+    <div class="row">
+        <img src="src/media/done.svg" id="DoneUploadImg" alt="finish">
+    </div>
+    <div class="row">
+        <a href="./" class="btn btn-success" id="btnFinishUpload">Torna alla homepage</a>
+    </div>
+
 </div>
 <!--#include virtual="src/html/footer.html"-->
