@@ -22,7 +22,7 @@
                             <option value = "-1" selected>Qualsiasi</option>
                             
                         </select>
-                        <label for="searchByTeacher">Professore</label>
+                        <label for="filterByTeacher">Professore</label>
                     </div>
                 </div>
                 <div class="row">
@@ -31,7 +31,7 @@
                             <option value = "-1" selected>Qualsiasi</option>
                             
                         </select>
-                        <label for="searchByTeaching">Insegnamento</label>
+                        <label for="filterByTeaching">Insegnamento</label>
                     </div>
                 </div>
                 <div class="col">
@@ -49,7 +49,7 @@
             </div>
 
             <!-- mostrare le singole cards-->
-            <div class="neutralTag" id="SearchPageCardBox">
+            <div class="row" id="SearchPageCardBox">
 
 
 

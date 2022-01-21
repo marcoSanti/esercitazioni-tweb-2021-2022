@@ -39,42 +39,30 @@ function appendElementQuerySearch(item) {
     }
 
     if (!item["bought"]) {
-        btnAcquistaCode = "<button class=\"btn btn-primary btn-buy-appunto\" id='AcquistaBtn" + item["codice"] + "'><i class=\"fas fa-shopping-cart\"></i> Acquista</button>\n";
+        btnAcquistaCode = "<button class=\"btn btn-primary\" id='AcquistaBtn" + item["codice"] + "'><i class=\"fas fa-shopping-cart\"></i> Acquista</button>\n";
     } else {
         btnAcquistaCode = "<p>Appunto acquistato. Naviga alla tua <a href='./user'>userpage</a> per poter visualizzare l'appunto</p>";
     }
 
     $("#SearchPageCardBox").append(
-        " <div class=\"card cardAppuntoVendita\" id='Appunto" + item["codice"] + "'>\n" +
-        "                    <div class=\"card-header\">\n" +
-        "                        <div class=\"container\">\n" +
-        "                            <div class=\"row\">\n" +
-        "                                <div class=\"col-10\">\n" +
-        "                                    <strong>" + item["titolo"] + "</strong>" +
-        "                                </div>\n" +
-        "                                <div class=\"col\">\n" +
-        reviewStarOutput +
-        "                                </div>\n" +
-        "                            </div>\n" +
-        "                        </div>\n" +
-        "                    </div>\n" +
-        "                    <div class=\"card-body\">\n" +
-        "                        <div class=\"container\">\n" +
-        "                            <div class=\"row d-flex justify-content-start\">\n" +
-        "                                <div class=\"col-10\">\n" +
-        "                                    <ul>\n" +
-        "                                        <li><strong>Docente</strong> " + item["docente"] + "</li>\n" +
-        "                                        <li><strong>Prezzo</strong> " + item["prezzo"] + "€</li>\n" +
-        "                                        <li><strong>Data di upload</strong> " + item["uploadDate"] + "</li>\n" +
-        "                                        <li><strong>Tipo di appunti</strong> " + tipoAppunti + "</li>\n" +
-        "                                    </ul>\n" +
-        "                                </div>\n" +
-        "                                <div class=\"col\">\n" +
+        "<div class='card'>\n" +
+        "   <img src='src/media/paperNotes.svg' class='card-img-top' alt='noteImage'>\n" +
+        "   <div class='card-body'>\n" +
+        "       <div class='col card-review-stars'>\n" +
+        reviewStarOutput + "\n" +
+        "       </div>\n" +
+        "       <h3>" + item["titolo"] + "</h3>\n" +
+        "       <ul>\n" +
+        "           <li><strong>Docente</strong> " + item["docente"] + "</li>\n" +
+        "           <li><strong>Prezzo</strong> " + item["prezzo"] + "€</li>\n" +
+        "           <li><strong>Data di upload</strong> " + item["uploadDate"] + "</li>\n" +
+        "           <li><strong>Tipo di appunti</strong> " + tipoAppunti + "</li>\n" +
+        "       </ul>\n" +
+        "   </div>\n" +
+        "   <div class='card-footer'>" +
         btnAcquistaCode +
-        "                                </div>\n" +
-        "                            </div>\n" +
-        "                        </div>"
-    );
+        "    </div>" +
+        "</div>\n");
 
     if (!item["bought"]) { //se oggetto non è acquistato
         $("#AcquistaBtn" + item["codice"]).click(function() {
@@ -155,9 +143,9 @@ function filterSearch() {
 
 
         if (
-            (prof != "-1" && item["docente"] == prof) ||
-            (course != "-1" && item["corso"] == course) ||
-            (school != "-1" && item["scuola"] == school)
+            (prof == "-1" || item["docente"] == prof) &&
+            (course == "-1" || item["corso"] == course) &&
+            (school == "-1" || item["scuola"] == school)
         ) appendElementQuerySearch(item);
 
     })

@@ -70,10 +70,13 @@ html {
     width: 95%;
 }
 
-.btn-buy-appunto {
-    width: 90%;
-    height: 90%;
-    vertical-align: middle;
+.card-footer {
+    background-color: initial;
+    border-top: initial;
+}
+
+.card .btn {
+    width: 100%;
 }
 
 #SearchPageCardBox {
