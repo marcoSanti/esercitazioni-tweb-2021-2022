@@ -660,6 +660,7 @@ function showNoteSales() {
             else if (item["tipoAppunti"] === "2") tipoAppunti = "Appunti lezioni";
             else tipoAppunti = "Esercitazioni";
 
+            var eranings = Math.round(item["earnings"] * 100) / 100; //round to 2 decimal digits
 
             $("#UserSellingsViewBlock").append(
                 " <div class=\"card cardAppuntoVendita\" id='Appunto' " + item["codice"] + ">\n" +
@@ -670,7 +671,7 @@ function showNoteSales() {
                 "                                    <strong>" + item["titolo"] + "</strong>" +
                 "                                </div>\n" +
                 "                                <div class=\"col\">" +
-                "                                  <strong class='bold'>Guadagno: " + item["earnings"] + "€</strong>" +
+                "                                  <strong class='bold'>Guadagno: " + eranings + "€</strong>" +
                 "                                </div>\n" +
                 "                            </div>\n" +
                 "                        </div>\n" +
