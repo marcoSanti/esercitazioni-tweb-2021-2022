@@ -75,6 +75,10 @@ html {
     border-top: initial;
 }
 
+.btn-download-note {
+    height: 90%;
+}
+
 .card .btn {
     width: 100%;
 }

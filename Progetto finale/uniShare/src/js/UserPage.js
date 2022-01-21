@@ -613,7 +613,7 @@ function getUserBoughtNote() {
                 "                                    </ul>\n" +
                 "                                </div>\n" +
                 "                                <div class=\"col\">\n" +
-                "                                   <button id='" + item["Path"] + "' class=\"btn btn-warning btn-buy-appunto\" id='AcquistaBtn" + item["codice"] + "'><i class=\"fas fa-download\"></i>Scarica</button>\n" +
+                "                                   <button id='" + item["Path"] + "' class=\"btn btn-warning btn-download-note\" id='AcquistaBtn" + item["codice"] + "'><i class=\"fas fa-download\"></i>Scarica</button>\n" +
                 "                                </div>\n" +
                 "                            </div>\n" +
                 "                        </div>"
@@ -687,7 +687,7 @@ function showNoteSales() {
                 "                                    </ul>\n" +
                 "                                </div>\n" +
                 "                                <div class=\"col\">\n" +
-                "                                   <button class=\"btn btn-buy-appunto\" id='pullNota" + item["codice"] + "'></button>" +
+                "                                   <button class=\"btn btn-download-note\" id='pullNota" + item["codice"] + "'></button>" +
                 "                                </div>\n" +
                 "                            </div>\n" +
                 "                        </div>"
