@@ -6,6 +6,7 @@
  * ottengo tutti i valori del form, successivamente li aggiungo a un form fittizio e invio quello
  */
 function uploadData() {
+    var exit=false;
     var universita = $("#UploadNoteUniversita").val();
     var annoCorso = $("#UploadNoteAnnoCorso").val();
     var insegnamento = $("#UploadNoteInsegnamento").val();
@@ -13,6 +14,37 @@ function uploadData() {
     var titoloAppunti = $("#UploadNoteNomeAppunti").val();
     var nomeDelDocente = $("#UploadNoteNomeDocente").val();
     var file = $("#UploadNoteFile")[0].files[0];
+
+    if(!universita){
+        $("#UploadNoteUniversita").css("border-color", "red");
+        exit=true;
+    } 
+
+    if(!insegnamento){
+        $("#UploadNoteInsegnamento").css("border-color", "red");
+        exit=true;
+    }
+
+    if(!titoloAppunti){
+        $("#UploadNoteNomeAppunti").css("border-color", "red");
+        exit=true;
+    }
+
+    if(!nomeDelDocente){
+        $("#UploadNoteNomeDocente").css("border-color", "red");
+        exit=true;
+    }
+
+    if(!file){
+        $("#UploadNoteFile").css("border-color", "red");
+        exit=true;
+    }
+
+    if(exit){
+        showAlert("danger", "Errore", "Riempire tutti i campi!");
+        return;
+    } 
+
 
     var form = new FormData();
     form.append("universita", universita);
@@ -35,11 +67,11 @@ function uploadData() {
                 $("#UploadAppunti").hide("slide", { direction: "left" }, 300, function() {
                     $("#UploadAppuntiFinish").fadeIn();
                 });
-            } else {
-                showAlert("error", "Errore", "Un errore lato server è stao generato");
-                console.log(data);
-            }
+            } 
         }
+    }).fail(function(data){
+        showAlert("danger", "Errore", "Un errore lato server è stato generato");
+        console.log(data);
     });
 
 

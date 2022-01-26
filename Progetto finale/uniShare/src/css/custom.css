@@ -290,3 +290,7 @@ html {
 .hide {
     display: none;
 }
+
+.list-group-flush{
+    max-height: 15em;
+}
